@@ -1,6 +1,6 @@
 ;;; ob-mathematica.el --- org-babel functions for Mathematica evaluation
 
-;; Copyright (C) 2014 Yi Wang
+;; Copyright (C) 2014, 2021 Yi Wang
 
 ;; Authors: Yi Wang
 ;; Keywords: literate programming, reproducible research

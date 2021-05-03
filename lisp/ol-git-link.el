@@ -1,6 +1,6 @@
 ;;; ol-git-link.el --- Links to specific file version
 
-;; Copyright (C) 2009-2014  Reimar Finken
+;; Copyright (C) 2009-2014, 2021  Reimar Finken
 
 ;; Author: Reimar Finken <reimar.finken@gmx.de>
 ;; Keywords: files, calendar, hypermedia

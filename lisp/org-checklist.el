@@ -1,6 +1,6 @@
 ;;; org-checklist.el --- org functions for checklist handling
 
-;; Copyright (C) 2008-2014 James TD Smith
+;; Copyright (C) 2008-2014, 2021 James TD Smith
 
 ;; Author: James TD Smith (@ ahktenzero (. mohorovi cc))
 ;; Version: 1.0

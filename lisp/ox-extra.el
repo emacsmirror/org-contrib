@@ -1,6 +1,6 @@
 ;;; ox-extra.el --- Convenience functions for org export
 
-;; Copyright (C) 2014  Aaron Ecay
+;; Copyright (C) 2014, 2021  Aaron Ecay
 
 ;; Author: Aaron Ecay <aaronecay@gmail.com>
 

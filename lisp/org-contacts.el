@@ -1,6 +1,6 @@
 ;;; org-contacts.el --- Contacts management
 
-;; Copyright (C) 2010-2014 Julien Danjou <julien@danjou.info>
+;; Copyright (C) 2010-2014, 2021 Julien Danjou <julien@danjou.info>
 
 ;; Author: Julien Danjou <julien@danjou.info>
 ;; Maintainer: stardiviner <numbchild@gmail.com>

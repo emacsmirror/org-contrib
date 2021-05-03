@@ -1,6 +1,6 @@
 ;;; org-velocity.el --- something like Notational Velocity for Org. -*- lexical-binding: t -*-
 
-;; Copyright (C) 2010-2014 Paul M. Rodriguez
+;; Copyright (C) 2010-2014, 2021 Paul M. Rodriguez
 
 ;; Author: Paul M. Rodriguez <paulmrodriguez@gmail.com>
 ;; Created: 2010-05-05

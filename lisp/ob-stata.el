@@ -1,6 +1,6 @@
 ;;; ob-stata.el --- org-babel functions for stata code evaluation
 
-;; Copyright (C) 2014 Ista Zahn
+;; Copyright (C) 2014, 2021 Ista Zahn
 ;; Author: Ista Zahn istazahn@gmail.com
 ;;      G. Jay Kerns
 ;;      Eric Schulte

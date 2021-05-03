@@ -3,13 +3,13 @@
 ;; Copyright (C) 2007-2014 Georg C. F. Greve
 ;; mutt support by Adam Spiers <orgmode at adamspiers dot org>
 ;;
-;; This file is not part of GNU Emacs.
-;;
 ;; Author: Georg C. F. Greve <greve at fsfeurope dot org>
 ;; Keywords: outlines, hypermedia, calendar, wp, email, mairix
 ;; Purpose: Integrate mairix email searching into Org mode
 ;; See https://orgmode.org and http://www.rpcurnow.force9.co.uk/mairix/
 ;; Version: 0.5
+;;
+;; This file is not part of GNU Emacs.
 ;;
 ;; This file is Free Software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by

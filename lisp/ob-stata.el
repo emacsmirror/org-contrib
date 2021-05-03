@@ -6,7 +6,6 @@
 ;;      Eric Schulte
 ;;      Dan Davison
 
-
 ;; This file is not part of GNU Emacs.
 
 ;; This program is free software; you can redistribute it and/or modify

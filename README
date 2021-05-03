@@ -1,11 +1,14 @@
 This directory contains add-ons to Org-mode.
 
 These contributions are not part of GNU Emacs or of the official
-Org-mode package.  But the git repository for Org-mode is glad to
-provide useful way to distribute and develop them as long as they
-are distributed under a free software license.
+Org-mode package. These files used to live in Org repository but
+have been filtered out of the Org 9.5 release.
 
-Please put your contribution in one of these directories:
+If you want to maintain a file in this repository outside of it,
+we strongly encourage you to do so.  When doing so, please write
+to bzg@gnu.org with a patch removing the file from this repo.
+
+For the licenses, see each file.
 
 LISP (Emacs Lisp)
 =================

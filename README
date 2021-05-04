@@ -6,13 +6,14 @@ have been filtered out of the Org 9.5 release and are stored here for
 archival purpose.  Note that the scripts/ directory now lives on Worg
 (see https://code.orgmode.org/bzg/worg/src/master/code).
 
-Code in this repository receive little if no maintainance: please do
-consider maintaining some of these add-ons.
+Code in this repository receive little if no maintainance.  There is
+no guaranty it is compatible with latest Org stable version.  If you
+want to help, please consider maintaining some of these add-ons.
 
 These files are released under a free software license, you can copy
-and maintain them where you see fit.  If you do so, please email me at
-bzg@gnu.org: I will remove the file from this repository and advertize
-its new home.
+and maintain them where you see fit.  If you do so please send me an
+email at bzg@gnu.org.  I'll remove the file from this repository and
+advertize its new home.
 
 
 LISP (Emacs Lisp)

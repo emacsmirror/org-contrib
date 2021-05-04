@@ -1,4 +1,5 @@
-;;; ol-bookmark.el - Links to bookmarks
+;;; ol-bookmark.el --- Links to bookmarks
+
 ;; Copyright (C) 2008-2021 Free Software Foundation, Inc.
 ;;
 ;; Author: Tokuya Kameshima <kames AT fa2.so-net.ne.jp>

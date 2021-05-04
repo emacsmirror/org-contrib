@@ -1,4 +1,4 @@
-;;; ol-man.el - Links to man pages
+;;; ol-man.el --- Links to man pages
 ;;
 ;; Author: Carsten Dominik <carsten at orgmode dot org>
 ;; Keywords: outlines, hypermedia, calendar, wp

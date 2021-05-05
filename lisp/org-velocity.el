@@ -21,6 +21,7 @@
 ;; along with GNU Emacs.  If not, see <https://www.gnu.org/licenses/>.
 
 ;;; Commentary:
+;;
 ;; Org-Velocity.el is an interface for Org inspired by the minimalist
 ;; notetaking program Notational Velocity. The idea is to let you
 ;; amass and access brief notes on many subjects with minimal fuss.

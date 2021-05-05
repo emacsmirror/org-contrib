@@ -4,7 +4,7 @@
 ;; Created: December 26, 2012
 ;; Keywords: passwords, password
 
-;; This file is NOT part of GNU Emacs.
+;; This file is not part of GNU Emacs.
 ;;
 ;; This program is free software: you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by

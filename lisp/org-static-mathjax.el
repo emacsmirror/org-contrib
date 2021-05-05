@@ -18,6 +18,7 @@
 ;; along with GNU Emacs.  If not, see <https://www.gnu.org/licenses/>.
 
 ;;; Commentary:
+;;
 ;; This elisp code integrates Static MathJax into the
 ;; HTML export process of Org-mode.
 ;;

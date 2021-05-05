@@ -1,19 +1,19 @@
-This directory contains add-ons to Org-mode.
+This directory contains add-ons to Org-mode which are not part of GNU
+Emacs or of the official Org package.
 
-These contributions are not part of GNU Emacs or of the official
-Org-mode package.  These files used to live in the Org repository but
-have been filtered out of the Org 9.5 release and are stored here for
-archival purpose.  Note that the scripts/ directory now lives on Worg
-(see https://code.orgmode.org/bzg/worg/src/master/code).
+This repository receive little if no maintainance.
 
-Code in this repository receive little if no maintainance.  There is
-no guaranty it is compatible with latest Org stable version.  If you
-want to help, please consider maintaining some of these add-ons.
+Especially, there is no guaranty that it is compatible with the latest
+Org stable version.  Would you would like to volunteer maintaining it?
+If so, please send me an email at bzg@gnu.org.
 
-These files are released under a free software license, you can copy
-and maintain them where you see fit.  If you do so please send me an
-email at bzg@gnu.org.  I'll remove the file from this repository and
-advertize its new home.
+If you want to maintain only one or some of these add-ons please send
+me an email and consider hosting the add-ons on a separate repository.
+
+These files used to live in the Org repository but have been filtered
+out of the Org 9.5 release and are stored here for archival purpose.
+The contrib/ directory used to contain a scripts/ directory that now
+lives on Worg: https://code.orgmode.org/bzg/worg/src/master/code
 
 
 LISP (Emacs Lisp)

@@ -1,6 +1,6 @@
 ;;; org-link-edit.el --- Slurp and barf with Org links  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2015-2020 Kyle Meyer <kyle@kyleam.com>
+;; Copyright (C) 2015-2021 Kyle Meyer <kyle@kyleam.com>
 
 ;; Author:  Kyle Meyer <kyle@kyleam.com>
 ;; URL: https://git.kyleam.com/org-link-edit/about

@@ -5,7 +5,7 @@
 ;; Author: Matthieu Lemerre <racin@free.fr>
 ;; Maintainer: Jonas Bernoulli <jonas@bernoul.li>
 ;; Keywords: outlines, hypermedia, calendar, wp
-;; Homepage: https://orgmode.org
+;; Homepage: https://git.sr.ht/~tarsius/ol-notmuch
 
 ;; This file is not part of GNU Emacs.
 

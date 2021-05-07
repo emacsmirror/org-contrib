@@ -3,7 +3,7 @@
 ;; Copyright (c) 2008-2014, 2021 Andrew Hyatt
 ;;
 ;; Author: Andrew Hyatt <ahyatt at gmail dot com>
-;; Maintainer: Carsten Dominik <carsten at orgmode dot org>
+;; Maintainer: Carsten Dominik <carsten.dominik@gmail.com>
 ;;
 ;; This file is not part of GNU Emacs.
 ;;

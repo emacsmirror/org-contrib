@@ -1,7 +1,7 @@
 ;;; org-eval.el --- Display result of evaluating code in various languages
 ;; Copyright (C) 2008-2021 Free Software Foundation, Inc.
 ;;
-;; Author: Carsten Dominik <carsten at orgmode dot org>
+;; Author: Carsten Dominik <carsten.dominik@gmail.com>
 ;; Keywords: outlines, hypermedia, calendar, wp
 ;; Homepage: https://orgmode.org
 ;; Version: 0.04

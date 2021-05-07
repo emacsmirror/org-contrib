@@ -2,7 +2,7 @@
 
 ;; Copyright (C) 2008-2021 Free Software Foundation, Inc.
 
-;; Author: Carsten Dominik <carsten at orgmode dot org>,
+;; Author: Carsten Dominik <carsten.dominik@gmail.com>,
 ;;         Eric Schulte <schulte dot eric at gmail dot com>
 ;; Keywords: outlines, hypermedia, calendar, wp, literate programming,
 ;;           reproducible research

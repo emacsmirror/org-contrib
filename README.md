@@ -21,8 +21,12 @@ be removed from the next release of org-contrib:
 
 # Files to remove from the next release
 
+These files are maintained in a separate repository, which you can
+find after the "Homepage:" keyword in the files themselves:
+
 -   **ob-mathematica.el:** org-babel functions for Mathematica evaluation
 -   **org-link-edit.el:** Slurp and barf with Org links
+-   **ol-notmuch.el:** Links to notmuch messages
 
 
 # Other files

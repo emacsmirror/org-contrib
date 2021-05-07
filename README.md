@@ -12,11 +12,11 @@ me an email and consider hosting the add-ons on a separate repository.
 
 These files used to live in the Org repository but have been filtered
 out of the Org 9.5 release and are stored here for archival purpose.
-The contrib/ directory used to contain a scripts/ directory that now
-lives on Worg: <https://code.orgmode.org/bzg/worg/src/master/code>
+The `contrib/` directory used to contain a `scripts/` directory that now
+lives on [the Worg repository](https://code.orgmode.org/bzg/worg/src/master/code).
 
 Files which are already maintained outside of the repository and will
-be removed from the next release of org-contrib:
+be removed from the next release of `org-contrib`.
 
 
 # Files to remove from the next release

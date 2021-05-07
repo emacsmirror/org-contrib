@@ -12,13 +12,13 @@ me an email and consider hosting the add-ons on a separate repository.
 
 These files used to live in the Org repository but have been filtered
 out of the Org 9.5 release and are stored here for archival purpose.
-The contrib/ directory used to contain a scripts/ directory that now
-lives on Worg: https://code.orgmode.org/bzg/worg/src/master/code
+The =contrib/= directory used to contain a =scripts/= directory that now
+lives on [[https://code.orgmode.org/bzg/worg/src/master/code][the Worg repository]].
 
 Files which are already maintained outside of the repository and will
-be removed from the next release of org-contrib:
+be removed from the next release of =org-contrib=.
 
-* Files to remove from the next release
+** Files to remove from the next release
 
 These files are maintained in a separate repository, which you can
 find after the "Homepage:" keyword in the files themselves:
@@ -27,8 +27,8 @@ find after the "Homepage:" keyword in the files themselves:
 - org-link-edit.el :: Slurp and barf with Org links
 - ol-notmuch.el :: Links to notmuch messages
 
-* Other files
-** Org utils
+** Other files
+*** Org utils
 
 - org-annotate-file.el :: Annotate a file with org syntax
 - org-attach-embedded-images.el :: Transmute images to attachments
@@ -67,7 +67,7 @@ find after the "Homepage:" keyword in the files themselves:
 - org-velocity.el :: something like Notational Velocity for Org
 - org-wikinodes.el :: CamelCase wiki-like links for Org
 
-** Org exporters
+*** Org exporters
 
 - ox-bibtex.el :: Export bibtex fragments
 - ox-confluence.el :: Confluence Wiki exporter
@@ -80,7 +80,7 @@ find after the "Homepage:" keyword in the files themselves:
 - ox-s5.el :: S5 presentations exporter
 - ox-taskjuggler.el :: TaskJuggler exporter
 
-** Org link
+*** Org link
 
 - ol-bookmark.el :: Links to bookmarks
 - ol-elisp-symbol.el :: Links to Emacs-lisp symbols
@@ -91,7 +91,7 @@ find after the "Homepage:" keyword in the files themselves:
 - ol-vm.el :: Support for links to VM messages
 - ol-wl.el :: Support for links to Wanderlust messages
 
-** Org Babel languages
+*** Org Babel languages
 
 - ob-arduino.el :: Org-mode Babel support for Arduino
 - ob-clojure-literate.el :: Clojure's Org-mode Literate Programming

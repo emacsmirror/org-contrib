@@ -18,6 +18,10 @@ lives on [the Worg repository](https://code.orgmode.org/bzg/worg/src/master/code
 Files which are already maintained outside of the repository and will
 be removed from the next release of `org-contrib`.
 
+All files in this repository are licensed under the GNU General Public
+License, either version 3 of the License, or (at your option) any
+later version.
+
 
 # Files to remove from the next release
 

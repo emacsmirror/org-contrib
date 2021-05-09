@@ -18,10 +18,6 @@ lives on [the Worg repository](https://code.orgmode.org/bzg/worg/src/master/code
 Files which are already maintained outside of the repository and will
 be removed from the next release of `org-contrib`.
 
-All files in this repository are licensed under the GNU General Public
-License, either version 3 of the License, or (at your option) any
-later version.
-
 
 # Files to remove from the next release
 
@@ -121,4 +117,11 @@ find after the "Homepage:" keyword in the files themselves:
 -   **ob-stata.el:** Org-babel functions for Stata evaluation
 -   **ob-tcl.el:** Org-babel functions for tcl evaluation
 -   **ob-vbnet.el:** org-babel functions for VB.Net evaluation
+
+
+# License
+
+All files in this repository are licensed under the GNU General Public
+License, either version 3 of the License, or (at your option) any
+later version.  See [COPYING](COPYING).
 

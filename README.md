@@ -1,22 +1,31 @@
-This directory contains add-ons to Org-mode which are not part of GNU
-Emacs or of the official Org package.
+This directory contains add-ons to Org-mode which are not part of Org.
 
-**This repository receive little if no maintainance.**
+These files used to live in the Org repository but have been filtered
+out of the Org 9.5 release. They are stored here for archival purpose.
+The `contrib/` directory used to contain a `scripts/` directory that now
+lives on [the Worg repository](https://code.orgmode.org/bzg/worg/src/master/code).
+
+**This repository receives no maintainance.**
+
+
+# Please help with maintaining these files
 
 Especially, there is no guaranty that it is compatible with the latest
 Org stable version.  Would you would like to volunteer maintaining it?
-If so, please send me an email at bzg@gnu.org.
+If so, please send me an email at `bzg@gnu.org`.
 
 If you want to maintain only one or some of these add-ons please send
 me an email and consider hosting the add-ons on a separate repository.
 
-These files used to live in the Org repository but have been filtered
-out of the Org 9.5 release and are stored here for archival purpose.
-The `contrib/` directory used to contain a `scripts/` directory that now
-lives on [the Worg repository](https://code.orgmode.org/bzg/worg/src/master/code).
-
 Files which are already maintained outside of the repository and will
 be removed from the next release of `org-contrib`.
+
+
+# License
+
+All files in this repository are licensed under the GNU General Public
+License, either version 3 of the License, or (at your option) any
+later version.  See [COPYING](COPYING).
 
 
 # Files to remove from the next release
@@ -117,11 +126,4 @@ find after the "Homepage:" keyword in the files themselves:
 -   **ob-stata.el:** Org-babel functions for Stata evaluation
 -   **ob-tcl.el:** Org-babel functions for tcl evaluation
 -   **ob-vbnet.el:** org-babel functions for VB.Net evaluation
-
-
-# License
-
-All files in this repository are licensed under the GNU General Public
-License, either version 3 of the License, or (at your option) any
-later version.  See [COPYING](COPYING).
 

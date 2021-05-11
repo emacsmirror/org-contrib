@@ -4,6 +4,7 @@
 
 ;; Author: Bastien Guerry <bzg@gnu.org>
 ;; Keywords: org, wp, blog, feed, rss
+;; Homepage: https://git.sr.ht/~bzg/org-contrib
 
 ;; This file is not part of GNU Emacs.
 

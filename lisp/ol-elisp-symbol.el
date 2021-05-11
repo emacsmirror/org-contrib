@@ -5,7 +5,7 @@
 ;; Author: Bastien Guerry <bzg@gnu.org>
 ;; Version: 0.2
 ;; Keywords: org, remember, lisp
-;; URL: http://www.cognition.ens.fr/~guerry/u/org-elisp-symbol.el
+;; Homepage: https://git.sr.ht/~bzg/org-contrib
 ;;
 ;; This file is not part of GNU Emacs.
 ;;

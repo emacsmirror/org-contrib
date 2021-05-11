@@ -9,7 +9,7 @@
 ;; Maintainer: Bastien Guerry <bzg@gnu.org>
 ;; Keywords: org, wp, registry
 ;; Description: Shows Org files where the current buffer is linked
-;; URL: http://www.cognition.ens.fr/~guerry/u/org-registry.el
+;; Homepage: https://git.sr.ht/~bzg/org-contrib
 ;;
 ;; This file is not part of GNU Emacs.
 ;;

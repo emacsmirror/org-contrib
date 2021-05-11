@@ -3,8 +3,8 @@
 ;; Copyright 2007-2021 Free Software Foundation, Inc.
 ;;
 ;; Author: Bastien Guerry <bzg@gnu.org>
-;; Keywords: Org table of contents
-;; Homepage: http://www.cognition.ens.fr/~guerry/u/org-toc.el
+;; Keywords: org, toc
+;; Homepage: https://git.sr.ht/~bzg/org-contrib
 ;; Version: 0.8
 
 ;; This file is not part of GNU Emacs.

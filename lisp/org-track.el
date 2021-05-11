@@ -7,7 +7,7 @@
 ;;         Sebastian Rose <sebastian_rose at gmx dot de>
 ;;         The Worg people https://orgmode.org/worg/
 ;; Keywords: outlines, hypermedia, calendar, wp
-;; Homepage: https://orgmode.org
+;; Homepage: https://git.sr.ht/~bzg/org-contrib
 ;; Version: 6.29a
 ;;
 ;; Released under the GNU General Public License version 3

@@ -4,7 +4,8 @@
 ;;
 ;; Author: Bastien Guerry <bzg@gnu.org>
 ;; Version: 0.2
-;; Keywords: org expiry
+;; Keywords: org, expiry
+;; Homepage: https://git.sr.ht/~bzg/org-contrib
 
 ;; This file is not part of GNU Emacs.
 

@@ -1,4 +1,4 @@
-;;; org-contrib.el --- Add-ons that are no longer distributed with Org-mode
+;;; org-contrib.el --- Unmaintained add-ons for Org-mode
 
 ;; Copyright (C) 2021 Bastien Guerry
 

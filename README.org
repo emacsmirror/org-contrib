@@ -1,23 +1,24 @@
-This directory contains add-ons to Org-mode which are not part of Org.
+This repository contains add-ons to Org.
 
-These files used to live in the Org repository but have been filtered
-out of the Org 9.5 release. They are stored here for archival purpose.
-The =contrib/= directory used to contain a =scripts/= directory that now
-lives on [[https://code.orgmode.org/bzg/worg/src/master/code][the Worg repository]].
+You can use them by installing the =org-contrib= NonGNU ELPA package
+from https://elpa.nongnu.org/nongnu/.
 
-*This repository receives no maintainance.*
+** Please help maintaining these add-ons
 
-** Please help with maintaining these files
+Files in this repository used to live in the Org repository but have
+been filtered out of the Org 9.5 release.  The =contrib/= directory used
+to contain a =scripts/= directory that now lives on [[https://code.orgmode.org/bzg/worg/src/master/code][the Worg repository]].
 
-Especially, there is no guaranty that it is compatible with the latest
-Org stable version.  Would you would like to volunteer maintaining it?
-If so, please send me an email at =bzg@gnu.org=.
+*Files in this repository receive little if no maintainance and there
+is no guaranty that they are compatible with the Org stable version.*
 
-If you want to maintain only one or some of these add-ons please send
-me an email and consider hosting the add-ons on a separate repository.
+For files a =Maintainer= header and a =Homepage= pointing outside of this
+repository are in transition: they are maintained and will be removed
+from the next release of this repository.  As a user, please carefully
+track the new URL where the add-on is now maintained.
 
-Files which are already maintained outside of the repository and will
-be removed from the next release of =org-contrib=.
+If you want to maintain some of these add-ons, please send me an email
+at =bzg@gnu.org= once you set up a separate repository for them.
 
 ** License
 
@@ -33,6 +34,7 @@ find after the "Homepage:" keyword in the files themselves:
 - ob-mathematica.el :: org-babel functions for Mathematica evaluation
 - org-link-edit.el :: Slurp and barf with Org links
 - ol-notmuch.el :: Links to notmuch messages
+- ob-julia.el :: org-babel functions for julia code evaluation
 
 ** Other files
 *** Org utils

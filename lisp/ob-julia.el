@@ -1,7 +1,8 @@
-;;; ob-julia.el --- org-babel functions for julia code evaluation
+;;; ob-julia.el --- Org Babel functions for Julia code evaluation
 
 ;; Copyright (C) 2013, 2014, 2021 G. Jay Kerns
 ;; Author: G. Jay Kerns, based on ob-R.el by Eric Schulte and Dan Davison
+;; Homepage: https://git.savannah.gnu.org/cgit/emacs/org-mode.git
 ;; Maintainer: Pedro Bruel <pedro.bruel@gmail.com>
 
 ;; This file is not part of GNU Emacs.

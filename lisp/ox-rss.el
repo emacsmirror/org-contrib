@@ -3,6 +3,7 @@
 ;; Copyright (C) 2013-2021 Free Software Foundation, Inc.
 
 ;; Author: Bastien Guerry <bzg@gnu.org>
+;; Maintainer: Bastien Guerry <bzg@gnu.org>
 ;; Keywords: org, wp, blog, feed, rss
 ;; Homepage: https://git.sr.ht/~bzg/org-contrib
 

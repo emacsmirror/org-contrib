@@ -4,7 +4,7 @@
 ;; Author: stardiviner <numbchild@gmail.com>
 ;; Maintainer: stardiviner <numbchild@gmail.com>
 ;; Keywords: org babel php
-;; URL: https://github.com/stardiviner/ob-php
+;; Homepage: https://github.com/stardiviner/ob-php
 ;; Created: 04th May 2016
 ;; Version: 0.0.1
 ;; Package-Requires: ((org "8"))

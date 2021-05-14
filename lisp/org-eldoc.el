@@ -6,7 +6,7 @@
 ;; Maintainer: Łukasz Gruner <lukasz@gruner.lu>
 ;; Version: 6
 ;; Package-Requires: ((org "8"))
-;; URL: https://bitbucket.org/ukaszg/org-eldoc
+;; Homepage: https://bitbucket.org/ukaszg/org-eldoc
 ;; Created: 25/05/2014
 ;; Keywords: eldoc, outline, breadcrumb, org, babel, minibuffer
 

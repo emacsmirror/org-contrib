@@ -4,7 +4,7 @@
 ;; Author: stardiviner <numbchild@gmail.com>
 ;; Maintainer: stardiviner <numbchild@gmail.com>
 ;; Keywords: org babel redis
-;; URL: https://github.com/stardiviner/ob-redis
+;; Homepage: https://github.com/stardiviner/ob-redis
 ;; Created: 28th Feb 2016
 ;; Version: 0.0.1
 ;; Package-Requires: ((org "8"))

@@ -4,9 +4,6 @@
 ;; Created: Thu Nov 15 15:35:03 2007
 ;; Version: 0.21
 ;; Lxast-Updated: Wed Nov 21 03:06:03 2007 (3600 +0100)
-;; URL:
-;; Keywords:
-;; Compatibility:
 ;;
 ;; Features that might be required by this library:
 ;;

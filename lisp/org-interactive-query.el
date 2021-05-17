@@ -23,6 +23,9 @@
 ;;
 ;;; Commentary:
 ;;
+;; This file is DEPRECATED. The functionality here has been mostly subsumed by
+;; features added to Org agenda, especially commands that begin with
+;; org-agenda-filter*.
 
 ;; This library implements interactive modification of a tags/todo query
 ;; in the org-agenda.  It adds 4 keys to the agenda

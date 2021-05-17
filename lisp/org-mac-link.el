@@ -218,6 +218,12 @@
   :group 'org-mac-link
   :type 'string)
 
+(defcustom org-mac-grab-qutebrowser-app-p t
+  "Add menu option [q]utebrowser to grab links from qutebrowser.app."
+  :tag "Grab qutebrowser.app links"
+  :group 'org-mac-link
+  :type 'boolean)
+
 
 ;; In mac.c, removed in Emacs 23.
 (declare-function do-applescript "org-mac-message" (script))
@@ -254,7 +260,8 @@ When done, go grab the link, and insert it at point."
             ("e" "evernote" org-mac-evernote-note-insert-selected ,org-mac-grab-Evernote-app-p)
 	    ("t" "ogether" org-mac-together-insert-selected ,org-mac-grab-Together-app-p)
 	    ("S" "kim" org-mac-skim-insert-page ,org-mac-grab-Skim-app-p)
-	    ("A" "crobat" org-mac-acrobat-insert-page ,org-mac-grab-Acrobat-app-p)))
+	    ("A" "crobat" org-mac-acrobat-insert-page ,org-mac-grab-Acrobat-app-p)
+	    ("q" "utebrowser" org-mac-qutebrowser-insert-frontmost-url ,org-mac-grab-qutebrowser-app-p)))
          (menu-string (make-string 0 ?x))
          input)
 
@@ -1012,6 +1019,52 @@ list of message:// links to flagged mail after heading."
 	(insert "\n")
 	(org-insert-heading nil t)
 	(insert org-heading "\n" (org-mac-message-get-links "f"))))))
+
+
+;; Handle links from qutebrowser.app
+
+(defun org-as-mac-qutebrowser-get-frontmost-url ()
+  (let ((result
+         (do-applescript
+          (concat
+           "set oldClipboard to the clipboard\n"
+           "set frontmostApplication to path to frontmost application\n"
+           "tell application \"qutebrowser\"\n"
+           "	activate\n"
+           "	delay 0.15\n"
+           "	tell application \"System Events\"\n"
+           "		keystroke \"y\"\n"
+           "		keystroke \"y\"\n"
+           "	end tell\n"
+           "	delay 0.15\n"
+           "	set theUrl to the clipboard\n"
+           "	set the clipboard to oldClipboard\n"
+           "	delay 0.15\n"
+           "	tell application \"System Events\"\n"
+           "		keystroke \"y\"\n"
+           "		keystroke \"T\"\n"
+           "	end tell\n"
+           "	delay 0.15\n"
+           "	set theTitle to the clipboard\n"
+           "	set the clipboard to oldClipboard\n"
+	       "    set theResult to (get theUrl) & \"::split::\" & (get theTitle)\n"
+           "end tell\n"
+           "activate application (frontmostApplication as text)\n"
+           "set links to {}\n"
+           "copy theResult to the end of links\n"
+           "return links as string\n"))))
+     (car (split-string result "[\r\n]+" t))))
+
+;;;###autoload
+(defun org-mac-qutebrowser-get-frontmost-url ()
+  (interactive)
+  (message "Applescript: Getting qutebrowser url...")
+  (org-mac-paste-applescript-links (org-as-mac-qutebrowser-get-frontmost-url)))
+
+;;;###autoload
+(defun org-mac-qutebrowser-insert-frontmost-url ()
+  (interactive)
+  (insert (org-mac-qutebrowser-get-frontmost-url)))
 
 
 (provide 'org-mac-link)

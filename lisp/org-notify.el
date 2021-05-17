@@ -3,6 +3,7 @@
 ;; Copyright (C) 2012-2021  Free Software Foundation, Inc.
 
 ;; Author: Peter Münster <pmrb@free.fr>
+;; Homepage: https://github.com/p-m/org-notify
 ;; Keywords: notification, todo-list, alarm, reminder, pop-up
 
 ;; This file is not part of GNU Emacs.

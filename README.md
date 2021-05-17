@@ -38,6 +38,7 @@ find after the "Homepage:" keyword in the files themselves:
 -   **org-link-edit.el:** Slurp and barf with Org links
 -   **ol-notmuch.el:** Links to notmuch messages
 -   **ob-julia.el:** org-babel functions for julia code evaluation
+-   **org-notify.el:** Notifications for Org-mode
 
 
 # Other files

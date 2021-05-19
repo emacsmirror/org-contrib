@@ -39,6 +39,7 @@ find after the "Homepage:" keyword in the files themselves:
 -   **ol-notmuch.el:** Links to notmuch messages
 -   **ob-julia.el:** org-babel functions for julia code evaluation
 -   **org-notify.el:** Notifications for Org-mode
+-   **org-mac-link.el:** Insert org-mode links to items selected in various Mac apps
 
 
 # Other files

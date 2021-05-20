@@ -2,7 +2,7 @@
 
 ;; Copyright (C) 2013, 2014, 2021 G. Jay Kerns
 ;; Author: G. Jay Kerns, based on ob-R.el by Eric Schulte and Dan Davison
-;; Homepage: https://git.savannah.gnu.org/cgit/emacs/org-mode.git
+;; Homepage: https://github.com/phrb/ob-julia
 ;; Maintainer: Pedro Bruel <pedro.bruel@gmail.com>
 
 ;; This file is not part of GNU Emacs.

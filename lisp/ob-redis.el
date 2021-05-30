@@ -1,4 +1,4 @@
-;;; ob-redis.el --- Execute Redis queries within org-mode blocks.
+;;; ob-redis.el --- Execute Redis queries within org-mode blocks
 ;; Copyright 2016-2021 stardiviner
 
 ;; Author: stardiviner <numbchild@gmail.com>

@@ -1,4 +1,4 @@
-;;; ob-php.el --- Execute PHP within org-mode blocks.
+;;; ob-php.el --- Execute PHP within org-mode blocks
 ;; Copyright 2016, 2021 stardiviner
 
 ;; Author: stardiviner <numbchild@gmail.com>

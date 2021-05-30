@@ -1,4 +1,4 @@
-;;; ob-clojure-literate.el --- Clojure's Org-mode Literate Programming.
+;;; ob-clojure-literate.el --- Clojure's Org-mode Literate Programming
 
 ;; Authors: stardiviner <numbchild@gmail.com>
 ;; Package-Requires: ((emacs "24.4") (org "9") (cider "0.16.0") (dash "2.12.0"))

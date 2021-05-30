@@ -1,5 +1,4 @@
-;;; ob-smiles.el --- Org-mode Babel support for SMILES.
-;;; -*- coding: utf-8 -*-
+;;; ob-smiles.el --- Org-mode Babel support for SMILES
 
 ;; Author: John Kitchin <jkitchin@andrew.cmu.edu>
 ;; Maintainer: stardiviner <numbchild@gmail.com>

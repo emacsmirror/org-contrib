@@ -1,4 +1,4 @@
-;;; ob-arduino.el --- Org-mode Babel support for Arduino.
+;;; ob-arduino.el --- Org-mode Babel support for Arduino
 ;;
 ;; Authors: stardiviner <numbchild@gmail.com>
 ;; Package-Requires: ((emacs "24.4") (org "24.1"))

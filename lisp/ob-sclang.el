@@ -4,6 +4,7 @@
 ;; Copyright (C) 2017-2021 Free Software Foundation, Inc.
 
 ;; Authors: stardiviner <numbchild@gmail.com>
+;; Homepage: https://github.com/stardiviner/ob-sclang
 ;; Package-Version: 0.1
 ;; Keywords: babel sclang
 

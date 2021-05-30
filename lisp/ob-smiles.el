@@ -1,6 +1,9 @@
 ;;; ob-smiles.el --- Org-mode Babel support for SMILES.
 ;;; -*- coding: utf-8 -*-
 
+;; Author: John Kitchin <jkitchin@andrew.cmu.edu>
+;; Maintainer: stardiviner <numbchild@gmail.com>
+;; Homepage: https://github.com/stardiviner/ob-smiles
 ;; Keywords: org babel SMILES
 ;; Version: 0.0.1
 ;; Package-Requires: ((smiles-mode "0.0.1") (org "8"))
@@ -24,9 +27,6 @@
 
 ;;; I copy code from:
 ;;; https://kitchingroup.cheme.cmu.edu/blog/2016/03/26/A-molecule-link-for-org-mode
-
-;; Author: John Kitchin [jkitchin@andrew.cmu.edu]
-;; Maintainer: stardiviner [numbchild@gmail.com]
 
 ;;; Code:
 

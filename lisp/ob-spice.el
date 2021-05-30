@@ -2,10 +2,10 @@
 ;;; -*- coding: utf-8 -*-
 
 ;; Author: Tiago Oliveira Weber
-;; Maintainer: stardiviner (numbchild@gmail.com)
+;; Maintainer: stardiviner <numbchild@gmail.com>
+;; Homepage: https://github.com/stardiviner/ob-spice
 ;; Version: 0.4
 ;; Package-Requires: ((spice-mode "0.0.1") (org "8"))
-;; Homepage: https://tiagoweber.github.io
 
 ;; License: GPL v3, or any later version
 ;;

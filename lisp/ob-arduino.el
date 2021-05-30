@@ -4,7 +4,7 @@
 ;; Package-Requires: ((emacs "24.4") (org "24.1"))
 ;; Package-Version: 1.0
 ;; Keywords: arduino org babel
-;; homepage: https://github.com/stardiviner/arduino-mode
+;; homepage: https://github.com/stardiviner/arduino-mode/blob/master/ob-arduino.el
 ;;
 ;; This file is not part of GNU Emacs.
 ;;

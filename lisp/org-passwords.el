@@ -2,6 +2,7 @@
 
 ;; Author: Jorge A. Alfaro-Murillo <jorge.alfaro-murillo@yale.edu>
 ;; Created: December 26, 2012
+;; Homepage: https://github.com/alfaromurillo/org-passwords.el
 ;; Keywords: passwords, password
 
 ;; This file is not part of GNU Emacs.

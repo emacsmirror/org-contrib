@@ -9,7 +9,7 @@
 ;;      Alan Schmitt <alan.schmitt@polytechnique.org>
 ;;      Mike McLean <mike.mclean@pobox.com>
 ;; Maintainer: Aimé Bertrand <aime.bertrand@macowners.club>
-;; Homepage: https://sr.ht/~aimebertrand/org-mac-link/
+;; Homepage: https://gitlab.com/aimebertrand/org-mac-link
 ;;
 ;; This file is not part of GNU Emacs.
 ;;

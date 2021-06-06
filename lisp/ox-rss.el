@@ -5,7 +5,7 @@
 ;; Author: Bastien Guerry <bzg@gnu.org>
 ;; Maintainer: Bastien Guerry <bzg@gnu.org>
 ;; Keywords: org, wp, blog, feed, rss
-;; Homepage: https://git.sr.ht/~bzg/org-contrib
+;; Homepage: https://gitlab.com/nsavage/ox-rss
 
 ;; This file is not part of GNU Emacs.
 

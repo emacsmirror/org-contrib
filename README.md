@@ -49,6 +49,7 @@ find after the "Homepage:" keyword in the files themselves:
 -   **ob-smiles.el:** Org-mode Babel support for SMILES
 -   **ob-clojure-literate.el:** Clojure's Org-mode Literate Programming
 -   **ox-rss.el:** RSS 2.0 Back-End for Org Export Engine
+-   **org-attach-embedded-images.el:** Transmute images to attachments
 
 
 # Other files

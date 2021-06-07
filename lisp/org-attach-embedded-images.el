@@ -3,6 +3,7 @@
 ;; Copyright 2018-2021 Free Software Foundation, Inc.
 ;;
 ;; Author: Marco Wahl
+;; Homepage: https://gitlab.com/marcowahl/org-attach-embedded-imagse
 ;; Version: 0.1
 ;; Keywords: org, media
 ;;

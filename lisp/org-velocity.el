@@ -3,7 +3,8 @@
 ;; Copyright (C) 2010-2014, 2021 Paul M. Rodriguez
 
 ;; Author: Paul M. Rodriguez <paulmrodriguez@gmail.com>
-;; Maintainer: Marco Wahl <marcowahlsoft@gmail.com>
+;; Maintainer: Paul M. Rodriguez <paulmrodriguez@gmail.com>
+;; Homepage: https://github.com/ruricolist/org-velocity
 ;; Created: 2010-05-05
 ;; Version: 4.1
 

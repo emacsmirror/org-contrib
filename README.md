@@ -104,7 +104,6 @@ find after the "Homepage:" keyword in the files themselves:
 -   **ox-extra.el:** Convenience functions for org export
 -   **ox-freemind.el:** Freemind exporter
 -   **ox-groff.el:** Groff exporter
--   **ox-koma-letter.el:** KOMA Scrlttr2 exporter
 -   **ox-rss.el:** RSS 2.0 exporter
 -   **ox-s5.el:** S5 presentations exporter
 -   **ox-taskjuggler.el:** TaskJuggler exporter

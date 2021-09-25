@@ -34,7 +34,6 @@ find after the "Homepage:" keyword in the files themselves:
 - ob-mathematica.el :: org-babel functions for Mathematica evaluation
 - org-link-edit.el :: Slurp and barf with Org links
 - ol-notmuch.el :: Links to notmuch messages
-- ob-julia.el :: org-babel functions for julia code evaluation
 - org-notify.el :: Notifications for Org-mode
 - org-mac-link.el :: Insert org-mode links to items selected in various Mac apps
 - org-passwords.el :: org derived mode for managing passwords
@@ -120,7 +119,6 @@ find after the "Homepage:" keyword in the files themselves:
 - ob-csharp.el :: org-babel functions for csharp evaluation
 - ob-eukleides.el :: Org-babel functions for eukleides evaluation
 - ob-fomus.el :: Org-babel functions for fomus evaluation
-- ob-julia.el :: Org-babel functions for julia evaluation
 - ob-mathematica.el :: org-babel functions for Mathematica evaluation
 - ob-mathomatic.el :: Org-babel functions for mathomatic evaluation
 - ob-oz.el :: Org-babel functions for Oz evaluation
@@ -132,4 +130,3 @@ find after the "Homepage:" keyword in the files themselves:
 - ob-stata.el :: Org-babel functions for Stata evaluation
 - ob-tcl.el :: Org-babel functions for tcl evaluation
 - ob-vbnet.el :: org-babel functions for VB.Net evaluation
-

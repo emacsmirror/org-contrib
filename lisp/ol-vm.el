@@ -155,7 +155,7 @@
   (let ((case-fold-search t))
     (goto-char (point-min))
     (if (not (re-search-forward
-              (concat "^" "message-id: *" (regexp-quote message-id))))
+              (concat "^" "message-id:\\s-*" (regexp-quote message-id))))
         (error "Could not find the specified message in this folder"))
     (vm-isearch-update)
     (vm-isearch-narrow)

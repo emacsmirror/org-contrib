@@ -113,19 +113,31 @@ find after the "Homepage:" keyword in the files themselves:
 
 *** Org Babel languages
 
-- ob-arduino.el :: Org-mode Babel support for Arduino
+- ob-J.el :: Org-mode Babel Functions for J
+- ob-abc.el :: Org-mode Babel Functions for ABC
+- ob-asymptote.el :: Org-mode Babel Functions for Asymptote
+- ob-coq.el :: Org-mode Babel Functions for Coq
+- ob-ebnf.el :: Org-mode Babel Functions for EBNF
+- ob-hledger.el :: Org-mode Babel Functions for hledger
+- ob-io.el :: Org-mode Babel Functions for Io
+- ob-ledger.el :: Org-mode Babel Functions for Ledger
+- ob-mscgen.el :: Org-mode Babel Functions for Mscgen
+- ob-picolisp.el :: Org-mode Babel Functions for Picolisp
+- ob-shen.el :: Org-mode Babel Functions for Shen
+- ob-vala.el :: Org-mode Babel Functions for Vala
+- ob-arduino.el :: Org-mode Babel Functions for Arduino
 - ob-clojure-literate.el :: Clojure's Org-mode Literate Programming
-- ob-csharp.el :: org-babel functions for csharp evaluation
-- ob-eukleides.el :: Org-babel functions for eukleides evaluation
-- ob-fomus.el :: Org-babel functions for fomus evaluation
-- ob-mathematica.el :: org-babel functions for Mathematica evaluation
-- ob-mathomatic.el :: Org-babel functions for mathomatic evaluation
-- ob-oz.el :: Org-babel functions for Oz evaluation
+- ob-csharp.el :: Org-mode Babel Functions for csharp evaluation
+- ob-eukleides.el :: Org-mode Babel Functions for eukleides evaluation
+- ob-fomus.el :: Org-mode Babel Functions for fomus evaluation
+- ob-mathematica.el :: Org-mode Babel Functions for Mathematica evaluation
+- ob-mathomatic.el :: Org-mode Babel Functions for mathomatic evaluation
+- ob-oz.el :: Org-mode Babel Functions for Oz evaluation
 - ob-php.el :: Execute PHP within org-mode blocks
 - ob-redis.el :: Execute Redis queries within org-mode blocks
 - ob-sclang.el :: SCLang support for Org-mode Babel
 - ob-smiles.el :: Org-mode Babel support for SMILES
-- ob-spice.el :: org-babel functions for spice evaluation
-- ob-stata.el :: Org-babel functions for Stata evaluation
-- ob-tcl.el :: Org-babel functions for tcl evaluation
-- ob-vbnet.el :: org-babel functions for VB.Net evaluation
+- ob-spice.el :: Org-mode Babel Functions for spice evaluation
+- ob-stata.el :: Org-mode Babel Functions for Stata evaluation
+- ob-tcl.el :: Org-mode Babel Functions for tcl evaluation
+- ob-vbnet.el :: Org-mode Babel Functions for VB.Net evaluation

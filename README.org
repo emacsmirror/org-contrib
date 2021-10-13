@@ -105,7 +105,6 @@ find after the "Homepage:" keyword in the files themselves:
 - ol-bookmark.el :: Links to bookmarks
 - ol-elisp-symbol.el :: Links to Emacs-lisp symbols
 - ol-git-link.el :: Links to specific file version
-- ol-man.el :: Links to man pages
 - ol-mew.el :: Links to Mew messages
 - ol-notmuch.el :: Links to notmuch messages
 - ol-vm.el :: Support for links to VM messages

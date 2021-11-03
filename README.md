@@ -44,6 +44,7 @@ find after the "Homepage:" keyword in the files themselves:
 -   **ob-spice.el:** org-babel functions for spice evaluation
 -   **ol-notmuch.el:** Links to notmuch messages
 -   **org-attach-embedded-images.el:** Transmute images to attachments
+-   **org-contacts.el:** Contacts management
 -   **org-link-edit.el:** Slurp and barf with Org links
 -   **org-mac-link.el:** Insert org-mode links to items selected in various Mac apps
 -   **org-notify.el:** Notifications for Org-mode
@@ -63,7 +64,6 @@ find after the "Homepage:" keyword in the files themselves:
 -   **org-checklist.el:** org functions for checklist handling
 -   **org-choose.el:** Use TODO keywords to mark decision states
 -   **org-collector.el:** Collect properties into tables
--   **org-contacts.el:** Contacts management
 -   **org-contribdir.el:** Dummy file to mark the org contrib Lisp directory
 -   **org-depend.el:** TODO dependencies for Org-mode
 -   **org-effectiveness.el:** Measuring your personal effectiveness

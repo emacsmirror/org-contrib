@@ -85,7 +85,7 @@
                 (concat
                  (propertize (symbol-name (car elem)) 'face 'org-list-dt)
                  " "
-                 (propertize (cdr elem) 'face 'org-verbatim)
+                 (propertize (format "%s" (cdr elem)) 'face 'org-verbatim)
                  " ")))
             hdr-args " ")))))))
 

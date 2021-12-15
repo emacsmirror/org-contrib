@@ -647,16 +647,16 @@ See `org-groff-text-markup-alist' for details."
 
 
     ;; If FROM then get data from FROM
-    (if from-data 
+    (if from-data
         (setq from-data
               (replace-regexp-in-string "\\.P\n" "" from-data))
       (setq from-data ""))
-    
-    (if to-data 
+
+    (if to-data
         (setq to-data
               (replace-regexp-in-string "\\.P\n" "" to-data))
       (setq from-data ""))
-    
+
     (concat
      (cond
       (from-data
@@ -1879,6 +1879,12 @@ Return PDF file's name."
       async subtreep visible-only body-only ext-plist
       (lambda (file) (org-groff-compile file)))))
 
+;; Port to Emacs 26 and earlier.
+(defun org-groff--time-sec (time)
+  (if (fboundp 'time-convert)
+      (time-convert time 'integer)
+    (cl-subseq (or time (current-time)) 0 2)))
+
 (defun org-groff-compile (file)
   "Compile a Groff file.
 
@@ -1889,7 +1895,7 @@ Return PDF file name or an error if it couldn't be produced."
   (let* ((base-name (file-name-sans-extension (file-name-nondirectory file)))
 	 (full-name (file-truename file))
 	 (out-dir (file-name-directory file))
-	 (time (current-time))
+	 (time (org-groff--time-sec nil))
 	 ;; Properly set working directory for compilation.
 	 (default-directory (if (file-name-absolute-p file)
 				(file-name-directory full-name)
@@ -1928,8 +1934,9 @@ Return PDF file name or an error if it couldn't be produced."
 		;; Only compare times up to whole seconds as some
 		;; filesystems (e.g. HFS+) do not retain any finer
 		;; granularity.
-		(time-less-p (cl-subseq (nth 5 (file-attributes pdffile)) 0 2)
-			     (cl-subseq time 0 2)))
+		(time-less-p (org-groff--time-sec
+			      (nth 5 (file-attributes pdffile)))
+			     time))
 	    (error (concat (format "PDF file %s wasn't produced" pdffile)
 			   (when errors (concat ": " errors))))
 	  ;; Else remove log files, when specified, and signal end of

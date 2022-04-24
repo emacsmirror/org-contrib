@@ -142,6 +142,8 @@
    (org-eldoc-get-src-header)
    (let ((lang (org-eldoc-get-src-lang)))
      (cond
+      ((string= lang "org")       ;Prevent inf-loop for Org src blocks
+       nil)
       ((or
         (string= lang "emacs-lisp")
         (string= lang "elisp"))

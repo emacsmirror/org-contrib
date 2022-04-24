@@ -141,40 +141,44 @@
    (org-eldoc-get-breadcrumb)
    (org-eldoc-get-src-header)
    (let ((lang (org-eldoc-get-src-lang)))
-     (cond ((or
-             (string= lang "emacs-lisp")
-             (string= lang "elisp"))
-	    (cond ((and (boundp 'eldoc-documentation-functions) ; Emacs>=28
-			(fboundp 'elisp-eldoc-var-docstring)
-			(fboundp 'elisp-eldoc-funcall))
-		   (let ((eldoc-documentation-functions
-			  '(elisp-eldoc-var-docstring elisp-eldoc-funcall)))
-		     (eldoc-print-current-symbol-info)))
-		  ((fboundp 'elisp-eldoc-documentation-function)
-		   (elisp-eldoc-documentation-function))
-		  (t  			; Emacs<25
-		   (let (eldoc-documentation-function)
-		     (eldoc-print-current-symbol-info)))))
-           ((or
-             (string= lang "c") ;; https://github.com/nflath/c-eldoc
-             (string= lang "C")) (when (require 'c-eldoc nil t)
-                                   (c-eldoc-print-current-symbol-info)))
-           ;; https://github.com/zenozeng/css-eldoc
-           ((string= lang "css") (when (require 'css-eldoc nil t)
-                                   (css-eldoc-function)))
-           ;; https://github.com/zenozeng/php-eldoc
-           ((string= lang "php") (when (require 'php-eldoc nil t)
-                                   (php-eldoc-function)))
-           ((or
-             (string= lang "go")
-             (string= lang "golang")) (when (require 'go-eldoc nil t)
-                                        (go-eldoc--documentation-function)))
-           (t (let ((doc-fun (org-eldoc-get-mode-local-documentation-function lang))
-		    (callback (car args)))
-                (when (functionp doc-fun)
-		  (if (functionp callback)
-		      (funcall doc-fun callback)
-		    (funcall doc-fun)))))))))
+     (cond
+      ((or
+        (string= lang "emacs-lisp")
+        (string= lang "elisp"))
+       (cond ((and (boundp 'eldoc-documentation-functions) ; Emacs>=28
+                   (fboundp 'elisp-eldoc-var-docstring)
+                   (fboundp 'elisp-eldoc-funcall))
+              (let ((eldoc-documentation-functions
+                     '(elisp-eldoc-var-docstring elisp-eldoc-funcall)))
+                (eldoc-print-current-symbol-info)))
+             ((fboundp 'elisp-eldoc-documentation-function)
+              (elisp-eldoc-documentation-function))
+             (t            ; Emacs<25
+              (let (eldoc-documentation-function)
+                (eldoc-print-current-symbol-info)))))
+      ((or
+        (string= lang "c") ;; https://github.com/nflath/c-eldoc
+        (string= lang "C"))
+       (when (require 'c-eldoc nil t)
+         (c-eldoc-print-current-symbol-info)))
+      ;; https://github.com/zenozeng/css-eldoc
+      ((string= lang "css") (when (require 'css-eldoc nil t)
+                              (css-eldoc-function)))
+      ;; https://github.com/zenozeng/php-eldoc
+      ((string= lang "php") (when (require 'php-eldoc nil t)
+                              (php-eldoc-function)))
+      ((or
+        (string= lang "go")
+        (string= lang "golang"))
+       (when (require 'go-eldoc nil t)
+         (go-eldoc--documentation-function)))
+      (t
+       (let ((doc-fun (org-eldoc-get-mode-local-documentation-function lang))
+             (callback (car args)))
+         (when (functionp doc-fun)
+           (if (functionp callback)
+               (funcall doc-fun callback)
+             (funcall doc-fun)))))))))
 
 ;;;###autoload
 (defun org-eldoc-load ()

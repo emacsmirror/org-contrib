@@ -201,7 +201,7 @@ interpretation."
 	  (setq top-upper-range index))
 	 ((eq type 'default-mark)
 	  (setq static-default index)))
-	(incf index)
+	(cl-incf index)
 	(push vanilla-text all-mark-texts)
 	(push vanilla-mark vanilla-list)))
 

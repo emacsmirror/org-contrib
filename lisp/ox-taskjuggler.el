@@ -608,8 +608,8 @@ doesn't include leading \"depends\"."
 	      ;; Compute number of exclamation marks by looking for the
 	      ;; common ancestor between TASK and DEP.
 	      (while (not (org-element-map parent 'headline
-			    (lambda (hl) (eq hl dep))))
-		(incf exclamations)
+			  (lambda (hl) (eq hl dep))))
+		(cl-incf exclamations)
 		(setq parent (org-export-get-parent parent)))
 	      ;; Build path from DEP to PARENT.
 	      (while (not (eq parent dep))

@@ -182,7 +182,7 @@ times. Returns just the file, without directory part"
           (case-fold-search nil))
       (while (and (< tries org-screenshot-max-tries)
                   (not name))
-        (incf tries)
+        (cl-incf tries)
         (let ((tmp org-screenshot-file-name-format)
               (seq-re "%[-0-9.]*d")
               (rand-re "%X+"))
@@ -282,7 +282,7 @@ screenshot is done, any more `C-u' after that increases delay by
               ((integerp delay) delay)
               ((and (consp delay)
                     (integerp (car delay))
-                    (plusp (car delay)))
+                    (cl-plusp (car delay)))
                (let ((num 1)
                      (limit (car delay))
                      (cnt 0))
@@ -307,11 +307,11 @@ screenshot is done, any more `C-u' after that increases delay by
            (apply 'start-process
                   (append
                    (list "scrot" "*scrot*" "scrot" "-s" path)
-                   (when (plusp delay)
+                   (when (cl-plusp delay)
                      (list "-d" (format "%d" delay)))))
            (error "Unable to start scrot process")))
     (when org-screenshot-process 
-      (if (plusp delay) 
+      (if (cl-plusp delay) 
           (message "Click on a window, or select a rectangle (delay is %d sec)..."
                    delay)
         (message "Click on a window, or select a rectangle..."))
@@ -351,7 +351,7 @@ by most recent first"
                        (> mtime1 mtime2)))))))
   (let ((n -1) (list org-screenshot-file-list))
     (while (and list (not (equal (pop list) lastfile)))
-      (incf n))
+      (cl-incf n))
     (setq org-screenshot-rotation-index n)))
 
 (defun org-screenshot-do-rotate (dir from-continue-rotating)
@@ -396,7 +396,7 @@ other direction"
       ;; advance one more time
       (when (equal oldfile newfile)
         (setq org-screenshot-rotation-index
-              (mod (+ org-screenshot-rotation-index (if (plusp dir) 1 -1))
+              (mod (+ org-screenshot-rotation-index (if (cl-plusp dir) 1 -1))
                    (length org-screenshot-file-list))
               newfile (nth org-screenshot-rotation-index
                            org-screenshot-file-list)))

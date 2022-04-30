@@ -287,7 +287,7 @@ This does two different kinds of triggers:
 				 (if no-wrap items-after
 				   (append items-after items-before))))
 			      (t (nreverse items))))
-		  (setq items (remove-if
+		  (setq items (cl-remove-if
 			       (lambda (item)
 				 (or (equal (first item) this-item)
 				     (and (not todo-and-done-only)

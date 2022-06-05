@@ -4,7 +4,7 @@
 
 ;; Author: David Arroyo Menéndez <davidam@es.gnu.org>
 ;; Keywords: effectiveness, plot
-;; Homepage: https://orgmode.org
+;; Homepage: https://git.sr.ht/~bzg/org-contrib
 ;;
 ;; This file is not part of GNU Emacs.
 ;;

@@ -5,7 +5,7 @@
 ;; Author: Eric S Fraga
 ;; Maintainer: Eric S Fraga
 ;; Keywords: literate programming, reproducible research, accounting
-;; Homepage: https://orgmode.org
+;; Homepage: https://git.sr.ht/~bzg/org-contrib
 
 ;; This file is not part of GNU Emacs.
 

@@ -4,7 +4,7 @@
 
 ;; Author: Carsten Dominik <carsten.dominik@gmail.com>
 ;; Keywords: outlines, hypermedia, calendar, wp
-;; Homepage: https://orgmode.org
+;; Homepage: https://git.sr.ht/~bzg/org-contrib
 ;;
 ;; Support for IMAP folders added
 ;; by Konrad Hinsen <konrad dot hinsen at fastmail dot net>

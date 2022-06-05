@@ -4,7 +4,7 @@
 
 ;; Author: Luis Anaya
 ;; Keywords: literate programming, reproducible research
-;; Homepage: https://orgmode.org
+;; Homepage: https://git.sr.ht/~bzg/org-contrib
 
 ;; This file is not part of GNU Emacs.
 

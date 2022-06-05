@@ -4,7 +4,7 @@
 ;;
 ;; Author: Max Mikhanosha <max@openchat.com>
 ;; Keywords: outlines, hypermedia, calendar, wp
-;; Homepage: https://orgmode.org
+;; Homepage: https://git.sr.ht/~bzg/org-contrib
 ;; Version: 8.0
 ;;
 ;; Released under the GNU General Public License version 3

@@ -3,7 +3,7 @@
 
 ;; Author: Tiago Oliveira Weber
 ;; Maintainer: stardiviner <numbchild@gmail.com>
-;; Homepage: https://github.com/stardiviner/ob-spice
+;; Homepage: https://git.sr.ht/~bzg/org-contrib
 ;; Version: 0.4
 ;; Package-Requires: ((spice-mode "0.0.1") (org "8"))
 

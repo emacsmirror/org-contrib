@@ -81,11 +81,13 @@
            ": "
            (mapconcat
             (lambda (elem)
-              (when (and (cdr elem) (not (string= "" (cdr elem))))
+              (when-let* ((val (and (cdr elem)
+                                    (format "%s" (cdr elem))))
+                          (_ (not (string-empty-p val))))
                 (concat
                  (propertize (symbol-name (car elem)) 'face 'org-list-dt)
                  " "
-                 (propertize (format "%s" (cdr elem)) 'face 'org-verbatim)
+                 (propertize val 'face 'org-verbatim)
                  " ")))
             hdr-args " ")))))))
 

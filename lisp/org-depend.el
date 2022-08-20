@@ -281,9 +281,9 @@ This does two different kinds of triggers:
 			      (from-bottom items)
 			      ((or from-current no-wrap)
 			       (let* ((items (nreverse items))
-				      (pos (position this-item items :key #'first))
-				      (items-before (subseq items 0 pos))
-				      (items-after (subseq items pos)))
+				      (pos (cl-position this-item items :key #'cl-first))
+				      (items-before (cl-subseq items 0 pos))
+				      (items-after (cl-subseq items pos)))
 				 (if no-wrap items-after
 				   (append items-after items-before))))
 			      (t (nreverse items))))

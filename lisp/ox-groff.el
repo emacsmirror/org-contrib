@@ -1894,7 +1894,7 @@ through the command specified in `org-groff-pdf-process'.
 Return PDF file name or an error if it couldn't be produced."
   (let* ((base-name (file-name-sans-extension (file-name-nondirectory file)))
 	 (full-name (file-truename file))
-	 (out-dir (file-name-directory file))
+	 (out-dir (file-name-directory full-name))
 	 (time (org-groff--time-sec nil))
 	 ;; Properly set working directory for compilation.
 	 (default-directory (if (file-name-absolute-p file)

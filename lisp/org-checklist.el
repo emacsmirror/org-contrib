@@ -93,10 +93,10 @@ of checkbox items"
 				  "-" (format-time-string
 				       org-checklist-export-time-format)
 				  ".org"))
-	     (print (case (org-entry-get (point) "PRINT_EXPORT" nil)
+	     (print (cl-case (org-entry-get (point) "PRINT_EXPORT" nil)
 		      (("" "nil" nil) nil)
-		      (t t)
-		      (nil (y-or-n-p "Print list? "))))
+		      (nil (y-or-n-p "Print list? "))
+		      (t t)))
 	     exported-lines
 	     (title "Checklist export"))
 	(save-restriction

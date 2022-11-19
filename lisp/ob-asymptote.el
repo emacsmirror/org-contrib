@@ -3,7 +3,7 @@
 ;; Copyright (C) 2009-2021 Free Software Foundation, Inc.
 
 ;; Author: Eric Schulte
-;; Maintainer: Luc Pellissier <luc.pellissier@crans.org>
+;; Maintainer: Jarmo Hurri <jarmo.hurri@iki.fi>
 ;; Keywords: literate programming, reproducible research
 ;; Homepage: https://git.sr.ht/~bzg/org-contrib
 

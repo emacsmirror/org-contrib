@@ -282,6 +282,9 @@ The expiry process will run the function defined by
 		   processed expired))))))
 
 ;;; Insert created/expiry property:
+(defun org-expiry-format-timestamp (timestr inactive)
+  "Properly format TIMESTR into an org (in)active timestamp"
+  (format (if inactive "[%s]" "<%s>") timestr))
 
 (defun org-expiry-insert-created (&optional arg)
   "Insert or update a property with the creation date.
@@ -298,14 +301,12 @@ update the date."
 		     (current-time)))
       (setq d-hour (format-time-string "%H:%M" d-time))
       (setq timestr
-	    ;; two C-u prefixes will call org-read-date
-	    (if (equal arg '(16))
-		(concat "<" (org-read-date
-			     nil nil nil nil d-time d-hour) ">")
-	      (format-time-string (cdr org-time-stamp-formats))))
-      ;; maybe transform to inactive timestamp
-      (if org-expiry-inactive-timestamps
-	  (setq timestr (concat "[" (substring timestr 1 -1) "]")))
+            (org-expiry-format-timestamp
+             ;; two C-u prefixes will call org-read-date
+	     (if (equal arg '(16))
+		 (org-read-date nil nil nil nil d-time d-hour)
+	       (format-time-string (cdr org-time-stamp-formats)))
+             org-expiry-inactive-timestamps))
       (save-excursion
 	(org-entry-put
 	 (point) org-expiry-created-property-name timestr)))))
@@ -320,13 +321,11 @@ and insert today's date."
     (setq d-time (if d (org-time-string-to-time d)
 		   (current-time)))
     (setq d-hour (format-time-string "%H:%M" d-time))
-    (setq timestr (if today
-		      (format-time-string (cdr org-time-stamp-formats))
-		    (concat "<" (org-read-date
-				 nil nil nil nil d-time d-hour) ">")))
-    ;; maybe transform to inactive timestamp
-    (if org-expiry-inactive-timestamps
-	(setq timestr (concat "[" (substring timestr 1 -1) "]")))
+    (setq timestr (org-expiry-format-timestamp
+                   (if today
+		       (format-time-string (cdr org-time-stamp-formats))
+		     (org-read-date nil nil nil nil d-time d-hour))
+                   org-expiry-inactive-timestamps))
 
     (save-excursion
       (org-entry-put

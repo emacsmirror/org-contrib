@@ -5,7 +5,7 @@
 ;; Author: Bastien Guerry <bzg@gnu.org>
 ;; Homepage: https://git.sr.ht/~bzg/org-contrib
 ;; Package-Requires: ((emacs "25.1") (org "9.4.6"))
-;; Version: 0.4
+;; Version: 0.4.1
 ;; Keywords: org
 ;; SPDX-License-Identifier: GPL-3.0-or-later
 

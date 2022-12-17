@@ -302,16 +302,13 @@ update the date."
       (setq d-hour (format-time-string "%H:%M" d-time))
       (setq timestr
 	    ;; two C-u prefixes will call org-read-date
-            (concat "<"
-                    (if (equal arg '(16))
-                        (org-read-date nil nil nil nil d-time d-hour)
-                      (format-time-string
-                       (replace-regexp-in-string "\\(^<\\|>$\\)" ""
-                       (cdr org-time-stamp-formats))))
-                    ">"))
-      ;; maybe transform to inactive timestamp
-      (if org-expiry-inactive-timestamps
-	  (setq timestr (concat "[" (substring timestr 1 -1) "]")))
+            (org-expiry-format-timestamp
+             (if (equal arg '(16))
+                 (org-read-date nil nil nil nil d-time d-hour)
+               (format-time-string
+                (replace-regexp-in-string "\\(^<\\|>$\\)" ""
+                                          (cdr org-time-stamp-formats))))
+             org-expiry-inactive-timestamps))
       (save-excursion
 	(org-entry-put
 	 (point) org-expiry-created-property-name timestr)))))
@@ -326,13 +323,13 @@ and insert today's date."
     (setq d-time (if d (org-time-string-to-time d)
 		   (current-time)))
     (setq d-hour (format-time-string "%H:%M" d-time))
-    (setq timestr (concat "<"
-                          (if today
-                              (format-time-string
-                               (replace-regexp-in-string "\\(^<\\|>$\\)" ""
-                               (cdr org-time-stamp-formats)))
-                            (org-read-date nil nil nil nil d-time d-hour))
-                          ">"))
+    (setq timestr (org-expiry-format-timestamp
+                   (if today
+                       (format-time-string
+                        (replace-regexp-in-string "\\(^<\\|>$\\)" ""
+                                                  (cdr org-time-stamp-formats)))
+                     (org-read-date nil nil nil nil d-time d-hour))
+                   org-expiry-inactive-timestamps))
     ;; maybe transform to inactive timestamp
     (if org-expiry-inactive-timestamps
 	(setq timestr (concat "[" (substring timestr 1 -1) "]")))

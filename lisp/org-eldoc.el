@@ -54,6 +54,8 @@
   :group 'org-eldoc
   :type 'string)
 
+(eldoc-add-command 'org-self-insert-command)
+
 (defun org-eldoc-get-breadcrumb ()
   "Return breadcrumb if on a headline or nil."
   (let ((case-fold-search t) cur)

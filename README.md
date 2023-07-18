@@ -29,6 +29,14 @@ License, either version 3 of the License, or (at your option) any
 later version.  See [COPYING](COPYING).
 
 
+# Contribute
+
+You can send patches to `~bzg/dev@lists.sr.ht` and configure your local
+copy of the repository like this:
+
+`git config format.subjectPrefix 'PATCH org-contrib'`
+
+
 # Files to remove from the next release
 
 If a file has a "Homepage:" keyword, it will be removed from the next

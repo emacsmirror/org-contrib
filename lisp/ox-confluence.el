@@ -108,10 +108,12 @@
    (org-trim (org-element-property :value fixed-width))))
 
 (defun org-confluence-verbatim (verbatim contents info)
-  (format "\{\{%s\}\}" (org-element-property :value verbatim)))
+  (let ((content (org-element-property :value verbatim)))
+    (format "\{\{%s\}\}" (string-replace "{" "\\{" content))))
 
 (defun org-confluence-code (code contents info)
-  (format "\{\{%s\}\}" (org-element-property :value code)))
+  (let ((content (org-element-property :value code)))
+    (format "\{\{%s\}\}" (string-replace "{" "\\{" content))))
 
 (defun org-confluence-headline (headline contents info)
   (let* ((low-level-rank (org-export-low-level-p headline info))

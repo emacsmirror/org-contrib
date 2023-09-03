@@ -94,17 +94,16 @@ called by `org-babel-execute-src-block'."
 			     org-babel-mathomatic-command in-file cmdline)))
 	   (with-temp-file in-file (insert (org-babel-mathomatic-expand body params)))
 	   (message cmd)
-	   ((lambda (raw) ;; " | grep -v batch | grep -v 'replaced' | sed '/^$/d' "
-	      (mapconcat
-	       #'identity
-	       (delq nil
-		     (mapcar (lambda (line)
-			       (unless (or (string-match "batch" line)
-					   (string-match "^rat: replaced .*$" line)
-					   (= 0 (length line)))
-				 line))
-			     (split-string raw "[\r\n]"))) "\n"))
-	    (org-babel-eval cmd "")))))
+	   ;; " | grep -v batch | grep -v 'replaced' | sed '/^$/d' "
+	   (mapconcat
+	    #'identity
+	    (delq nil
+		  (mapcar (lambda (line)
+			    (unless (or (string-match "batch" line)
+					(string-match "^rat: replaced .*$" line)
+					(= 0 (length line)))
+			      line))
+			  (split-string (org-babel-eval cmd "") "[\r\n]"))) "\n"))))
     (if (org-babel-mathomatic-graphical-output-file params)
 	nil
       (if (or (member "scalar" result-params)

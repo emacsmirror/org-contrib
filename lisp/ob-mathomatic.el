@@ -45,7 +45,8 @@
 (defcustom org-babel-mathomatic-command
   (if (boundp 'mathomatic-command) mathomatic-command "mathomatic")
   "Command used to call mathomatic on the shell."
-  :group 'org-babel)
+  :group 'org-babel
+  :type 'string)
 
 (defun org-babel-mathomatic-expand (body params)
   "Expand a block of Mathomatic code according to its header arguments."

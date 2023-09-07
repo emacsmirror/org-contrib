@@ -165,7 +165,12 @@ StartOzServer.oz is located.")
 ;; communication with org-babel-oz-OPI-socket is asynchronous, but
 ;; oz-send-string-expression turns is into synchronous...
 (defun oz-send-string-expression (string &optional wait-time)
-  "Similar to oz-send-string, oz-send-string-expression sends a string to the OPI compiler. However, string must be expression and this function returns the result of the expression (as string). oz-send-string-expression is synchronous, wait-time allows to specify a maximum wait time. After wait-time is over with no result, the function returns nil."
+  "Send a string to the OPI compiler.
+Similar to `oz-send-string', but string must be an expression and this
+function returns the result of the expression (as string).
+The function is synchronous, WAIT-TIME allows to specify
+a maximum wait time.  After WAIT-TIME is over with no result, the
+function returns nil."
   (if (not org-babel-oz-OPI-socket)
       (org-babel-oz-create-socket))
   (let ((polling-delay 0.1)

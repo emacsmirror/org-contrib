@@ -92,6 +92,10 @@
 ;;; major mode for editing Oz programs
 (require 'mozart nil t)
 
+(defvar oz-compiler-buffer) ; defined in mozart.el
+(declare-function oz-send-string "ext:mozart" (string &optional system))
+(declare-function run-oz "ext:mozart" ())
+
 ;;
 ;; Interface to communicate with Oz.
 ;; (1) For statements without any results: oz-send-string
@@ -179,26 +183,21 @@ function returns nil."
     ;; wait for result
     (if wait-time
 	(let ((waited 0))
-	  (unwind-protect
-	      (progn
-		(while
-		    ;; stop loop if org-babel-oz-collected-result \= nil or waiting time is over
-		    (not (or (not (equal org-babel-oz-collected-result nil))
-			     (> waited wait-time)))
-		  (progn
-		    (sit-for polling-delay)
-;; 		    (message "org-babel-oz: next polling iteration")
-		    (setq waited (+ waited polling-delay))))
-;; 		(message "org-babel-oz: waiting over, got result or waiting timed out")
-;; 		(message (format "wait-time: %s, waited: %s" wait-time waited))
-		(setq result org-babel-oz-collected-result)
-		(setq org-babel-oz-collected-result nil))))
-      (unwind-protect
-	  (progn
-	    (while (equal org-babel-oz-collected-result nil)
-	      (sit-for polling-delay))
-	    (setq result org-babel-oz-collected-result)
-	    (setq org-babel-oz-collected-result nil))))
+	  (while
+	      ;; stop loop if org-babel-oz-collected-result \= nil or waiting time is over
+	      (not (or (not (equal org-babel-oz-collected-result nil))
+		     (> waited wait-time)))
+	    (sit-for polling-delay)
+	    ;; 		    (message "org-babel-oz: next polling iteration")
+	    (setq waited (+ waited polling-delay)))
+	  ;; 		(message "org-babel-oz: waiting over, got result or waiting timed out")
+	  ;; 		(message (format "wait-time: %s, waited: %s" wait-time waited))
+	  (setq result org-babel-oz-collected-result)
+	  (setq org-babel-oz-collected-result nil))
+      (while (equal org-babel-oz-collected-result nil)
+	(sit-for polling-delay))
+      (setq result org-babel-oz-collected-result)
+      (setq org-babel-oz-collected-result nil))
     result))
 
 (defun org-babel-expand-body:oz (body params)

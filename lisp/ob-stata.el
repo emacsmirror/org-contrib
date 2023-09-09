@@ -85,12 +85,13 @@
 	 (or graphics-file (org-babel-stata-graphical-output-file params))))
     (mapconcat
      #'identity
-     ((lambda (inside)
-	(if graphics-file
-            inside
-	  inside))
-      (append (org-babel-variable-assignments:stata params)
-	      (list body))) "\n")))
+     (if graphics-file
+	 (append (org-babel-variable-assignments:stata params)
+		 (list body))
+       ;; FIXME: same value for both `if' branches.
+       (append (org-babel-variable-assignments:stata params)
+	       (list body)))
+     "\n")))
 
 (defun org-babel-execute:stata (body params)
   "Execute a block of stata code.
@@ -152,7 +153,7 @@ This function is called by `org-babel-execute-src-block'."
 	       (cdr (nth i vars))
 	       (cdr (nth i (cdr (assq :colname-names params))))
 	       (cdr (nth i (cdr (assq :rowname-names params)))))))
-      (org-number-sequence 0 (1- (length vars)))))))
+      (number-sequence 0 (1- (length vars)))))))
 
 (defun org-babel-stata-quote-csv-field (s)
   "Quote field S for export to stata."
@@ -233,10 +234,10 @@ current code buffer."
      body result-type result-params column-names-p row-names-p)))
 
 (defun org-babel-stata-evaluate-external-process
-  (body result-type result-params column-names-p row-names-p)
+    (body result-type result-params column-names-p row-names-p)
   "Evaluate BODY in external stata process.
-If RESULT-TYPE equals 'output then return standard output as a
-string.  If RESULT-TYPE equals 'value then return the value of the
+If RESULT-TYPE equals \\='output then return standard output as a
+string.  If RESULT-TYPE equals \\='value then return the value of the
 last statement in BODY, as elisp."
   (cl-case result-type
     (value
@@ -255,10 +256,10 @@ last statement in BODY, as elisp."
     (output (org-babel-eval org-babel-stata-command body))))
 
 (defun org-babel-stata-evaluate-session
-  (session body result-type result-params column-names-p row-names-p)
+    (session body result-type result-params column-names-p row-names-p)
   "Evaluate BODY in SESSION.
-If RESULT-TYPE equals 'output then return standard output as a
-string.  If RESULT-TYPE equals 'value then return the value of the
+If RESULT-TYPE equals \\='output then return standard output as a
+string.  If RESULT-TYPE equals \\='value then return the value of the
 last statement in BODY, as elisp."
   (cl-case result-type
     (value

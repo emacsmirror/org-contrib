@@ -75,7 +75,12 @@
 
 (defun org-gitbare-open (str _)
   (let* ((strlist (org-git-split-string str))
-         (gitdir (nth 0 strlist))
+         ;; If the provided path ends in /.git, use it. Otherwise,
+         ;; append "/.git".
+         (gitdir (let ((path (nth 0 strlist)))
+                   (if (string-suffix-p "/.git" path)
+                       (expand-file-name path)
+                     (expand-file-name ".git" path))))
          (object (nth 1 strlist)))
     (org-git-open-file-internal gitdir object)))
 

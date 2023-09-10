@@ -311,20 +311,22 @@ exported with the corresponding task.
 
 Note that multiline properties are not supported, so attributes
 like note or journalentry have to be on a single line."
-  :group 'org-export-taskjuggler)
+  :group 'org-export-taskjuggler
+  :type '(repeat symbol))
 
 (defcustom org-taskjuggler-valid-project-attributes
-  '(timingresolution timezone alertlevels currency currencyformat
-  dailyworkinghours extend includejournalentry now numberformat
-  outputdir scenario shorttimeformat timeformat trackingscenario
-  weekstartsmonday weekstartssunday workinghours
-  yearlyworkingdays)
+  '( timingresolution timezone alertlevels currency currencyformat
+     dailyworkinghours extend includejournalentry now numberformat
+     outputdir scenario shorttimeformat timeformat trackingscenario
+     weekstartsmonday weekstartssunday workinghours
+     yearlyworkingdays)
   "Valid attributes for Taskjuggler project.
 If one of these appears as a property for a headline that is a
 project definition, it will be exported with the corresponding
-task. Attribute 'timingresolution' should be the first in the
+task.  Attribute `timingresolution' should be the first in the
 list."
-  :group 'org-export-taskjuggler)
+  :group 'org-export-taskjuggler
+  :type '(repeat symbol))
 
 (defcustom org-taskjuggler-valid-resource-attributes
   '(limits vacation shift booking efficiency journalentry rate
@@ -332,7 +334,8 @@ list."
   "Valid attributes for Taskjuggler resources.
 If one of these appears as a property for a headline, it will be
 exported with the corresponding resource."
-  :group 'org-export-taskjuggler)
+  :group 'org-export-taskjuggler
+  :type '(repeat symbol))
 
 (defcustom org-taskjuggler-valid-report-attributes
   '(headline columns definitions timeformat hideresource hidetask
@@ -340,7 +343,8 @@ exported with the corresponding resource."
   "Valid attributes for Taskjuggler reports.
 If one of these appears as a property for a headline, it will be
 exported with the corresponding report."
-  :group 'org-export-taskjuggler)
+  :group 'org-export-taskjuggler
+  :type '(repeat symbol))
 
 (defcustom org-taskjuggler-process-command
   "tj3 --silent --no-color --output-dir %o %f"
@@ -352,7 +356,8 @@ full file name, \"%o\" by the reports directory (see
 
 If you are targeting Taskjuggler 2.4 (see
 `org-taskjuggler-target-version') this setting is ignored."
-  :group 'org-export-taskjuggler)
+  :group 'org-export-taskjuggler
+  :type 'string)
 
 (defcustom org-taskjuggler-reports-directory "reports"
   "Default directory to generate the Taskjuggler reports in.
@@ -365,7 +370,8 @@ doesn't exist.
 
 If you are targeting Taskjuggler 2.4 (see
 `org-taskjuggler-target-version') this setting is ignored."
-  :group 'org-export-taskjuggler)
+  :group 'org-export-taskjuggler
+  :type 'string)
 
 (defcustom org-taskjuggler-keep-project-as-task t
   "Non-nil keeps the project headline as an umbrella task for all tasks.

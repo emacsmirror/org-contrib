@@ -31,7 +31,6 @@
 ;;; Code:
 (require 'ob)
 (require 'ob-eval)
-(eval-when-compile (require 'cl))
 
 (defvar org-babel-tangle-lang-exts)
 (add-to-list 'org-babel-tangle-lang-exts '("tcl" . "tcl"))
@@ -108,11 +107,11 @@ close $o
 
 (defun org-babel-tcl-evaluate (session body &optional result-type)
   "Pass BODY to the Tcl process in SESSION.
-If RESULT-TYPE equals 'output then return a list of the outputs
-of the statements in BODY, if RESULT-TYPE equals 'value then
+If RESULT-TYPE equals symbol \\='output then return a list of the outputs
+of the statements in BODY, if RESULT-TYPE equals \\='value then
 return the value of the last statement in BODY, as elisp."
   (when session (error "Sessions are not supported for Tcl"))
-  (case result-type
+  (cl-case result-type
     (output (org-babel-eval org-babel-tcl-command body))
     (value (let ((tmp-file (org-babel-temp-file "tcl-")))
              (org-babel-eval

@@ -133,7 +133,7 @@
 	(setq link (concat "file:" (abbreviate-file-name buffer-file-name)
 			   "::" def " " name))
 	(setq description (concat stype ": " name))
-	(org-store-link-props
+	(org-link-store-props
 	 :type "elisp-symbol"
 	 :link link
 	 :description description

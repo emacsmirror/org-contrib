@@ -83,7 +83,7 @@ Otherwise prompt the user for the right bookmark to use."
 		  (car bmks)
 		(completing-read "Bookmark: " bmks nil t nil nil (car bmks))))))
     (if bookmark
-	(org-store-link-props :link (concat "bookmark:" bookmark)
+	(org-link-store-props :link (concat "bookmark:" bookmark)
 			      :description bookmark))))
 
 (provide 'ol-bookmark)

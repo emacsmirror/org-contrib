@@ -99,7 +99,7 @@
 	     (sym-name (intern-soft name))
 	     (stype (cond ((commandp sym-name) "Command")
 			  ((functionp sym-name) "Function")
-			  ((user-variable-p sym-name) "User variable")
+			  ((custom-variable-p sym-name) "User variable")
 			  ((string= def "defvar") "Variable")
 			  ((string= def "defmacro") "Macro")
 			  ((string= def "defun") "Function or command")

@@ -120,19 +120,22 @@
 ;; Utility functions (file names etc)
 
 (defun org-git-split-dirpath (dirpath)
-  "Given a directory name, return '(dirname basname)"
+  "Given a directory name, return \\='(dirname basname)"
   (let ((dirname (file-name-directory (directory-file-name dirpath)))
         (basename (file-name-nondirectory (directory-file-name dirpath))))
     (list dirname basename)))
 
 ;; finding the git directory
 (defun org-git-find-gitdir (path)
-  "Given a file (not necessarily existing) file path, return the
-  a pair (gitdir relpath), where gitdir is the path to the first
-  .git subdirectory found updstream and relpath is the rest of
-  the path. Example: (org-git-find-gitdir
-  \"~/gitrepos/foo/bar.txt\") returns
-  '(\"/home/user/gitrepos/.git\" \"foo/bar.txt\"). When not in a git repository, return nil."
+  "Given a file PATH, return the a pair (gitdir relpath)
+File does not have to exist.
+GITDIR is the path to the first .git subdirectory found updstream.
+RELPATH is the rest of the path.
+Example:
+  (org-git-find-gitdir \"~/gitrepos/foo/bar.txt\") returns
+  \\='(\"/home/user/gitrepos/.git\" \"foo/bar.txt\").
+
+When not in a git repository, return nil."
   (let ((dir (expand-file-name (file-name-directory path)))
         (relpath (file-name-nondirectory path)))
     (catch 'toplevel
@@ -154,8 +157,9 @@
 ;; Both link open functions are called with a string of
 ;; consisting of three parts separated by a double colon (::).
 (defun org-git-split-string (str)
-  "Given a string of the form \"str1::str2::str3\", return a list of
-  three substrings \'(\"str1\" \"str2\" \"str3\"). If there are less
+  "Split STR by \"::\" and return list of strings.
+Given a string of the form \"str1::str2::str3\", return a list of
+three substrings \\='(\"str1\" \"str2\" \"str3\").  If there are less
 than two double colons, str2 and/or str3 may be set the empty string."
   (let ((strlist (split-string str "::")))
     (cond ((= 1 (length strlist))

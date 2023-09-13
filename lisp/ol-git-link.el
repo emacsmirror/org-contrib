@@ -201,13 +201,13 @@ than two double colons, str2 and/or str3 may be set the empty string."
     (let ((file (abbreviate-file-name (buffer-file-name)))
 	  (line (line-number-at-pos)))
       (when (org-git-gitrepos-p file)
-	(org-store-link-props
+	(org-link-store-props
 	 :type "git"
 	 :link (org-git-create-git-link file line))))))
 
 (defun org-git-insert-link-interactively (file searchstring &optional description)
   (interactive "FFile: \nsSearch string: \nsDescription: ")
-  (insert (org-make-link-string (concat "git:" file "::" searchstring) description)))
+  (insert (org-link-make-string (concat "git:" file "::" searchstring) description)))
 
 ;; Calling git
 (defun org-git-show (gitdir object buffer)

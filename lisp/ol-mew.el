@@ -170,12 +170,12 @@ with \"t\" key."
 	       (date (mew-header-get-value "Date:"))
 	       (subject (mew-header-get-value "Subject:"))
 	       desc link)
-	  (org-store-link-props :type "mew" :from from :to to :date date
+	  (org-link-store-props :type "mew" :from from :to to :date date
 				:subject subject :message-id message-id)
 	  (setq message-id (org-unbracket-string "<" ">" message-id))
-	  (setq desc (org-email-link-description))
+	  (setq desc (org-link-email-description))
 	  (setq link (concat "mew:" folder-name "#" message-id))
-	  (org-add-link-props :link link :description desc)
+	  (org-link-add-props :link link :description desc)
 	  link)))))
 
 (defun org-mew-folder-name ()

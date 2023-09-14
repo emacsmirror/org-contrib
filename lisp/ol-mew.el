@@ -99,11 +99,12 @@ destination folders before capture."
   :type '(repeat string))
 
 (defcustom org-mew-capture-guess-alist nil
-  "Alist of the regular expression of the folder name and the capture
-template selection keys.
+  "Alist assigning folder name and the capture template key.
+
+The key in the alist is regular expression matching the folder name.
 
 For example,
-    '((\"^%emacs-orgmode$\" . \"o\")
+    \\='((\"^%emacs-orgmode$\" . \"o\")
       (\"\" . \"t\"))
 the messages in \"%emacs-orgmode\" folder will be captured with
 the capture template associated with \"o\" key, and any other

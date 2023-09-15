@@ -88,11 +88,11 @@
                                    folder))
                 (setq folder (replace-match "" t t folder)))))
         (setq message-id (org-unbracket-string "<" ">" message-id))
-	(org-store-link-props :type link-type :from from :to to :subject subject
+	(org-link-store-props :type link-type :from from :to to :subject subject
 			      :message-id message-id :date date)
-	(setq desc (org-email-link-description))
+	(setq desc (org-link-email-description))
 	(setq link (concat (concat link-type ":") folder "#" message-id))
-	(org-add-link-props :link link :description desc)
+	(org-link-add-props :link link :description desc)
 	link))))
 
 (defun org-vm-open (path _)

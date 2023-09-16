@@ -162,7 +162,7 @@ ENTITY is a message entity."
       (beginning-of-line)
       (unless (and (wl-folder-buffer-group-p)
 		   (looking-at wl-folder-group-regexp))
-	(org-store-link-props :type "wl" :description petname
+	(org-link-store-props :type "wl" :description petname
 			      :link link)
 	link))))
 
@@ -216,7 +216,7 @@ ENTITY is a message entity."
 	    (cond
 	     ((and (eq folder-type 'shimbun)
 		   org-wl-shimbun-prefer-web-links xref)
-	      (org-store-link-props :type "http" :link xref :description subject
+	      (org-link-store-props :type "http" :link xref :description subject
 				    :from from :to to :message-id message-id
 				    :message-id-no-brackets message-id-no-brackets
 				    :subject subject))
@@ -227,18 +227,18 @@ ENTITY is a message entity."
 			 "http://mid.gmane.org/%s"
                        "https://groups.google.com/groups/search?as_umsgid=%s")
 		     (url-encode-url message-id)))
-	      (org-store-link-props :type "http" :link link :description subject
+	      (org-link-store-props :type "http" :link link :description subject
 				    :from from :to to :message-id message-id
 				    :message-id-no-brackets message-id-no-brackets
 				    :subject subject))
 	     (t
-	      (org-store-link-props :type "wl" :from from :to to
+	      (org-link-store-props :type "wl" :from from :to to
 				    :subject subject :message-id message-id
 				    :message-id-no-brackets message-id-no-brackets)
-	      (setq desc (org-email-link-description))
+	      (setq desc (org-link-email-description))
 	      (setq link (concat "wl:" folder-name "#" message-id-no-brackets))
-	      (org-add-link-props :link link :description desc)))
-	    (org-add-link-props :date date)
+	      (org-link-add-props :link link :description desc)))
+	    (org-link-add-props :date date)
 	    (or link xref)))))))
 
 (defun org-wl-open-nntp (path)

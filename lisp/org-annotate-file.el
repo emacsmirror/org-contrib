@@ -111,7 +111,11 @@ The annotation will link to ANNOTATED-BUFFER if specified,
   otherwise the current buffer is used."
   (let ((filename (abbreviate-file-name (or annotated-buffer
 					    (buffer-file-name))))
-        (line (buffer-substring-no-properties (point-at-bol) (point-at-eol)))
+        (line
+         (let ((inhibit-field-text-motion t))
+           (buffer-substring-no-properties
+            (line-beginning-position)
+            (line-end-position))))
         (annotation-buffer (find-file-noselect storage-file)))
     (with-current-buffer annotation-buffer
       (org-annotate-file-annotate filename line))
@@ -119,8 +123,8 @@ The annotation will link to ANNOTATED-BUFFER if specified,
 
 (defun org-annotate-file-annotate (filename line)
   "Add annotation for FILENAME at LINE using current buffer."
-  (let* ((link (org-make-link-string (concat "file:" filename) filename))
-         (search-link (org-make-link-string
+  (let* ((link (org-link-make-string (concat "file:" filename) filename))
+         (search-link (org-link-make-string
                        (concat "file:" filename "::" line)
 		       (org-annotate-file-ellipsify-desc line))))
     (unless (eq major-mode 'org-mode)
@@ -128,7 +132,7 @@ The annotation will link to ANNOTATED-BUFFER if specified,
     (goto-char (point-min))
     (widen)
     (when org-annotate-file-always-open
-      (show-all))
+      (org-show-all))
     (unless (search-forward-regexp
 	     (concat "^* " (regexp-quote link)) nil t)
       (org-annotate-file-add-upper-level link))
@@ -148,7 +152,7 @@ The annotation will link to ANNOTATED-BUFFER if specified,
 
 (defun org-annotate-file-add-second-level (link)
   "Add and link subheading to LINK."
-  (goto-char (point-at-eol))
+  (forward-line 0)
   (call-interactively 'org-insert-subheading)
   (insert link))
 

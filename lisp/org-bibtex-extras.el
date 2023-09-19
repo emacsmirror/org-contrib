@@ -63,16 +63,22 @@
 
 (declare-function org-trim "org" (s &optional keep-lead))
 
+(defgroup org-bibtex-extras nil
+  "Extras for working with org-bibtex entries."
+  :group 'org-bibtex)
+
 (defcustom obe-bibtex-file nil
   "File holding bibtex entries."
-  :type 'file)
+  :type 'file
+  :group 'org-bibtex-extras)
 
 (defcustom obe-html-link-base nil
   "Base of citation links.
 For example, to point to your `obe-bibtex-file' use the following.
 
   (setq obe-html-link-base (format \"file:%s\" obe-bibtex-file))"
-  :type 'string)
+  :type 'string
+  :group 'org-bibtex-extras)
 
 (defvar obe-citations nil)
 (defun obe-citations ()

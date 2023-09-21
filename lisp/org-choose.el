@@ -64,12 +64,12 @@
 (require 'org)
 					;(eval-when-compile
 					;   (require 'cl))
-(require 'cl)
+(require 'cl-lib)
 
 ;;; Body
 ;;; The variables
 
-(defstruct (org-choose-mark-data. (:type list))
+(cl-defstruct (org-choose-mark-data. (:type list))
   "The format of an entry in org-choose-mark-data.
 Indexes are 0-based or `nil'.
 "
@@ -172,11 +172,11 @@ Each entry is an `org-choose-mark-data.'" )
 	    :static-default (or static-default 0)
 	    :all-keywords all-mark-texts)))))
     (dolist (text all-mark-texts)
-      (pushnew (cons text tail)
-	       org-choose-mark-data
-	       :test
-               (lambda (a b)
-                 (equal (car a) (car b)))))))
+      (cl-pushnew (cons text tail)
+		  org-choose-mark-data
+		  :test
+		  (lambda (a b)
+                    (equal (car a) (car b)))))))
 
 ;;; org-choose-filter-tail
 (defun org-choose-filter-tail (raw)
@@ -191,7 +191,7 @@ interpretation."
        (index 0)
        bot-lower-range top-upper-range range-length static-default)
     (dolist (i raw)
-      (destructuring-bind
+      (cl-destructuring-bind
 	  (vanilla-text vanilla-mark &optional type)
 	  (org-choose-filter-one i)
 	(cond
@@ -332,7 +332,7 @@ setting was changed."
 	(if funcdata
 	    ;;The funny-looking names are to make variable capture
 	    ;;unlikely.  (Poor-man's lexical bindings).
-	    (destructuring-bind (func-d473 . args-46k) funcdata
+	    (cl-destructuring-bind (func-d473 . args-46k) funcdata
 	      (let
 		  ((map-over-entries
 		    (org-choose-get-fn-map-group))
@@ -357,8 +357,8 @@ setting was changed."
 (defun org-choose-get-index-in-keywords (ix all-keywords)
   "Return the index of the current entry."
   (if ix
-      (position ix all-keywords
-		:test #'equal)))
+      (cl-position ix all-keywords
+		   :test #'equal)))
 
 ;;; org-choose-get-entry-index
 (defun org-choose-get-entry-index (all-keywords)

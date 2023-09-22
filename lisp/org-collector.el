@@ -123,7 +123,7 @@ preceding the dblock, then update the contents of the dblock."
 	    (colnames (plist-get params :colnames))
 	    (defaultval (plist-get params :defaultval))
 	    (content-lines (org-split-string (plist-get params :content) "\n"))
-	    id table line pos)
+	    id table line pos idpos stringformat)
 	(save-excursion
 	  (when (setq id (plist-get params :id))
 	    (cond ((not id) nil)

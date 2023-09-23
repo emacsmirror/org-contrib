@@ -117,7 +117,7 @@ Each entry is an `org-choose-mark-data.'" )
 		(string-match "^," args)
 		(cons nil arglist-x)
 	      arglist-x)))
-	 (decision-arg (second arglist))
+	 (decision-arg (cl-second arglist))
 	 (type
 	  (cond
 	   ((string= decision-arg "0")
@@ -127,7 +127,7 @@ Each entry is an `org-choose-mark-data.'" )
 	   ((string= decision-arg "-")
 	    'bot-lower-range)
 	   (t nil)))
-	 (vanilla-arg (first arglist))
+	 (vanilla-arg (cl-first arglist))
 	 (vanilla-mark
 	  (if vanilla-arg
 	      (concat vanilla-text "("vanilla-arg")")

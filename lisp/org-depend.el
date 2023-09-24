@@ -224,8 +224,8 @@ This does two different kinds of triggers:
       ;; OK, we just switched from a TODO state to a DONE state
       ;; Lets see if this entry has a TRIGGER property.
       ;; If yes, split it up on whitespace.
-      (setq trigger (org-entry-get pos "TRIGGER")
-	    triggers (and trigger (split-string trigger)))
+      (setq trigger (org-entry-get pos "TRIGGER" t)
+            triggers (and trigger (split-string trigger)))
 
       ;; Go through all the triggers
       (while (setq tr (pop triggers))

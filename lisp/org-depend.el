@@ -156,7 +156,7 @@
 
 (require 'org)
 (eval-when-compile
-  (require 'cl))
+  (require 'cl-lib))
 
 (defcustom org-depend-tag-blocked t
   "Whether to indicate blocked TODO items by a special tag."
@@ -394,7 +394,7 @@ this ID property, that entry is also checked."
 		  (save-excursion
 		    (goto-char pos)
 		    ;; find the older sibling, exit if no more siblings
-		    (unless (org-get-last-sibling)
+		    (unless (org-get-previous-sibling)
 		      (throw 'ignore t))
 		    ;; Check if this entry is not yet done and block
 		    (unless (org-entry-is-done-p)

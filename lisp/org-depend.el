@@ -289,9 +289,9 @@ This does two different kinds of triggers:
 			      (t (nreverse items))))
 		  (setq items (cl-remove-if
 			       (lambda (item)
-				 (or (equal (first item) this-item)
+				 (or (equal (cl-first item) this-item)
 				     (and (not todo-and-done-only)
-					  (member (second item) org-done-keywords))
+					  (member (cl-second item) org-done-keywords))
 				     (and (or todo-only
 					      todo-and-done-only)
 					  (null (second item)))))
@@ -300,10 +300,10 @@ This does two different kinds of triggers:
 			(sort
 			 items
 			 (lambda (item1 item2)
-			   (let* ((p1 (third item1))
-				  (p2 (third item2))
-				  (e1 (fifth item1))
-				  (e2 (fifth item2))
+			   (let* ((p1 (cl-third item1))
+				  (p2 (cl-third item2))
+				  (e1 (cl-fifth item1))
+				  (e2 (cl-fifth item2))
 				  (p1-lt (< p1 p2))
 				  (p1-gt (> p1 p2))
 				  (e1-lt (and e1 (or (not e2) (< e1 e2))))

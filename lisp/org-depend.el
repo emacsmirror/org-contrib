@@ -294,7 +294,7 @@ This does two different kinds of triggers:
 					  (member (cl-second item) org-done-keywords))
 				     (and (or todo-only
 					      todo-and-done-only)
-					  (null (second item)))))
+					  (null (cl-second item)))))
 			       items))
 		  (setq items
 			(sort
@@ -323,7 +323,7 @@ This does two different kinds of triggers:
 				   (effort-down
 				    (or e1-lt (and (equal e1 e2) p1-gt))))))))
 		  (when items
-		    (goto-char (first (first items)))
+		    (goto-char (cl-first (cl-first items)))
 		    (org-entry-add-to-multivalued-property nil "TRIGGER" tr)
 		    (org-todo kwd)))))))
 	 ((string-match "\\`chain-siblings(\\(.*?\\))\\'" tr)

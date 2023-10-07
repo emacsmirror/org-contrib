@@ -69,7 +69,8 @@
            (frame-width) "" org-eldoc-breadcrumb-separator))))))
 
 (defun org-eldoc-get-src-header ()
-  "Returns lang and list of header properties if on src definition line and nil otherwise."
+  "On src line, return lang and list of header properties.
+Return nil when not on src line."
   (let ((case-fold-search t) info lang hdr-args)
     (save-excursion
       (beginning-of-line)

@@ -84,14 +84,14 @@ Return nil when not on src line."
            ": "
            (mapconcat
             (lambda (elem)
-              (when-let* ((val (and (cdr elem)
-                                    (format "%s" (cdr elem))))
-                          (_ (not (string-empty-p val))))
-                (concat
-                 (propertize (symbol-name (car elem)) 'face 'org-list-dt)
-                 " "
-                 (propertize val 'face 'org-verbatim)
-                 " ")))
+              (when-let ((val (and (cdr elem)
+                                   (format "%s" (cdr elem)))))
+                (unless (string-empty-p val)
+                  (concat
+                   (propertize (symbol-name (car elem)) 'face 'org-list-dt)
+                   " "
+                   (propertize val 'face 'org-verbatim)
+                   " "))))
             hdr-args " ")))))))
 
 (defun org-eldoc-get-src-lang ()

@@ -49,9 +49,9 @@
   :group 'org)
 
 (defvar org-eval-light-example-size-cutoff 10
-  "The number of lines under which an example is considered
-'small', and is exported with the '^:' syntax instead of in a
-large example block")
+  "The number of lines under which an example is considered \"small\".
+Small examples are exported with the `^:' fixed width syntax instead
+of in a large example block.")
 
 (defvar org-eval-light-regexp nil)
 

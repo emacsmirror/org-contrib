@@ -319,7 +319,7 @@ With one `C-u' prefix, don't prompt interactively for the date
 and insert today's date."
   (interactive "P")
   (let* ((d (org-entry-get (point) org-expiry-expiry-property-name))
-	 d-time d-hour)
+	 d-time d-hour timestr)
     (setq d-time (if d (org-time-string-to-time d)
 		   (current-time)))
     (setq d-hour (format-time-string "%H:%M" d-time))

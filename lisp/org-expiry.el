@@ -251,7 +251,7 @@ Otherwise rely on `org-expiry-confirm-flag' to decide."
 	(if (or force
 		(null org-expiry-confirm-flag)
 		(and (eq org-expiry-confirm-flag 'interactive)
-		     (not (interactive)))
+		     (not (interactive-p)))
 		(and org-expiry-confirm-flag
 		     (y-or-n-p (format "Entry expired by %d days.  Process? " d))))
 	  (funcall org-expiry-handler-function))

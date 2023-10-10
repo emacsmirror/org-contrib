@@ -193,10 +193,10 @@ not change the current one."
 		(if (eq exit-after-next 'now) (throw 'exit t))
 		(goto-char (point-min))
 		(beginning-of-line 1)
-		(delete-region (point) (point-at-eol))
+		(delete-region (point) (line-end-position))
                 (insert "Query:    " current)
                 (beginning-of-line 2)
-                (delete-region (point) (point-at-eol))
+                (delete-region (point) (line-end-position))
                 (org-agenda-query-op-line op)
 		(goto-char (point-min)))))
       (if rtn current nil))))
@@ -233,12 +233,12 @@ keyword string."
   (if (equal op "=") current
     ;; When using AND, also remove mutually exclusive tags.
     (if (equal op "+")
-        (loop for g in groups do
-              (if (member tag g)
-                  (mapc (lambda (x)
-                          (setq current
-                                (org-agenda-query-clear current "\\+" x)))
-                        g))))
+        (cl-loop for g in groups do
+		 (if (member tag g)
+                     (mapc (lambda (x)
+                             (setq current
+                                   (org-agenda-query-clear current "\\+" x)))
+                           g))))
     ;; Decompose current query into q1 (tags) and q2 (TODOs).
     (org-agenda-query-decompose current)
     (let* ((q1 (match-string 1 current))
@@ -258,11 +258,11 @@ keyword string."
     (unless (and files (car files))
       (setq files (org-agenda-files)))
     (save-excursion
-      (loop for f in files do
-            (set-buffer (find-file-noselect f))
-            (loop for k in org-todo-key-alist do
-                  (setq alist (org-agenda-query-merge-todo-key
-                               alist k)))))
+      (cl-loop for f in files do
+               (set-buffer (find-file-noselect f))
+               (cl-loop for k in org-todo-key-alist do
+			(setq alist (org-agenda-query-merge-todo-key
+				     alist k)))))
     alist))
 
 (defun org-agenda-query-merge-todo-key (alist entry)

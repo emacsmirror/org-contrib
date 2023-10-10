@@ -225,8 +225,8 @@ not change the current one."
 (defun org-agenda-query-manip (current op groups kind tag)
   "Apply an operator to a query string and a tag.
 CURRENT is the current query string, OP is the operator, GROUPS is a
-list of lists of tags that are mutually exclusive.  KIND is 'tag for a
-regular tag, or 'todo for a TODO keyword, and TAG is the tag or
+list of lists of tags that are mutually exclusive.  KIND is \\='tag for a
+regular tag, or \\='todo for a TODO keyword, and TAG is the tag or
 keyword string."
   ;; If this tag is already in query string, remove it.
   (setq current (org-agenda-query-clear current "[-\\+&|]?" tag))

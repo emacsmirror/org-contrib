@@ -46,7 +46,7 @@
 ;;
 ;; git clone git://pmade.com/elisp
 (eval-when-compile
-  (require 'cl)
+  (require 'cl-lib)
   (require 'org))
 
 (declare-function org-duration-from-minutes "org-duration" (minutes &optional fmt fractional))

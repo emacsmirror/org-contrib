@@ -35,7 +35,7 @@
 
 (require 'org)
 (eval-when-compile
-  (require 'cl))
+  (require 'cl-lib))
 
 (defgroup org-learn nil
   "Options concerning the learning code in Org-mode."
@@ -112,7 +112,7 @@ OF matrix."
 	(mod2 (/ (1- interval-used) interval-used))
 	;; the number determining how many times the OF value will
 	;; increase or decrease
-	modifier)
+	modifier new-of)
     (if (< mod5 1.05)
 	(setq mod5 1.05))
     (if (< mod2 0.75)
@@ -137,8 +137,8 @@ OF matrix."
 (defvar initial-repetition-state '(-1 1 2.5 nil))
 
 (defun determine-next-interval (n ef quality of-matrix)
-  (assert (> n 0))
-  (assert (and (>= quality 0) (<= quality 5)))
+  (cl-assert (> n 0))
+  (cl-assert (and (>= quality 0) (<= quality 5)))
   (if (< quality 3)
       (list (inter-repetition-interval n ef) (1+ n) ef nil)
     (let ((next-ef (modify-e-factor ef quality)))
@@ -159,7 +159,7 @@ OF matrix."
   (let* ((learn-str (org-entry-get (point) "LEARN_DATA"))
 	 (learn-data (or (and learn-str
 			      (read learn-str))
-			 (copy-list initial-repetition-state)))
+			 (cl-copy-list initial-repetition-state)))
 	 closed-dates)
     (setq learn-data
 	  (determine-next-interval (nth 1 learn-data)
@@ -170,7 +170,7 @@ OF matrix."
     (if (= 0 (nth 0 learn-data))
 	(org-schedule t)
       (org-schedule nil (time-add (current-time)
-				  (days-to-time (nth 0 learn-data)))))))
+				(days-to-time (nth 0 learn-data)))))))
 
 (provide 'org-learn)
 

@@ -66,145 +66,153 @@ today's date"
   "Selects checked calendars in iCal.app and imports them into
 the the Emacs diary"
   (interactive)
+  (let ( currentBuffer openBuffers caldav-folders
+	 caldav-calendars local-calendars all-calendars
+         import-calendars usedCalendarsBuffers
+         usedCalendarsFiles)
+    ;; kill diary buffers then empty diary files to avoid duplicates
+    (setq currentBuffer (buffer-name))
+    (setq openBuffers (mapcar (function buffer-name) (buffer-list)))
+    (omi-kill-diary-buffer openBuffers)
+    (with-temp-buffer
+      (insert-file-contents diary-file)
+      (delete-region (point-min) (point-max))
+      (write-region (point-min) (point-max) diary-file))
 
-  ;; kill diary buffers then empty diary files to avoid duplicates
-  (setq currentBuffer (buffer-name))
-  (setq openBuffers (mapcar (function buffer-name) (buffer-list)))
-  (omi-kill-diary-buffer openBuffers)
-  (with-temp-buffer
-    (insert-file-contents diary-file)
-    (delete-region (point-min) (point-max))
-    (write-region (point-min) (point-max) diary-file))
-
-  ;; determine available calendars
-  (setq caldav-folders (directory-files "~/Library/Calendars" 1 ".*caldav$"))
-  (setq caldav-calendars nil)
-  (mapc
+    ;; determine available calendars
+    (setq caldav-folders (directory-files "~/Library/Calendars" 1 ".*caldav$"))
+    (setq caldav-calendars nil)
+    (mapc
      (lambda (x)
        (setq caldav-calendars (nconc caldav-calendars (directory-files x 1 ".*calendar$"))))
      caldav-folders)
 
-  (setq local-calendars nil)
-  (setq local-calendars (directory-files "~/Library/Calendars" 1 ".*calendar$"))
+    (setq local-calendars nil)
+    (setq local-calendars (directory-files "~/Library/Calendars" 1 ".*calendar$"))
 
-  (setq all-calendars (append caldav-calendars local-calendars))
+    (setq all-calendars (append caldav-calendars local-calendars))
 
-  ;; parse each calendar's Info.plist to see if calendar is checked in iCal
-  (setq all-calendars (delq 'nil (mapcar
-				    (lambda (x)
-				      (omi-checked x))
-				    all-calendars)))
+    ;; parse each calendar's Info.plist to see if calendar is checked in iCal
+    (setq all-calendars (delq 'nil (mapcar
+				  (lambda (x)
+				    (omi-checked x))
+				  all-calendars)))
 
-  ;; for each calendar, concatenate individual events into a single ics file
-  (with-temp-buffer
-    (shell-command "sw_vers" (current-buffer))
-    (when (re-search-backward "10\\.[5678]" nil t)
-      (omi-concat-leopard-ics all-calendars)))
+    ;; for each calendar, concatenate individual events into a single ics file
+    (with-temp-buffer
+      (shell-command "sw_vers" (current-buffer))
+      (when (re-search-backward "10\\.[5678]" nil t)
+	(omi-concat-leopard-ics all-calendars)))
 
-  ;; move all caldav ics files to the same place as local ics files
-  (mapc
-   (lambda (x)
-     (mapc
-      (lambda (y)
-        (rename-file (concat x "/" y);
-                     (concat "~/Library/Calendars/" y)))
-      (directory-files x nil ".*ics$")))
-   caldav-folders)
+    ;; move all caldav ics files to the same place as local ics files
+    (mapc
+     (lambda (x)
+       (mapc
+	(lambda (y)
+          (rename-file (concat x "/" y);
+                       (concat "~/Library/Calendars/" y)))
+	(directory-files x nil ".*ics$")))
+     caldav-folders)
 
-  ;; check calendar has contents and import
-  (setq import-calendars (directory-files "~/Library/Calendars" 1 ".*ics$"))
-  (mapc
-   (lambda (x)
-     (when (/= (nth 7 (file-attributes x 'string)) 0)
-       (omi-import-ics x)))
-   import-calendars)
+    ;; check calendar has contents and import
+    (setq import-calendars (directory-files "~/Library/Calendars" 1 ".*ics$"))
+    (mapc
+     (lambda (x)
+       (when (/= (nth 7 (file-attributes x 'string)) 0)
+	 (omi-import-ics x)))
+     import-calendars)
 
-  ;; tidy up intermediate files and buffers
-  (setq usedCalendarsBuffers (mapcar (function buffer-name) (buffer-list)))
-  (omi-kill-ics-buffer usedCalendarsBuffers)
-  (setq usedCalendarsFiles (directory-files "~/Library/Calendars" 1 ".*ics$"))
-  (omi-delete-ics-file usedCalendarsFiles)
+    ;; tidy up intermediate files and buffers
+    (setq usedCalendarsBuffers (mapcar (function buffer-name) (buffer-list)))
+    (omi-kill-ics-buffer usedCalendarsBuffers)
+    (setq usedCalendarsFiles (directory-files "~/Library/Calendars" 1 ".*ics$"))
+    (omi-delete-ics-file usedCalendarsFiles)
 
-  (org-pop-to-buffer-same-window currentBuffer))
+    (pop-to-buffer-same-window currentBuffer)))
 
 (defun omi-concat-leopard-ics (list)
   "Leopard stores each iCal.app event in a separate ics file.
 Whilst useful for Spotlight indexing, this is less helpful for
 icalendar-import-file. omi-concat-leopard-ics concatenates these
 individual event files into a single ics file"
-  (mapc
-   (lambda (x)
-     (setq omi-leopard-events (directory-files (concat x "/Events") 1 ".*ics$"))
-     (with-temp-buffer
-       (mapc
-	(lambda (y)
-	  (insert-file-contents (expand-file-name y)))
-	omi-leopard-events)
-       (write-region (point-min) (point-max) (concat (expand-file-name x) ".ics"))))
-   list))
+  (let (omi-leopard-events)
+    (mapc
+     (lambda (x)
+       (setq omi-leopard-events (directory-files (concat x "/Events") 1 ".*ics$"))
+       (with-temp-buffer
+	 (mapc
+	  (lambda (y)
+	    (insert-file-contents (expand-file-name y)))
+	  omi-leopard-events)
+	 (write-region (point-min) (point-max) (concat (expand-file-name x) ".ics"))))
+     list)))
 
 (defun omi-import-ics (string)
   "Imports an ics file into the Emacs diary. First tidies up the
 ics file so that it is suitable for import and selects a sensible
 date range so that Emacs calendar view doesn't grind to a halt"
-  (with-temp-buffer
-    (insert-file-contents string)
-    (goto-char (point-min))
-    (while
-	(re-search-forward "^BEGIN:VCALENDAR$" nil t)
-      (setq startEntry (match-beginning 0))
-      (re-search-forward "^END:VCALENDAR$" nil t)
-      (setq endEntry (match-end 0))
-      (save-restriction
-	(narrow-to-region startEntry endEntry)
-	(goto-char (point-min))
-	(re-search-forward "\\(^DTSTART;.*:\\)\\([0-9][0-9][0-9][0-9]\\)\\([0-9][0-9]\\)" nil t)
-	(if (or (eq (match-string 2) nil) (eq (match-string 3) nil))
-	    (progn
-	      (setq yearEntry 1)
-	      (setq monthEntry 1))
-	  (setq yearEntry (string-to-number (match-string 2)))
-	  (setq monthEntry (string-to-number (match-string 3))))
-	(setq year (string-to-number (format-time-string "%Y")))
-	(setq month (string-to-number (format-time-string "%m")))
-        (setq now (list month 1 year))
-        (setq entryDate (list monthEntry 1 yearEntry))
-        ;; Check to see if this is a repeating event
-        (goto-char (point-min))
-        (setq isRepeating (re-search-forward "^RRULE:" nil t))
-	;; Delete if outside range and not repeating
-        (when (and
-               (not isRepeating)
-               (> (abs (- (calendar-absolute-from-gregorian now)
-                          (calendar-absolute-from-gregorian entryDate)))
-                  (* (/ org-mac-iCal-range 2) 30))
-	  (delete-region startEntry endEntry)))
-          (goto-char (point-max))))
-    (while
-	(re-search-forward "^END:VEVENT$" nil t)
-      (delete-blank-lines))
-    (goto-line 1)
-    (insert "BEGIN:VCALENDAR\n\n")
-    (goto-line 2)
-    (while
-	(re-search-forward "^BEGIN:VCALENDAR$" nil t)
-      (replace-match "\n"))
-    (goto-line 2)
-    (while
+  (let ( startEntry endEntry yearEntry monthEntry
+	 year month now entryDate isRepeating)
+    (with-temp-buffer
+      (insert-file-contents string)
+      (goto-char (point-min))
+      (while
+	  (re-search-forward "^BEGIN:VCALENDAR$" nil t)
+	(setq startEntry (match-beginning 0))
 	(re-search-forward "^END:VCALENDAR$" nil t)
-      (replace-match "\n"))
-    (insert "END:VCALENDAR")
-    (goto-line 1)
-    (delete-blank-lines)
-    (while
-	(re-search-forward "^END:VEVENT$" nil t)
-      (delete-blank-lines))
-    (goto-line 1)
-    (while
-	(re-search-forward "^ORG.*" nil t)
-      (replace-match "\n"))
-    (goto-line 1)
-    (write-region (point-min) (point-max) string))
+	(setq endEntry (match-end 0))
+	(save-restriction
+	  (narrow-to-region startEntry endEntry)
+	  (goto-char (point-min))
+	  (re-search-forward "\\(^DTSTART;.*:\\)\\([0-9][0-9][0-9][0-9]\\)\\([0-9][0-9]\\)" nil t)
+	  (if (or (eq (match-string 2) nil) (eq (match-string 3) nil))
+	      (progn
+		(setq yearEntry 1)
+		(setq monthEntry 1))
+	    (setq yearEntry (string-to-number (match-string 2)))
+	    (setq monthEntry (string-to-number (match-string 3))))
+	  (setq year (string-to-number (format-time-string "%Y")))
+	  (setq month (string-to-number (format-time-string "%m")))
+          (setq now (list month 1 year))
+          (setq entryDate (list monthEntry 1 yearEntry))
+          ;; Check to see if this is a repeating event
+          (goto-char (point-min))
+          (setq isRepeating (re-search-forward "^RRULE:" nil t))
+	  ;; Delete if outside range and not repeating
+          (when (and
+		 (not isRepeating)
+		 (> (abs (- (calendar-absolute-from-gregorian now)
+                            (calendar-absolute-from-gregorian entryDate)))
+                    (* (/ org-mac-iCal-range 2) 30)))
+            (delete-region startEntry endEntry))
+          (goto-char (point-max))))
+      (while
+	  (re-search-forward "^END:VEVENT$" nil t)
+	(delete-blank-lines))
+      (goto-char (point-min))
+      (insert "BEGIN:VCALENDAR\n\n")
+      (goto-char (point-min))
+      (forward-line 1)
+      (while
+	  (re-search-forward "^BEGIN:VCALENDAR$" nil t)
+	(replace-match "\n"))
+      (goto-char (point-min))
+      (forward-line 1)
+      (while
+	  (re-search-forward "^END:VCALENDAR$" nil t)
+	(replace-match "\n"))
+      (insert "END:VCALENDAR")
+      (goto-char (point-min))
+      (delete-blank-lines)
+      (while
+	  (re-search-forward "^END:VEVENT$" nil t)
+	(delete-blank-lines))
+      (goto-char (point-min))
+      (while
+	  (re-search-forward "^ORG.*" nil t)
+	(replace-match "\n"))
+      (goto-char (point-min))
+      (write-region (point-min) (point-max) string)))
 
   (icalendar-import-file string diary-file))
 

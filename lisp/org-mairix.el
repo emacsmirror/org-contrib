@@ -123,12 +123,12 @@ it."
                          :link (org-mairix-construct-link mid))))
     (apply 'org-store-link-props
            (append org-store-link-plist
-                   (list :description (org-email-link-description))))))
+                   (list :description (org-link-email-description))))))
 
 (defun org-mairix-message-send-and-exit-with-link ()
   "Function that can be assigned as an alternative sending function,
 it sends the message and then stores a mairix link to it before burying
-the buffer just like 'message-send-and-exit' does."
+the buffer just like `message-send-and-exit' does."
   (interactive)
   (message-send)
   (let* ((message-id (message-fetch-field "Message-Id"))
@@ -146,7 +146,7 @@ We first need to split it into its individual parts, and then
 extract the message-id to be passed on to the display function
 before call mairix, evaluate the number of matches returned, and
 make sure to only call display of mairix succeeded in matching."
-  (let* ((args ""))
+  (let* ((args "") retval matches)
     (if (equal (substring search 0 2) "t:" )
         (progn (setq search (substring search 2 nil))
                (setq args (concat args " --threads"))))
@@ -246,7 +246,7 @@ along with general mairix configuration."
   :type 'string)
 
 (defcustom org-mairix-gnus-select-display-group-function
-'org-mairix-gnus-select-display-group-function-gg
+  'org-mairix-gnus-select-display-group-function-gg
   "Hook to call to select the group that contains the matching articles.
 We should not need this, it is owed to a problem of gnus that people were
 not yet able to figure out, see
@@ -255,8 +255,8 @@ not yet able to figure out, see
  http://article.gmane.org/gmane.emacs.gnus.user/9596
 for reference.
 
-It seems gnus needs a 'forget/ignore everything you think you
-know about that group' function. Volunteers?"
+It seems gnus needs a \"forget/ignore everything you think you
+know about that group\" function. Volunteers?"
   :group 'org-mairix-gnus
   :type 'hook)
 
@@ -288,31 +288,31 @@ If you can improve this, please do!"
   (if (not (equal (substring search 0 2) "m:" ))
       (error "org-mairix-gnus-display-results: display of search other than
 message-id not implemented yet"))
-  (setq message-id (substring search 2 nil))
-  (require 'gnus)
-  (require 'gnus-sum)
-  ;; FIXME: (bzg/gg) We might need to make sure gnus is running here,
-  ;;        and to start it in case it isn't running already. Does
-  ;;        anyone know a function to do that? It seems main org mode
-  ;;        does not do this, either.
-  (funcall (cdr (assq 'gnus org-link-frame-setup)))
-  (if gnus-other-frame-object (select-frame gnus-other-frame-object))
+  (let ((message-id (substring search 2 nil)))
+    (require 'gnus)
+    (require 'gnus-sum)
+    ;; FIXME: (bzg/gg) We might need to make sure gnus is running here,
+    ;;        and to start it in case it isn't running already. Does
+    ;;        anyone know a function to do that? It seems main org mode
+    ;;        does not do this, either.
+    (funcall (cdr (assq 'gnus org-link-frame-setup)))
+    (if gnus-other-frame-object (select-frame gnus-other-frame-object))
 
-  ;; FIXME: This is horribly broken. Please see
-  ;;  http://article.gmane.org/gmane.emacs.gnus.general/65248
-  ;;  http://article.gmane.org/gmane.emacs.gnus.general/65265
-  ;;  http://article.gmane.org/gmane.emacs.gnus.user/9596
-  ;; for reference.
-  ;;
-  ;; It seems gnus needs a "forget/ignore everything you think you
-  ;; know about that group" function. Volunteers?
-  ;;
-  ;; For now different methods seem to work differently well for
-  ;; different people. So we're playing hook-selection here to make
-  ;; it easy to play around until we found a proper solution.
-  (run-hook-with-args 'org-mairix-gnus-select-display-group-function)
-  (gnus-summary-select-article
-   nil t t (car (gnus-find-matching-articles "message-id" message-id))))
+    ;; FIXME: This is horribly broken. Please see
+    ;;  http://article.gmane.org/gmane.emacs.gnus.general/65248
+    ;;  http://article.gmane.org/gmane.emacs.gnus.general/65265
+    ;;  http://article.gmane.org/gmane.emacs.gnus.user/9596
+    ;; for reference.
+    ;;
+    ;; It seems gnus needs a "forget/ignore everything you think you
+    ;; know about that group" function. Volunteers?
+    ;;
+    ;; For now different methods seem to work differently well for
+    ;; different people. So we're playing hook-selection here to make
+    ;; it easy to play around until we found a proper solution.
+    (run-hook-with-args 'org-mairix-gnus-select-display-group-function)
+    (gnus-summary-select-article
+     nil t t (car (gnus-find-matching-articles "message-id" message-id)))))
 
 (defun org-mairix-gnus-select-display-group-function-gg ()
   "Georg's hack to select a group that gnus (falsely) believes to be

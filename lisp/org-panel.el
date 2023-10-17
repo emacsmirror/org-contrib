@@ -89,106 +89,125 @@ active.)"
 ;; Fix-me: add org-mode-map
 (defconst orgpan-org-mode-commands nil)
 (defconst orgpan-org-commands
- '(
-   orgpan-copy-subtree
-   orgpan-cut-subtree
-   orgpan-paste-subtree
-   undo
-   ;;
-   ;orgpan-occur
-   ;;
-   org-cycle
-   org-global-cycle
-   outline-up-heading
-   outline-next-visible-heading
-   outline-previous-visible-heading
-   outline-forward-same-level
-   outline-backward-same-level
-   org-todo
-   org-show-todo-tree
-   org-priority-up
-   org-priority-down
-   org-move-subtree-up
-   org-move-subtree-down
-   org-do-promote
-   org-do-demote
-   org-promote-subtree
-   org-demote-subtree))
+  '(
+    orgpan-copy-subtree
+    orgpan-cut-subtree
+    orgpan-paste-subtree
+    undo
+    ;;
+					;orgpan-occur
+    ;;
+    org-cycle
+    org-global-cycle
+    outline-up-heading
+    outline-next-visible-heading
+    outline-previous-visible-heading
+    outline-forward-same-level
+    outline-backward-same-level
+    org-todo
+    org-show-todo-tree
+    org-priority-up
+    org-priority-down
+    org-move-subtree-up
+    org-move-subtree-down
+    org-do-promote
+    org-do-demote
+    org-promote-subtree
+    org-demote-subtree))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Hook functions etc
 
+(defvar orgpan-panel-buffer nil
+  "The panel buffer.
+There can be only one such buffer at any time.")
+
+(defvar orgpan-panel-window nil
+  "The window showing `orgpan-panel-buffer'.")
+
 (defun orgpan-delete-panel ()
- "Remove the panel."
- (interactive)
- (when (buffer-live-p orgpan-panel-buffer)
-   (delete-windows-on orgpan-panel-buffer)
-   (kill-buffer orgpan-panel-buffer))
- (setq orgpan-panel-buffer nil)
- (setq orgpan-panel-window nil)
- (orgpan-panel-minor-mode 0)
- (remove-hook 'post-command-hook 'orgpan-minor-post-command)
- (remove-hook 'post-command-hook 'orgpan-mode-post-command)
- ;;(remove-hook 'window-configuration-change-hook 'orgpan-window-config-change)
- )
+  "Remove the panel."
+  (interactive)
+  (when (buffer-live-p orgpan-panel-buffer)
+    (delete-windows-on orgpan-panel-buffer)
+    (kill-buffer orgpan-panel-buffer))
+  (setq orgpan-panel-buffer nil)
+  (setq orgpan-panel-window nil)
+  (orgpan-panel-minor-mode 0)
+  (remove-hook 'post-command-hook 'orgpan-minor-post-command)
+  (remove-hook 'post-command-hook 'orgpan-mode-post-command)
+  ;;(remove-hook 'window-configuration-change-hook 'orgpan-window-config-change)
+  )
+
+(defvar orgpan-org-window nil)
+;;(make-variable-buffer-local 'orgpan-org-window)
+
+(defvar orgpan-last-org-buffer nil)
+;;(make-variable-buffer-local 'orgpan-last-org-buffer)
+
+(defvar orgpan-org-buffer nil)
+;;(make-variable-buffer-local 'orgpan-org-buffer)
 
 (defvar orgpan-last-command-was-from-panel nil)
 (defun orgpan-mode-pre-command ()
- (setq orgpan-last-command-was-from-panel nil)
- (condition-case err
-     (if (not (and (windowp orgpan-org-window)
-                   (window-live-p orgpan-org-window)))
-         (progn
-           (setq this-command 'ignore)
-           (orgpan-delete-panel)
-           (message "The window belonging to the panel had disappeared, removed panel."))
-       (let ((buf (window-buffer orgpan-org-window)))
-         (when (with-current-buffer buf
-                 (derived-mode-p 'org-mode))
-           (setq orgpan-last-org-buffer buf))
-         ;; Fix me: add a list of those commands that are not
-         ;; meaningful from the panel (for example org-time-stamp)
-         (when (or (memq this-command orgpan-org-commands)
-                   (memq this-command orgpan-org-mode-commands)
-                   ;; For some reason not all org commands are found above:
-                   (string= "org-" (substring (format "%s" this-command) 0 4)))
-           (if (not (with-current-buffer buf
-                      (derived-mode-p 'org-mode)))
-               (progn
-                 (if (buffer-live-p orgpan-org-buffer)
-                     (set-window-buffer orgpan-org-window orgpan-org-buffer)
-                   (message "Please use `l' or `b' to choose an org-mode buffer"))
-                 (setq this-command 'ignore))
-             (setq orgpan-org-buffer (window-buffer orgpan-org-window))
-             (setq orgpan-last-command-was-from-panel t)
-             (select-window orgpan-org-window)
-             ;;(when (active-minibuffer-window
-             ;;(set-buffer orgpan-org-buffer)
-             ))))
-   (error (lwarn 't :warning "orgpan-pre: %S" err))))
+  (setq orgpan-last-command-was-from-panel nil)
+  (condition-case err
+      (if (not (and (windowp orgpan-org-window)
+                  (window-live-p orgpan-org-window)))
+          (progn
+            (setq this-command 'ignore)
+            (orgpan-delete-panel)
+            (message "The window belonging to the panel had disappeared, removed panel."))
+	(let ((buf (window-buffer orgpan-org-window)))
+          (when (with-current-buffer buf
+                  (derived-mode-p 'org-mode))
+            (setq orgpan-last-org-buffer buf))
+          ;; Fix me: add a list of those commands that are not
+          ;; meaningful from the panel (for example org-time-stamp)
+          (when (or (memq this-command orgpan-org-commands)
+                    (memq this-command orgpan-org-mode-commands)
+                    ;; For some reason not all org commands are found above:
+                    (string= "org-" (substring (format "%s" this-command) 0 4)))
+            (if (not (with-current-buffer buf
+                     (derived-mode-p 'org-mode)))
+		(progn
+                  (if (buffer-live-p orgpan-org-buffer)
+                      (set-window-buffer orgpan-org-window orgpan-org-buffer)
+                    (message "Please use `l' or `b' to choose an org-mode buffer"))
+                  (setq this-command 'ignore))
+              (setq orgpan-org-buffer (window-buffer orgpan-org-window))
+              (setq orgpan-last-command-was-from-panel t)
+              (select-window orgpan-org-window)
+              ;;(when (active-minibuffer-window
+              ;;(set-buffer orgpan-org-buffer)
+              ))))
+    (error (lwarn 't :warning "orgpan-pre: %S" err))))
+
+(defvar orgpan-point nil)
+;;(make-variable-buffer-local 'orgpan-point)
 
 (defun orgpan-mode-post-command ()
- (condition-case err
-     (progn
-       (unless (and (windowp orgpan-panel-window)
-                    (window-live-p orgpan-panel-window)
-                    (bufferp orgpan-panel-buffer)
-                    (buffer-live-p orgpan-panel-buffer))
-         ;;(orgpan-delete-panel)
-         )
-       (when (and orgpan-last-command-was-from-panel
-                  (windowp orgpan-panel-window)
-                  (window-live-p orgpan-panel-window))
-         (select-window orgpan-panel-window)
-         (when (derived-mode-p 'orgpan-mode)
-           (setq deactivate-mark t)
-           (when orgpan-panel-buttons
-             (unless (and orgpan-point
-                          (= (point) orgpan-point))
-               ;; Go backward so it is possible to click on a "button":
-               (orgpan-backward-field))))))
-   (error (lwarn 't :warning "orgpan-post: %S" err))))
+  (condition-case err
+      (progn
+	;; (unless (and (windowp orgpan-panel-window)
+        ;;              (window-live-p orgpan-panel-window)
+        ;;              (bufferp orgpan-panel-buffer)
+        ;;              (buffer-live-p orgpan-panel-buffer))
+        ;;   ;;(orgpan-delete-panel)
+        ;;   )
+	(when (and orgpan-last-command-was-from-panel
+                   (windowp orgpan-panel-window)
+                   (window-live-p orgpan-panel-window))
+          (select-window orgpan-panel-window)
+          (when (derived-mode-p 'orgpan-mode)
+            (setq deactivate-mark t)
+            (when orgpan-panel-buttons
+              (unless (and orgpan-point
+                           (= (point) orgpan-point))
+		;; Go backward so it is possible to click on a "button":
+		(orgpan-backward-field))))))
+    (error (lwarn 't :warning "orgpan-post: %S" err))))
 
 ;; (defun orgpan-window-config-change ()
 ;;   "Check if any frame is displaying an orgpan panel.
@@ -356,33 +375,13 @@ active.)"
    map))
 
 (defun orgpan-occur ()
- "Replacement for `org-occur'.
+  "Replacement for `org-occur'.
 Technical reasons."
- (interactive)
- (let ((rgx (read-from-minibuffer "my mini Regexp: ")))
-   (setq orgpan-last-command-was-from-panel t)
-   (select-window orgpan-org-window)
-   (org-occur rgx)))
-
-(defvar orgpan-panel-window nil
- "The window showing `orgpan-panel-buffer'.")
-
-(defvar orgpan-panel-buffer nil
- "The panel buffer.
-There can be only one such buffer at any time.")
-
-(defvar orgpan-org-window nil)
-;;(make-variable-buffer-local 'orgpan-org-window)
-
-;; Fix-me: used?
-(defvar orgpan-org-buffer nil)
-;;(make-variable-buffer-local 'orgpan-org-buffer)
-
-(defvar orgpan-last-org-buffer nil)
-;;(make-variable-buffer-local 'orgpan-last-org-buffer)
-
-(defvar orgpan-point nil)
-;;(make-variable-buffer-local 'orgpan-point)
+  (interactive)
+  (let ((rgx (read-from-minibuffer "my mini Regexp: ")))
+    (setq orgpan-last-command-was-from-panel t)
+    (select-window orgpan-org-window)
+    (org-occur rgx)))
 
 (defvar viper-emacs-state-mode-list)
 (defvar viper-new-major-mode-buffer-list)
@@ -547,7 +546,7 @@ There can be only one such buffer at any time.")
  )
 
 (defun orgpan-panel ()
- "Create a control panel for current `org-mode' buffer.
+  "Create a control panel for current `org-mode' buffer.
 The control panel may be used to quickly move around and change
 the headings. The idea is that when you want to to a lot of this
 kind of editing you should be able to do that with few
@@ -570,55 +569,54 @@ Note: There are two forms of the control panel, one with buttons
 and one without. The default is without, see
 `orgpan-panel-buttons'.  If buttons are used choosing a different
 button changes the binding of the arrow keys."
- (interactive)
- (unless (derived-mode-p 'org-mode)
-   (error "Buffer is not in org-mode"))
- (orgpan-delete-panel)
- (unless orgpan-org-mode-commands
-   (map-keymap (lambda (ev def)
-                 (when (and def
-                            (symbolp def)
-                            (fboundp def))
-                   (setq orgpan-org-mode-commands
-                         (cons def orgpan-org-mode-commands))))
-               org-mode-map))
- ;;(org-back-to-heading)
- ;;(remove-hook 'window-configuration-change-hook 'orgpan-window-config-change)
- (setq orgpan-org-window (selected-window))
- (setq orgpan-panel-window (split-window nil -4 'below))
- (select-window orgpan-panel-window)
- (set-window-buffer (selected-window) (orgpan-make-panel-buffer))
- ;;(set-window-dedicated-p (selected-window) t)
- ;; The minor mode version starts here:
- (when orgpan-minor-mode-version
-   (select-window orgpan-org-window)
-   (orgpan-panel-minor-mode 1)
-   (add-hook 'post-command-hook 'orgpan-minor-post-command t)))
-
-(defun orgpan-minor-post-command ()
- (unless (and
-          ;; Check org window and buffer
-          (windowp orgpan-org-window)
-          (window-live-p orgpan-org-window)
-          (eq orgpan-org-window (selected-window))
-          (derived-mode-p 'org-mode)
-          ;; Check panel window and buffer
-          (windowp orgpan-panel-window)
-          (window-live-p orgpan-panel-window)
-          (bufferp orgpan-panel-buffer)
-          (buffer-live-p orgpan-panel-buffer)
-          (eq (window-buffer orgpan-panel-window) orgpan-panel-buffer)
-          ;; Check minor mode
-          orgpan-panel-minor-mode)
-   (orgpan-delete-panel)))
+  (interactive)
+  (unless (derived-mode-p 'org-mode)
+    (error "Buffer is not in org-mode"))
+  (orgpan-delete-panel)
+  (unless orgpan-org-mode-commands
+    (map-keymap (lambda (ev def)
+                  (when (and def
+                             (symbolp def)
+                             (fboundp def))
+                    (setq orgpan-org-mode-commands
+                          (cons def orgpan-org-mode-commands))))
+		org-mode-map))
+  ;;(org-back-to-heading)
+  ;;(remove-hook 'window-configuration-change-hook 'orgpan-window-config-change)
+  (setq orgpan-org-window (selected-window))
+  (setq orgpan-panel-window (split-window nil -4 'below))
+  (select-window orgpan-panel-window)
+  (set-window-buffer (selected-window) (orgpan-make-panel-buffer))
+  ;;(set-window-dedicated-p (selected-window) t)
+  ;; The minor mode version starts here:
+  (when orgpan-minor-mode-version
+    (select-window orgpan-org-window)
+    (orgpan-panel-minor-mode 1)
+    (add-hook 'post-command-hook 'orgpan-minor-post-command t)))
 
 (define-minor-mode orgpan-panel-minor-mode
- "Minor mode used in `org-mode' buffer when showing panel."
- :keymap orgpan-mode-map
- :lighter " PANEL"
- :group 'orgpan
- )
+  "Minor mode used in `org-mode' buffer when showing panel."
+  :keymap orgpan-mode-map
+  :lighter " PANEL"
+  :group 'orgpan
+  )
 
+(defun orgpan-minor-post-command ()
+  (unless (and
+           ;; Check org window and buffer
+           (windowp orgpan-org-window)
+           (window-live-p orgpan-org-window)
+           (eq orgpan-org-window (selected-window))
+           (derived-mode-p 'org-mode)
+           ;; Check panel window and buffer
+           (windowp orgpan-panel-window)
+           (window-live-p orgpan-panel-window)
+           (bufferp orgpan-panel-buffer)
+           (buffer-live-p orgpan-panel-buffer)
+           (eq (window-buffer orgpan-panel-window) orgpan-panel-buffer)
+           ;; Check minor mode
+           orgpan-panel-minor-mode)
+    (orgpan-delete-panel)))
 
 (provide 'org-panel)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

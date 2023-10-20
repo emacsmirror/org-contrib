@@ -204,7 +204,6 @@ Return nil when not on src line."
       (add-function :before-until (local 'eldoc-documentation-function)
 		    #'org-eldoc-documentation-function)))))
 
-;;;###autoload
 (add-hook 'org-mode-hook #'org-eldoc-load)
 
 (provide 'org-eldoc)

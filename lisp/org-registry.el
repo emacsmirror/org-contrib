@@ -64,7 +64,7 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'cl))
+  (require 'cl-lib))
 
 (defgroup org-registry nil
   "A registry for Org."

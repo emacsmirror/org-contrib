@@ -1,4 +1,4 @@
-;;; ob-csharp.el --- org-babel functions for csharp evaluation
+;;; ob-csharp.el --- org-babel functions for csharp evaluation  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2011-2021 Free Software Foundation, Inc.
 
@@ -55,11 +55,12 @@ parameters may be used, like mcs -warnaserror+"
 	 (cmpflag (or (cdr (assq :cmpflag params)) ""))
 	 (cmdline (or (cdr (assq :cmdline params)) ""))
 	 (src-file (org-babel-temp-file "csharp-src-" ".cs"))
-	 (exe-file (concat (file-name-sans-extension src-file)  ".exe"))
-	 (compile
-	  (progn (with-temp-file  src-file (insert full-body))
-		 (org-babel-eval
-		  (concat org-babel-csharp-compiler " " cmpflag " "  src-file) ""))))
+	 (exe-file (concat (file-name-sans-extension src-file)  ".exe")))
+    ;; compile
+    (with-temp-file  src-file (insert full-body))
+    (org-babel-eval
+     (concat org-babel-csharp-compiler " " cmpflag " "  src-file) "")
+    ;; execute
     (let ((results (org-babel-eval (concat org-babel-csharp-command " " cmdline " " exe-file) "")))
       (org-babel-reassemble-table
        (org-babel-result-cond (cdr (assq :result-params params))
@@ -72,7 +73,7 @@ parameters may be used, like mcs -warnaserror+"
        (org-babel-pick-name
         (cdr (assq :rowname-names params)) (cdr (assq :rownames params)))))))
 
-(defun org-babel-prep-session:csharp (session params)
+(defun org-babel-prep-session:csharp (_session _params)
   "Return an error because csharp does not support sessions."
   (error "Sessions are not supported for CSharp"))
 

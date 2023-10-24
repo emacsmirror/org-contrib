@@ -1,4 +1,4 @@
-;;; ob-fomus.el --- Org-babel functions for fomus evaluation
+;;; ob-fomus.el --- Org-babel functions for fomus evaluation  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2011-2014, 2021 Torsten Anders
 
@@ -64,8 +64,7 @@
 (defun org-babel-execute:fomus (body params)
   "Execute a block of Fomus code with org-babel.
 This function is called by `org-babel-execute-src-block'."
-  (let* ((result-params (cdr (assq :result-params params)))
-	 (out-file (cdr (assq :file params)))
+  (let* ((out-file (cdr (assq :file params)))
 	 (cmdline (cdr (assq :cmdline params)))
 	 (cmd (or (cdr (assq :cmd params)) "fomus"))
 	 (in-file (org-babel-temp-file "fomus-" ".fms")))
@@ -83,7 +82,7 @@ This function is called by `org-babel-execute-src-block'."
 	     " -o " (org-babel-process-file-name out-file)) "")
     nil)) ;; signal that output has already been written to file
 
-(defun org-babel-prep-session:fomus (session params)
+(defun org-babel-prep-session:fomus (_session _params)
   "Return an error because Fomus does not support sessions."
   (error "Fomus does not support sessions"))
 

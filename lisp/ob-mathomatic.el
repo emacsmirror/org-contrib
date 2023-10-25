@@ -1,4 +1,4 @@
-;;; ob-mathomatic.el --- Org-babel functions for mathomatic evaluation
+;;; ob-mathomatic.el --- Org-babel functions for mathomatic evaluation  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2009-2021  Free Software Foundation, Inc.
 
@@ -114,7 +114,7 @@ called by `org-babel-execute-src-block'."
 	  (with-temp-file tmp-file (insert result))
 	  (org-babel-import-elisp-from-file tmp-file))))))
 
-(defun org-babel-prep-session:mathomatic (session params)
+(defun org-babel-prep-session:mathomatic (_session _params)
   (error "Mathomatic does not support sessions"))
 
 (defun org-babel-mathomatic-var-to-mathomatic (pair)

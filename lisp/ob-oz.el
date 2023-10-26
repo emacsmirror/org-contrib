@@ -1,4 +1,4 @@
-;;; ob-oz.el --- Org-babel functions for Oz evaluation
+;;; ob-oz.el --- Org-babel functions for Oz evaluation  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2009-2014, 2021 Torsten Anders and Eric Schulte
 
@@ -139,9 +139,9 @@ StartOzServer.oz is located.")
 
 (defvar org-babel-oz-collected-result nil
   "Aux var to hand result from org-babel-oz-filter to oz-send-string-expression.")
-(defun org-babel-oz-filter (proc string)
+(defun org-babel-oz-filter (_proc string)
   "Processes output from socket org-babel-oz-OPI-socket."
-;;   (setq org-babel-oz-collected-results (cons string org-babel-oz-collected-results))
+  ;;   (setq org-babel-oz-collected-results (cons string org-babel-oz-collected-results))
   (setq org-babel-oz-collected-result string)
   )
 
@@ -238,7 +238,7 @@ called by `org-babel-execute-src-block' via multiple-value-bind."
 
 ;; This function should be used to assign any variables in params in
 ;; the context of the session environment.
-(defun org-babel-prep-session:oz (session params)
+(defun org-babel-prep-session:oz (_session _params)
   "Prepare SESSION according to the header arguments specified in PARAMS."
   (error "org-babel-prep-session:oz unimplemented"))
 ;; TODO: testing... (copied from org-babel-haskell.el)
@@ -268,7 +268,7 @@ called by `org-babel-execute-src-block' via multiple-value-bind."
 ;;
 ;; BUG: does not work yet. Error: ad-Orig-error: buffer none doesn't exist or has no process
 ;; UNUSED DEF
-(defun org-babel-oz-initiate-session (&optional session params)
+(defun org-babel-oz-initiate-session (&optional session _params)
   "If there is not a current inferior-process-buffer in SESSION
 then create.  Return the initialized session."
   (unless (string= session "none")
@@ -288,7 +288,7 @@ specifying a var of the same value."
     ))
 
 ;; TODO:
-(defun org-babel-oz-table-or-string (results)
+(defun org-babel-oz-table-or-string (_results)
   "If the results look like a table, then convert them into an
 Emacs-lisp table, otherwise return the results as a string."
   (error "org-babel-oz-table-or-string unimplemented"))

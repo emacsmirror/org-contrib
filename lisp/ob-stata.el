@@ -42,6 +42,7 @@
 ;;; Code:
 (require 'ob)
 (require 'cl-lib)
+(require 'ess-custom) ; for `inferior-STA-program'
 
 (declare-function orgtbl-to-csv "org-table" (table params))
 (declare-function stata "ext:ess-stata" (&optional start-args))
@@ -66,7 +67,7 @@
 ;; only ':results output' currently works, so make that the default
 (defvar org-babel-default-header-args:stata '((:results . "output")))
 
-(defcustom org-babel-stata-command inferior-STA-program-name
+(defcustom org-babel-stata-command inferior-STA-program
   "Name of command to use for executing stata code."
   :group 'org-babel
   :version "24.4"

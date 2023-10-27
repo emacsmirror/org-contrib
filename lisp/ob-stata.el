@@ -1,4 +1,4 @@
-;;; ob-stata.el --- org-babel functions for stata code evaluation
+;;; ob-stata.el --- org-babel functions for stata code evaluation  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2014, 2021 Ista Zahn
 ;; Author: Ista Zahn istazahn@gmail.com
@@ -161,7 +161,7 @@ This function is called by `org-babel-execute-src-block'."
       (concat "\"" (mapconcat 'identity (split-string s "\"") "\"\"") "\"")
     (format "%S" s)))
 
-(defun org-babel-stata-assign-elisp (name value colnames-p rownames-p)
+(defun org-babel-stata-assign-elisp (name value _colnames-p _rownames-p)
   "Construct stata code assigning the elisp VALUE to a variable named NAME."
   (if (listp value)
       (let ((max (apply #'max (mapcar #'length (cl-remove-if-not
@@ -176,9 +176,11 @@ This function is called by `org-babel-execute-src-block'."
 	   (orgtbl-to-csv value '(:fmt org-babel-stata-quote-csv-field))
 	   "\n"))
 	(let ((file (org-babel-process-file-name transition-file 'noquote))
-	      (header (if (or (eq (nth 1 value) 'hline) colnames-p)
-			  "TRUE" "FALSE"))
-	      (row-names (if rownames-p "1" "NULL")))
+              ;; FIXME: unused.
+	      ;; (header (if (or (eq (nth 1 value) 'hline) colnames-p)
+	      ;; 		  "TRUE" "FALSE"))
+	      ;; (row-names (if rownames-p "1" "NULL"))
+	      )
 	  (if (= max min)
 	      (format "%s = insheet using \"%s\"" name file)
 	    (format "%s = insheet using \"%s\""
@@ -234,7 +236,7 @@ current code buffer."
      body result-type result-params column-names-p row-names-p)))
 
 (defun org-babel-stata-evaluate-external-process
-    (body result-type result-params column-names-p row-names-p)
+    (body result-type result-params column-names-p _row-names-p)
   "Evaluate BODY in external stata process.
 If RESULT-TYPE equals \\='output then return standard output as a
 string.  If RESULT-TYPE equals \\='value then return the value of the
@@ -256,7 +258,7 @@ last statement in BODY, as elisp."
     (output (org-babel-eval org-babel-stata-command body))))
 
 (defun org-babel-stata-evaluate-session
-    (session body result-type result-params column-names-p row-names-p)
+    (session body result-type result-params column-names-p _row-names-p)
   "Evaluate BODY in SESSION.
 If RESULT-TYPE equals \\='output then return standard output as a
 string.  If RESULT-TYPE equals \\='value then return the value of the

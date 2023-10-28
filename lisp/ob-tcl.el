@@ -1,4 +1,4 @@
-;;; ob-tcl.el --- Org-babel functions for tcl evaluation
+;;; ob-tcl.el --- Org-babel functions for tcl evaluation  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2009-2021  Free Software Foundation, Inc.
 
@@ -47,11 +47,10 @@
   "Execute a block of Tcl code with Babel.
 This function is called by `org-babel-execute-src-block'."
   (let* ((session (cdr (assq :session params)))
-         (result-params (cdr (assq :result-params params)))
          (result-type (cdr (assq :result-type params)))
          (full-body (org-babel-expand-body:generic
 		     body params (org-babel-variable-assignments:tcl params)))
-	(session (org-babel-tcl-initiate-session session)))
+	 (session (org-babel-tcl-initiate-session session)))
     (org-babel-reassemble-table
      (org-babel-tcl-evaluate session full-body result-type)
      (org-babel-pick-name
@@ -59,7 +58,7 @@ This function is called by `org-babel-execute-src-block'."
      (org-babel-pick-name
       (cdr (assq :rowname-names params)) (cdr (assq :rownames params))))))
 
-(defun org-babel-prep-session:tcl (session params)
+(defun org-babel-prep-session:tcl (_session _params)
   "Prepare SESSION according to the header arguments in PARAMS."
   (error "Sessions are not supported for Tcl"))
 
@@ -84,9 +83,9 @@ specifying a var of the same value."
 
 (defvar org-babel-tcl-buffers '(:default . nil))
 
-(defun org-babel-tcl-initiate-session (&optional session params)
+(defun org-babel-tcl-initiate-session (&optional _session _params)
   "Return nil because sessions are not supported by tcl."
-nil)
+  nil)
 
 (defvar org-babel-tcl-wrapper-method
   "

@@ -1,4 +1,4 @@
-;;; ol-bookmark.el --- Links to bookmarks
+;;; ol-bookmark.el --- Links to bookmarks  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2008-2021 Free Software Foundation, Inc.
 ;;

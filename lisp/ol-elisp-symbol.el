@@ -1,4 +1,4 @@
-;;; ol-elisp-symbol.el --- Links to Emacs-lisp symbols
+;;; ol-elisp-symbol.el --- Links to Emacs-lisp symbols  -*- lexical-binding: t; -*-
 ;;
 ;; Copyright 2007-2021 Free Software Foundation, Inc.
 ;;

@@ -1,4 +1,4 @@
-;;; ol-git-link.el --- Links to specific file version
+;;; ol-git-link.el --- Links to specific file version  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2009-2014, 2021  Reimar Finken
 

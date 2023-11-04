@@ -1,4 +1,4 @@
-;;; ol-mew.el --- Links to Mew messages
+;;; ol-mew.el --- Links to Mew messages  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2008-2021 Free Software Foundation, Inc.
 

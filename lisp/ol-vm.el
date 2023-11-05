@@ -1,4 +1,4 @@
-;;; ol-vm.el --- Links to VM messages
+;;; ol-vm.el --- Links to VM messages  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2004-2021 Free Software Foundation, Inc.
 

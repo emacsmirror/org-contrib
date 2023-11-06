@@ -1,4 +1,4 @@
-;;; ol-wl.el --- Links to Wanderlust messages
+;;; ol-wl.el --- Links to Wanderlust messages  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2004-2021 Free Software Foundation, Inc.
 

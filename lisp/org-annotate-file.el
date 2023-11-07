@@ -1,4 +1,4 @@
-;;; org-annotate-file.el --- Annotate a file with org syntax
+;;; org-annotate-file.el --- Annotate a file with org syntax  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2008-2014, 2021 Philip Jackson
 

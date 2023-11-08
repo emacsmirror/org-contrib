@@ -1,4 +1,4 @@
-;;; org-bibtex-extras --- extras for working with org-bibtex entries
+;;; org-bibtex-extras --- extras for working with org-bibtex entries  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2008-2021 Free Software Foundation, Inc.
 

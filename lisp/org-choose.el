@@ -1,4 +1,4 @@
-;;; org-choose.el --- decision management for org-mode
+;;; org-choose.el --- decision management for org-mode  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2009-2014, 2021 Tom Breton (Tehom)
 
@@ -189,7 +189,7 @@ interpretation."
       ((vanilla-list nil)
        (all-mark-texts nil)
        (index 0)
-       bot-lower-range top-upper-range range-length static-default)
+       bot-lower-range top-upper-range static-default)
     (dolist (i raw)
       (cl-destructuring-bind
 	  (vanilla-text vanilla-mark &optional type)

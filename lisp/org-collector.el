@@ -1,4 +1,4 @@
-;;; org-collector --- collect properties into tables
+;;; org-collector --- collect properties into tables  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2008-2021 Free Software Foundation, Inc.
 
@@ -177,7 +177,7 @@ variables and values specified in props"
   (interactive)
   ;; collect the properties from every header
   (let* ((header-props
-	  (let ((org-trust-scanner-tags t) alst)
+	  (let ((org-trust-scanner-tags t))
 	    (org-map-entries
 	     (quote (cons (cons "ITEM" (org-get-heading t))
 			  (org-propview-get-with-inherited inherit)))
@@ -189,17 +189,16 @@ variables and values specified in props"
 			      (let ((inhibit-lisp-eval (string= (car pair) "ITEM")))
 				(cons (car pair) (org-babel-read (cdr pair) inhibit-lisp-eval))))
 			    props))
-		  header-props))
-	 ;; collect all property names
-	 (prop-names
-	  (mapcar 'intern (delete-dups
-			   (apply 'append (mapcar (lambda (header)
-						    (mapcar 'car header))
-						  header-props))))))
+		  header-props)))
+    ;; collect all property names
+    (mapc 'intern (delete-dups
+		   (apply 'append (mapcar (lambda (header)
+					    (mapcar 'car header))
+					  header-props))))
     (append
      (list
       (if colnames colnames (mapcar (lambda (el) (format stringformat el)) cols))
-       'hline) ;; ------------------------------------------------
+      'hline) ;; ------------------------------------------------
      (mapcar ;; calculate the value of the column for each header
       (lambda (props) (mapcar (lambda (col)
 			   (let ((result (org-propview-eval-w-props props col)))
@@ -216,7 +215,7 @@ variables and values specified in props"
 				  conds))
 		       props))
 		 header-props))
-	  header-props)))))
+	header-props)))))
 
 (defun org-propview-to-table (results stringformat)
   ;; (message (format "cols:%S" cols))

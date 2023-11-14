@@ -1,4 +1,4 @@
-;;; org-contribdir.el --- Mark the location of the contrib directory
+;;; org-contribdir.el --- Mark the location of the contrib directory  -*- lexical-binding: t; -*-
 ;; Copyright (C) 2009-2021 Free Software Foundation, Inc.
 ;;
 ;; Author: Carsten Dominik <carsten.dominik@gmail.com>

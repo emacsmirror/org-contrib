@@ -1,4 +1,4 @@
-;;; org-contrib.el --- Unmaintained add-ons for Org-mode
+;;; org-contrib.el --- Unmaintained add-ons for Org-mode  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2021 Bastien Guerry
 

@@ -1,4 +1,4 @@
-;;; org-depend.el --- TODO dependencies for Org-mode
+;;; org-depend.el --- TODO dependencies for Org-mode  -*- lexical-binding: t; -*-
 ;; Copyright (C) 2008-2021 Free Software Foundation, Inc.
 ;;
 ;; Author: Carsten Dominik <carsten.dominik@gmail.com>
@@ -256,9 +256,7 @@ This does two different kinds of triggers:
 	      (let ((this-item (point)))
 		;; go up to the parent headline, then advance to next child
 		(org-up-heading-safe)
-		(let ((end (save-excursion (org-end-of-subtree t)
-					   (point)))
-		      (done nil)
+		(let ((done nil)
 		      (items '()))
 		  (outline-next-heading)
 		  (while (not done)

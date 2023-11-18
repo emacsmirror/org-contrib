@@ -1,4 +1,4 @@
-;;; org-eval.el --- Display result of evaluating code in various languages
+;;; org-eval.el --- Display result of evaluating code in various languages  -*- lexical-binding: t; -*-
 ;; Copyright (C) 2008-2021 Free Software Foundation, Inc.
 ;;
 ;; Author: Carsten Dominik <carsten.dominik@gmail.com>

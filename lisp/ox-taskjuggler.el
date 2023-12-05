@@ -1,4 +1,4 @@
-;;; ox-taskjuggler.el --- TaskJuggler Back-End for Org Export Engine
+;;; ox-taskjuggler.el --- TaskJuggler Back-End for Org Export Engine  -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (C) 2007-2021 Free Software Foundation, Inc.
 ;;
@@ -632,9 +632,9 @@ doesn't include leading \"depends\"."
 
 ;;; Translator Functions
 
-(defun org-taskjuggler-project-plan (contents info)
+(defun org-taskjuggler-project-plan (_ info)
   "Build TaskJuggler project plan.
-CONTENTS is ignored.  INFO is a plist holding export options.
+INFO is a plist holding export options.
 Return complete project plan as a string in TaskJuggler syntax."
   (let* ((tree (plist-get info :parse-tree))
          (project (or (org-taskjuggler-get-project info)

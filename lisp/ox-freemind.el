@@ -144,7 +144,7 @@ This is an inverse function of `libxml-parse-xml-region'.
 For purposes of Freemind export, PARSED-XML is a node style
 specification - \"<node ...>...</node>\" - as a parse tree."
   (when contents
-    (assert (symbolp (car parsed-xml))))
+    (cl-assert (symbolp (car parsed-xml))))
   (cond
    ((null parsed-xml) "")
    ((stringp parsed-xml) parsed-xml)
@@ -182,7 +182,7 @@ ELEMENT can be any of the following types - `org-data',
 `headline' or `section'.  See `org-freemind-styles' for style
 mappings of different outline levels."
   (let ((style-name
-	 (case (org-element-type element)
+	 (cl-case (org-element-type element)
 	   (headline
 	    (org-export-get-relative-level element info))
 	   (section
@@ -293,7 +293,7 @@ will result in following node:
 ;;;; Helpers :: Node contents
 
 (defun org-freemind--richcontent (type contents &optional css-style)
-  (let* ((type (case type
+  (let* ((type (cl-case type
 		 (note "NOTE")
 		 (node "NODE")
 		 (t "NODE")))
@@ -306,7 +306,7 @@ will result in following node:
 		      (format "<body>\n%s\n</body>" contents))))))
 
 (defun org-freemind--build-node-contents (element contents info)
-  (let* ((title (case (org-element-type element)
+  (let* ((title (cl-case (org-element-type element)
 		  (headline
 		   (org-element-property :title element))
 		  (org-data
@@ -330,7 +330,7 @@ will result in following node:
 				(when itemized-contents-p
 				  contents))))
     (concat (let ((title (org-export-data title info)))
-	      (case org-freemind-section-format
+	      (cl-case org-freemind-section-format
 		(inline
 		  (org-freemind--richcontent
 		   'node (concat (format "\n<h2>%s</h2>" title)

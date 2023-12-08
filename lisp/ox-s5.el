@@ -130,9 +130,9 @@ Can be overridden with the S5_UI_URL property."
     (content   "div" "content")
     (postamble "div" "footer"))
   "Alist of the three section elements for HTML export.
-The car of each entry is one of 'preamble, 'content or 'postamble.
-The cdrs of each entry are the ELEMENT_TYPE and ID for each
-section of the exported document.
+The car of each entry is one of \\='preamble, \\='content or
+\\='postamble. The cdrs of each entry are the ELEMENT_TYPE and ID for
+each section of the exported document.
 
 If you set `org-html-container-element' to \"li\", \"ol\" will be
 uses as the content ELEMENT_TYPE, generating an XOXO format
@@ -283,10 +283,10 @@ If a containing headline has the property :INCREMENTAL,
 then the \"incremental\" class will be added to the to the list,
 which will make the list into a \"build\"."
   (let* ((type (org-element-property :type plain-list))
-        (tag (case type
-               (ordered "ol")
-               (unordered "ul")
-               (descriptive "dl"))))
+         (tag (cl-case type
+		(ordered "ol")
+		(unordered "ul")
+		(descriptive "dl"))))
     (format "%s\n%s%s"
             (format
              "<%s class='org-%s%s'>" tag tag

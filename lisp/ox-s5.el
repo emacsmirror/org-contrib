@@ -1,4 +1,4 @@
-;;; ox-s5.el --- S5 Presentation Back-End for Org Export Engine
+;;; ox-s5.el --- S5 Presentation Back-End for Org Export Engine  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2011-2014, 2021  Rick Frankel
 
@@ -212,8 +212,7 @@ INFO is a plist used as a communication channel."
             (and tags "&nbsp;&nbsp;&nbsp;") (org-html--tags tags info))))
 
 (defun org-s5-toc (depth info)
-  (let* ((headlines (org-export-collect-headlines info depth))
-         (toc-entries
+  (let* ((toc-entries
           (mapcar (lambda (headline)
                     (cons (org-s5--format-toc-headline headline info)
                           (org-export-get-relative-level headline info)))
@@ -275,10 +274,9 @@ INFO is a plist used as a communication channel."
       (org-element-put-property headline :HTML_CONTAINER_CLASS (concat class " slide")))
     (org-html-headline headline contents info)))
 
-(defun org-s5-plain-list (plain-list contents info)
+(defun org-s5-plain-list (plain-list contents _)
   "Transcode a PLAIN-LIST element from Org to HTML.
-CONTENTS is the contents of the list.  INFO is a plist holding
-contextual information.
+CONTENTS is the contents of the list.
 If a containing headline has the property :INCREMENTAL,
 then the \"incremental\" class will be added to the to the list,
 which will make the list into a \"build\"."
@@ -295,10 +293,9 @@ which will make the list into a \"build\"."
             contents
 	    (format "</%s>" tag))))
 
-(defun org-s5-inner-template (contents info)
+(defun org-s5-inner-template (contents _)
   "Return body of document string after HTML conversion.
-CONTENTS is the transcoded contents string.  INFO is a plist
-holding export options."
+CONTENTS is the transcoded contents string."
   (concat contents "\n"))
 
 (defun org-s5-template (contents info)

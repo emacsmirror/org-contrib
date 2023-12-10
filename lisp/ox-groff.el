@@ -166,7 +166,7 @@
                 (string :tag "Header")
                 (repeat :tag "Options" :inline t
                         (choice
-                         (list :tag "Heading")
+                         (symbol :tag "Heading")
                          (function :tag "Hook computing sectioning"))))))
 
 ;;; Headline
@@ -198,7 +198,7 @@ order to reproduce the default set-up:
 	  text
 	  \(when tags
             \(format \" %s \"
-              \(mapconcat 'identity tags \":\"))))"
+              \(mapconcat \\='identity tags \":\"))))"
   :group 'org-export-groff
   :type 'function)
 
@@ -336,7 +336,7 @@ in order to mimic default behaviour:
 	  title
 	  \(when tags
             \(format \":%s:\"
-                    \(mapconcat 'identity tags \":\")))))
+                    \(mapconcat \\='identity tags \":\")))))
     \(format (concat \".DS L\\n\"
 		    \"%s\\n\\n\"
 		    \"%s\"
@@ -392,7 +392,7 @@ a list containing two strings: the name of the option, and the
 value.  For example,
 
   (setq org-groff-source-highlight-options
-    '((\"basicstyle\" \"\\small\")
+    \\='((\"basicstyle\" \"\\small\")
       (\"keywordstyle\" \"\\color{black}\\bfseries\\underbar\")))
 
 will typeset the code in a small size font with underlined, bold
@@ -413,7 +413,7 @@ It is used during export of src blocks by the listings and
 groff packages.  For example,
 
   \(setq org-groff-custom-lang-environments
-     '\(\(python \"pythoncode\"\)\)\)
+     \\='\(\(python \"pythoncode\"\)\)\)
 
 would have the effect that if org encounters begin_src python
 during groff export it will use pythoncode as the source-highlight
@@ -476,15 +476,17 @@ These are the .aux, .log, .out, and .toc files."
   :type 'string)
 
 (defcustom org-groff-raster-to-ps nil
-  "Command used to convert raster to EPS. Nil for no conversion. Make sure that
-   `org-groff-inline-image-rules' is adjusted accordingly if not conversion is being
-   done. In this case, remove the entries for jpg and png in the file and fuzzy lists."
+  "Command used to convert raster to EPS.
+Nil for no conversion.
+Make sure that `org-groff-inline-image-rules' is adjusted accordingly
+if not conversion is being done.  In this case, remove the entries for
+jpg and png in the file and fuzzy lists."
   :group 'org-export-groff
   :type '(choice
-         (repeat :tag "Shell Command Sequence" (string :tag "Shell Command"))
-         (const :tag "sam2p" "a=%s;b=%s;sam2p ${a} ${b} ;grep -v BeginData ${b} > b_${b};mv b_${b} ${b}" )
-         (const :tag "NetPNM"  "a=%s;b=%s;pngtopnm ${a} | pnmtops -noturn > ${b}" )
-         (const :tag "None" nil)))
+          (repeat :tag "Shell Command Sequence" (string :tag "Shell Command"))
+          (const :tag "sam2p" "a=%s;b=%s;sam2p ${a} ${b} ;grep -v BeginData ${b} > b_${b};mv b_${b} ${b}" )
+          (const :tag "NetPNM"  "a=%s;b=%s;pngtopnm ${a} | pnmtops -noturn > ${b}" )
+          (const :tag "None" nil)))
 
 (defvar org-groff-registered-references nil)
 (defvar org-groff-special-content nil)
@@ -705,16 +707,16 @@ holding export options."
 
     (concat
      (if justify-right
-         (case justify-right
-           ('yes ".SA 1 \n")
-           ('no ".SA 0 \n")
+         (cl-case justify-right
+           (yes ".SA 1 \n")
+           (no ".SA 0 \n")
            (t ""))
        "")
 
      (if hyphenate
-         (case hyphenate
-           ('yes ".nr Hy 1 \n")
-           ('no ".nr Hy 0 \n")
+         (cl-case hyphenate
+           (yes ".nr Hy 1 \n")
+           (no ".nr Hy 0 \n")
            (t ""))
        "")
 
@@ -784,7 +786,7 @@ holding export options."
         (lambda (item)
           (when (string= (car item) "NS")
             (replace-regexp-in-string
-                    "\\.P\n" "" (cdr item))))
+             "\\.P\n" "" (cdr item))))
         (reverse org-groff-special-content) "\n")))))
 
 
@@ -1144,7 +1146,7 @@ contextual information."
   (let* ((bullet (org-element-property :bullet item))
 	 (type (org-element-property
 		:type (org-element-property :parent item)))
-         (checkbox (case (org-element-property :checkbox item)
+         (checkbox (cl-case (org-element-property :checkbox item)
                      (on "\\o'\\(sq\\(mu'")
                      (off "\\(sq")
                      (trans "\\o'\\(sq\\(mi'")))
@@ -1154,9 +1156,9 @@ contextual information."
                                  (concat checkbox
                                          (org-export-data tag info)))))))
 
-	(cond
-	 ((or checkbox tag)
-	  (concat ".LI ""\"" (or tag (concat "\\ " checkbox)) "\""
+    (cond
+     ((or checkbox tag)
+      (concat ".LI ""\"" (or tag (concat "\\ " checkbox)) "\""
               "\n"
               (org-trim (or contents " "))))
      ((eq type 'ordered)
@@ -1269,13 +1271,13 @@ INFO is a plist holding contextual information.  See
       (let ((destination (if (string= type "fuzzy")
                              (org-export-resolve-fuzzy-link link info)
                            (org-export-resolve-id-link link info))))
-        (case (org-element-type destination)
+        (pcase (org-element-type destination)
           ;; Id link points to an external file.
-          (plain-text
+          (`plain-text
            (if desc (format "%s \\fBat\\fP \\fIfile://%s\\fP" desc destination)
              (format "\\fI file://%s \\fP" destination)))
           ;; Fuzzy link points nowhere.
-          ('nil
+          (`nil
            (format org-groff-link-with-unknown-path-format
                    (or desc
                        (org-export-data
@@ -1283,7 +1285,7 @@ INFO is a plist holding contextual information.  See
           ;; LINK points to a headline.  If headlines are numbered and
           ;; the link has no description, display headline's number.
           ;; Otherwise, display description or headline's title.
-          (headline
+          (`headline
            (let ((label ""))
              (if (and (plist-get info :section-numbers) (not desc))
                  (format "\\fI%s\\fP" label)
@@ -1292,7 +1294,7 @@ INFO is a plist holding contextual information.  See
                            (org-export-data
                             (org-element-property :title destination) info))))))
           ;; Fuzzy link points to a target.  Do as above.
-          (otherwise
+          (_
            (let ((ref (org-export-get-reference destination info)))
              (if (not desc) (format "\\fI%s\\fP" ref)
                (format "%s \\fBat\\fP \\fI%s\\fP" desc ref)))))))
@@ -1614,7 +1616,7 @@ a communication channel."
 	  (when (and (memq 'left borders) (not alignment))
 	    (push "|" alignment))
 	  (push
-	   (case (org-export-table-cell-alignment cell info)
+	   (cl-case (org-export-table-cell-alignment cell info)
 	     (left (concat "l" width divider))
 	     (right (concat "r" width divider))
 	     (center (concat "c" width divider)))
@@ -1782,7 +1784,7 @@ CONTENTS is nil.  INFO is a plist holding contextual
 information."
   (let ((value (org-groff-plain-text
 		(org-timestamp-translate timestamp) info)))
-    (case (org-element-property :type timestamp)
+    (cl-case (org-element-property :type timestamp)
       ((active active-range)
        (format org-groff-active-timestamp-format value))
       ((inactive inactive-range)

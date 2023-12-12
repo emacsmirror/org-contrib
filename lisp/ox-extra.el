@@ -1,4 +1,4 @@
-;;; ox-extra.el --- Convenience functions for org export
+;;; ox-extra.el --- Convenience functions for org export  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2014, 2021  Aaron Ecay
 

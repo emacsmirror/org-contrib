@@ -91,7 +91,7 @@ modernizr; core, extensions and themes directories.)"
   :type '(repeat (string :tag "Directory")))
 
 (defun org-deck--cleanup-components (components)
-  (remove-duplicates
+  (cl-remove-duplicates
    (car (remove 'nil components))
    :test (lambda (x y)
            (string= (file-name-nondirectory x)

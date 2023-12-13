@@ -383,7 +383,9 @@ the \"slide\" class will be added to the to the list element,
   (let ((text (org-html-item item contents info)))
     (if (org-export-get-node-property :STEP item t)
 	(progn
-	  (replace-regexp-in-string "^<li>" "<li class='slide'>" text)
+          ;; FIXME: This did nothing before commented. Should the
+          ;; `replace-regexp-in-string' calls be nested?
+	  ;; (replace-regexp-in-string "^<li>" "<li class='slide'>" text)
 	  (replace-regexp-in-string "^<li class='checkbox'>" "<li class='checkbox slide'>" text))
       text)))
 

@@ -1,4 +1,4 @@
-;;; ox-deck.el --- deck.js Presentation Back-End for Org Export Engine
+;;; ox-deck.el --- deck.js Presentation Back-End for Org Export Engine  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2013, 2014, 2021  Rick Frankel
 
@@ -328,10 +328,10 @@ and have the id \"title-slide\"."
         (include (plist-get info :deck-include-extensions))
         (exclude (plist-get info :deck-exclude-extensions))
         (scripts '()) (sheets '()) (snippets '()))
-    (add-to-list 'scripts (concat prefix "jquery.min.js"))
-    (add-to-list 'scripts (concat prefix "core/deck.core.js"))
-    (add-to-list 'scripts (concat prefix "modernizr.custom.js"))
-    (add-to-list 'sheets  (concat prefix "core/deck.core.css"))
+    (cl-pushnew (concat prefix "jquery.min.js") scripts)
+    (cl-pushnew (concat prefix "core/deck.core.js") scripts)
+    (cl-pushnew (concat prefix "modernizr.custom.js") scripts)
+    (cl-pushnew (concat prefix "core/deck.core.css") sheets)
     (mapc
      (lambda (extdir)
        (let* ((name (file-name-nondirectory extdir))
@@ -341,28 +341,28 @@ and have the id \"title-slide\"."
          (when (and (or (eq nil include) (member name include))
                     (not (member name exclude)))
            (when (file-exists-p (concat dir base "js"))
-             (add-to-list 'scripts (concat path base "js")))
+             (cl-pushnew (concat path base "js") scripts))
            (when (file-exists-p (concat dir base "css"))
-             (add-to-list 'sheets (concat path base "css")))
+             (cl-pushnew (concat path base "css") sheets))
            (when (file-exists-p (concat dir base "html"))
-             (add-to-list 'snippets (concat dir base "html"))))))
+             (cl-pushnew (concat dir base "html") snippets)))))
      (org-deck--find-extensions))
     (if (not (string-match-p "^[[:space:]]*$" theme))
-        (add-to-list 'sheets
-                     (if (file-name-directory theme) theme
-                       (format "%sthemes/style/%s" prefix theme))))
+        (cl-pushnew
+         (if (file-name-directory theme) theme
+           (format "%sthemes/style/%s" prefix theme))
+         sheets))
     (if (not (string-match-p "^[[:space:]]*$" transition))
-        (add-to-list
-         'sheets
+        (cl-pushnew
          (if (file-name-directory transition) transition
-           (format "%sthemes/transition/%s" prefix transition))))
+           (format "%sthemes/transition/%s" prefix transition))
+         sheets))
     (list :scripts (nreverse scripts) :sheets (nreverse sheets)
           :snippets snippets)))
 
-(defun org-deck-inner-template (contents info)
+(defun org-deck-inner-template (contents _)
   "Return body of document string after HTML conversion.
-CONTENTS is the transcoded contents string.  INFO is a plist
-holding export options."
+CONTENTS is the transcoded contents string."
   (concat contents "\n"))
 
 (defun org-deck-headline (headline contents info)
@@ -482,9 +482,9 @@ INFO is a plist used as a communication channel."
          (author (and (plist-get info :with-author)
                       (let ((auth (plist-get info :author)))
                         (and auth (org-export-data auth info)))))
-         (date (and (plist-get info :with-date)
-                    (let ((date (org-export-get-date info)))
-                      (and date (org-export-data date info)))))
+         ;; (date (and (plist-get info :with-date)
+         ;;            (let ((date (org-export-get-date info)))
+         ;;              (and date (org-export-data date info)))))
          (description (plist-get info :description))
          (keywords (plist-get info :keywords)))
     (mapconcat

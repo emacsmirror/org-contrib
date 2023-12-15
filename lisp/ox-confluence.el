@@ -65,9 +65,15 @@
   '(?f "Export to Confluence"
        ((?f "As Confluence buffer" org-confluence-export-as-confluence))))
 
+(defgroup org-export-confluence nil
+  "Options for exporting Org mode files to Confluence."
+  :tag "Org Export Confluence"
+  :group 'org-export-ascii)
+
 (defcustom org-confluence-lang-alist
   '(("sh" . "bash"))
   "Map from org-babel language name to confluence wiki language name"
+  :group 'org-export-confluence
   :type '(alist :key-type string :value-type string))
 
 ;; All the functions we use

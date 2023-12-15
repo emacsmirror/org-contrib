@@ -1,4 +1,4 @@
-;;; ox-confluence --- Confluence Wiki Back-End for Org Export Engine
+;;; ox-confluence --- Confluence Wiki Back-End for Org Export Engine  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2012-2021 Sébastien Delafond
 
@@ -77,18 +77,18 @@
   :type '(alist :key-type string :value-type string))
 
 ;; All the functions we use
-(defun org-confluence-bold (bold contents info)
+(defun org-confluence-bold (_ contents _)
   (format "*%s*" contents))
 
-(defun org-confluence-empty (empty contents info)
+(defun org-confluence-empty (_ _ _)
   "")
 
-(defun org-confluence-example-block (example-block contents info)
+(defun org-confluence-example-block (example-block _ info)
   ;; FIXME: provide a user-controlled variable for theme
   (let ((content (org-export-format-code-default example-block info)))
     (org-confluence--block "none" "Confluence" content)))
 
-(defun org-confluence-italic (italic contents info)
+(defun org-confluence-italic (_ contents _)
   (format "_%s_" contents))
 
 (defun org-confluence-item (item contents info)
@@ -107,22 +107,22 @@
 	       "* - "))
      (org-trim contents))))
 
-(defun org-confluence-fixed-width (fixed-width contents info)
+(defun org-confluence-fixed-width (fixed-width _ _)
   (org-confluence--block
    "none"
    "Confluence"
    (org-trim (org-element-property :value fixed-width))))
 
-(defun org-confluence-verbatim (verbatim contents info)
+(defun org-confluence-verbatim (verbatim _ _)
   (let ((content (org-element-property :value verbatim)))
     (format "\{\{%s\}\}" (string-replace "{" "\\{" content))))
 
-(defun org-confluence-code (code contents info)
+(defun org-confluence-code (code _ _)
   (let ((content (org-element-property :value code)))
     (format "\{\{%s\}\}" (string-replace "{" "\\{" content))))
 
 (defun org-confluence-headline (headline contents info)
-  (let* ((low-level-rank (org-export-low-level-p headline info))
+  (let* (;; (low-level-rank (org-export-low-level-p headline info))
 	 (text (org-export-data (org-element-property :title headline)
 				info))
 	 (todo (org-export-data (org-element-property :todo-keyword headline)
@@ -135,7 +135,7 @@
     (format "h%s. %s%s\n%s" level todo-text text
             (if (org-string-nw-p contents) contents ""))))
 
-(defun org-confluence-link (link desc info)
+(defun org-confluence-link (link desc _)
   (if (string= "radio" (org-element-property :type link))
       desc
     (let ((raw-link (org-element-property :raw-link link)))
@@ -148,33 +148,33 @@
 		raw-link))
               "]"))))
 
-(defun org-confluence-paragraph (paragraph contents info)
+(defun org-confluence-paragraph (_ contents _)
   "Transcode PARAGRAPH element for Confluence.
 CONTENTS is the paragraph contents.  INFO is a plist used as
 a communication channel."
   contents)
 
-(defun org-confluence-property-drawer (property-drawer contents info)
+(defun org-confluence-property-drawer (_ contents _)
   (and (org-string-nw-p contents)
        (format "\{\{%s\}\}" contents)))
 
-(defun org-confluence-quote-block (quote-block contents info)
+(defun org-confluence-quote-block (_ contents _)
   (format "{quote}\n%s{quote}" contents))
 
-(defun org-confluence-section (section contents info)
+(defun org-confluence-section (_ contents _)
   contents)
 
-(defun org-confluence-src-block (src-block contents info)
+(defun org-confluence-src-block (src-block _ info)
   ;; FIXME: provide a user-controlled variable for theme
   (let* ((lang (org-element-property :language src-block))
          (language (or (cdr (assoc lang org-confluence-lang-alist)) lang))
          (content (org-export-format-code-default src-block info)))
     (org-confluence--block language "Emacs" content)))
 
-(defun org-confluence-strike-through (strike-through contents info)
+(defun org-confluence-strike-through (_ contents _)
   (format "-%s-" contents))
 
-(defun org-confluence-table (table contents info)
+(defun org-confluence-table (_ contents _)
   contents)
 
 (defun org-confluence-table-row  (table-row contents info)
@@ -202,7 +202,7 @@ CONTENTS and INFO are ignored."
         (concat "(" (substring translated 1 -1) ")")
       translated)))
 
-(defun org-confluence-underline (underline contents info)
+(defun org-confluence-underline (_ contents _)
   (format "+%s+" contents))
 
 (defun org-confluence--block (language theme contents)

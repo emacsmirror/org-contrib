@@ -68,28 +68,30 @@ this function is called."
 	 (breakvals (plist-get params :breakvals))
          (firstheader t)
          (*orgtbl-default-fmt* 'orgtbl-sql-strip-and-quote)
+         (sqlname (plist-get params :sqlname))
 	 (params2
 	  (list
 	   :sqlname (plist-get params :sqlname)
-	   :tstart (lambda () (concat (if nowebname
-					  (format "<<%s>>= \n" nowebname)
-					"")
-				      "BEGIN TRANSACTION;"))
+	   :tstart (lambda () (concat
+			  (if nowebname
+			      (format "<<%s>>= \n" nowebname)
+			    "")
+			  "BEGIN TRANSACTION;"))
 	   :tend (lambda () (concat "COMMIT;" (if nowebname "\n@ " "")))
 	   :hfmt (lambda (f) (progn (if firstheader (push f hdrlist) "")))
 	   :hlfmt (lambda (&rest cells) (setq firstheader nil))
-	   :lstart (lambda () (concat "INSERT INTO "
-				      sqlname "( "
-				      (mapconcat 'identity (reverse hdrlist)
-						 ", ")
-				      " )" (if breakvals "\n" " ")
-				      "VALUES ( "))
+	   :lstart (lambda () (concat
+			  "INSERT INTO "
+			  sqlname "( "
+			  (mapconcat 'identity (reverse hdrlist)
+				     ", ")
+			  " )" (if breakvals "\n" " ")
+			  "VALUES ( "))
 	   :lend " );"
 	   :sep " , "
 	   :hline nil
 	   :remove-nil-lines t))
-	 (params (org-combine-plists params2 params))
-         (sqlname (plist-get params :sqlname)))
+	 (params (org-combine-plists params2 params)))
     (orgtbl-to-generic table params)))
 
 (defun orgtbl-sql-quote (str)

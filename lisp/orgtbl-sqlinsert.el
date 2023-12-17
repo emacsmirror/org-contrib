@@ -1,4 +1,4 @@
-;;; orgtbl-sqlinsert.el --- orgtbl to SQL insert statements.
+;;; orgtbl-sqlinsert.el --- orgtbl to SQL insert statements.  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2008-2021  Free Software Foundation, Inc.
 
@@ -62,12 +62,12 @@ The most important parameters of ORGTBL-TO-GENERIC for SQL are:
 The general parameters :skip and :skipcols have already been applied when
 this function is called."
   (let* (hdrlist
-	 (alignment (mapconcat (lambda (x) (if x "r" "l"))
-			       org-table-last-alignment ""))
+	 ;; (alignment (mapconcat (lambda (x) (if x "r" "l"))
+	 ;; 		       org-table-last-alignment ""))
 	 (nowebname (plist-get params :nowebname))
 	 (breakvals (plist-get params :breakvals))
          (firstheader t)
-         (*orgtbl-default-fmt* 'orgtbl-sql-strip-and-quote)
+         ;; (*orgtbl-default-fmt* 'orgtbl-sql-strip-and-quote)
          (sqlname (plist-get params :sqlname))
 	 (params2
 	  (list
@@ -79,7 +79,7 @@ this function is called."
 			  "BEGIN TRANSACTION;"))
 	   :tend (lambda () (concat "COMMIT;" (if nowebname "\n@ " "")))
 	   :hfmt (lambda (f) (progn (if firstheader (push f hdrlist) "")))
-	   :hlfmt (lambda (&rest cells) (setq firstheader nil))
+	   :hlfmt (lambda (&rest _) (setq firstheader nil))
 	   :lstart (lambda () (concat
 			  "INSERT INTO "
 			  sqlname "( "

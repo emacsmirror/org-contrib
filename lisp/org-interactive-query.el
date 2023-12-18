@@ -1,4 +1,4 @@
-;;; org-interactive-query.el --- Interactive modification of agenda query
+;;; org-interactive-query.el --- Interactive modification of agenda query  -*- lexical-binding: t; -*-
 ;;
 ;; Copyright 2007-2021 Free Software Foundation, Inc.
 ;;

@@ -179,8 +179,9 @@ variables and values specified in props"
   (let* ((header-props
 	  (let ((org-trust-scanner-tags t))
 	    (org-map-entries
-	     (quote (cons (cons "ITEM" (org-get-heading t))
-			  (org-propview-get-with-inherited inherit)))
+	     (lambda ()
+               (cons (cons "ITEM" (org-get-heading t))
+		     (org-propview-get-with-inherited inherit)))
 	     match scope)))
 	 ;; read property values
 	 (header-props

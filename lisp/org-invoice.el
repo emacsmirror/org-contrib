@@ -1,4 +1,4 @@
-;;; org-invoice.el --- Help manage client invoices in OrgMode
+;;; org-invoice.el --- Help manage client invoices in OrgMode  -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (C) 2008-2014, 2021 pmade inc. (Peter Jones pjones@pmade.com)
 ;;

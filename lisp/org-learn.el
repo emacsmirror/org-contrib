@@ -1,4 +1,4 @@
-;;; org-learn.el --- Implements SuperMemo's incremental learning algorithm
+;;; org-learn.el --- Implements SuperMemo's incremental learning algorithm  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2009-2021 Free Software Foundation, Inc.
 
@@ -159,8 +159,7 @@ OF matrix."
   (let* ((learn-str (org-entry-get (point) "LEARN_DATA"))
 	 (learn-data (or (and learn-str
 			      (read learn-str))
-			 (cl-copy-list initial-repetition-state)))
-	 closed-dates)
+			 (cl-copy-list initial-repetition-state))))
     (setq learn-data
 	  (determine-next-interval (nth 1 learn-data)
 				   (nth 2 learn-data)

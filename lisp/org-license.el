@@ -1,4 +1,4 @@
-;;; org-license.el --- Add a license to your org files
+;;; org-license.el --- Add a license to your org files  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2013-2021 Free Software Foundation, Inc.
 
@@ -403,25 +403,24 @@ This document is under a [[" org-license-cc-url "][License Creative Commons Attr
 
 (defun org-license-gfdl (language)
   (interactive "MLanguage (es | en): " language)
-  (let (org-license-cc-url)
-    (cond ((equal language "es")
-	   (insert "* Licencia
+  (cond ((equal language "es")
+	 (insert "* Licencia
 Copyright (C) " (format-time-string "%Y") "  " user-full-name
 "\n    Se permite copiar, distribuir y/o modificar este documento
     bajo los términos de la GNU Free Documentation License, Version 1.3
     o cualquier versión publicada por la Free Software Foundation;
     sin Secciones Invariantes y sin Textos de Portada o Contraportada.
     Una copia de la licencia está incluida en [[https://www.gnu.org/copyleft/fdl.html][GNU Free Documentation License]].\n"))
-	  (t (insert (concat "* License
+	(t (insert (concat "* License
 Copyright (C) " (format-time-string "%Y") " " user-full-name
 "\n    Permission is granted to copy, distribute and/or modify this document
     under the terms of the GNU Free Documentation License, Version 1.3
     or any later version published by the Free Software Foundation;
     with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
     A copy of the license is included in [[https://www.gnu.org/copyleft/fdl.html][GNU Free Documentation License]].\n"))))
-    (if (string= "" org-license-images-directory)
-	(insert "\n[[https://www.gnu.org/copyleft/fdl.html][file:https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/GFDL_Logo.svg/200px-GFDL_Logo.svg.png]]\n")
-      (insert (concat "\n[[https://www.gnu.org/copyleft/fdl.html][file:" org-license-images-directory "/gfdl/gfdl.png]]\n")))))
+  (if (string= "" org-license-images-directory)
+      (insert "\n[[https://www.gnu.org/copyleft/fdl.html][file:https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/GFDL_Logo.svg/200px-GFDL_Logo.svg.png]]\n")
+    (insert (concat "\n[[https://www.gnu.org/copyleft/fdl.html][file:" org-license-images-directory "/gfdl/gfdl.png]]\n"))))
 
 (defun org-license-publicdomain-zero (language)
   (interactive "MLanguage ( en | es ): " language)

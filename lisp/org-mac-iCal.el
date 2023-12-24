@@ -1,4 +1,4 @@
-;;; org-mac-iCal.el --- Imports events from iCal.app to the Emacs diary
+;;; org-mac-iCal.el --- Imports events from iCal.app to the Emacs diary  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2009-2014, 2021 Christopher Suckling
 

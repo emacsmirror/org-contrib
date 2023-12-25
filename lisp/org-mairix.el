@@ -1,4 +1,4 @@
-;;; org-mairix.el - Support for hooking mairix search into Org for different MUAs
+;;; org-mairix.el - Support for hooking mairix search into Org for different MUAs  -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (C) 2007-2014, 2021 Georg C. F. Greve
 ;; mutt support by Adam Spiers <orgmode at adamspiers dot org>
@@ -276,7 +276,7 @@ Message ID."
                                    :subject subject
                                    :message-id message-id))))
 
-(defun org-mairix-gnus-display-results (search args)
+(defun org-mairix-gnus-display-results (search _)
   "Display results of mairix search in Gnus.
 
 Note: This does not work as cleanly as I would like it to. The

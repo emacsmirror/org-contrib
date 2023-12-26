@@ -1,4 +1,4 @@
-;;; org-panel.el --- Simple routines for us with bad memory
+;;; org-panel.el --- Simple routines for us with bad memory  -*- lexical-binding: t; -*-
 ;;
 ;; Author: Lennart Borgman (lennart O borgman A gmail O com)
 ;; Created: Thu Nov 15 15:35:03 2007
@@ -471,56 +471,56 @@ Technical reasons."
    ))
 
 (defun orgpan-make-panel-with-buttons (buf)
- (with-current-buffer buf
-   (let* ((base-map (make-sparse-keymap))
-          (space-line (propertize "\n\n" 'face 'orgpan-spaceline))
-          (arrow-face 'font-lock-keyword-face)
-          (L (propertize "left" 'face arrow-face))
-          (R (propertize "right" 'face arrow-face))
-          (U (propertize "up" 'face arrow-face))
-          (D (propertize "down" 'face arrow-face)))
-     ;;(message D)(sit-for 2)
-     (define-key base-map [left] 'ignore)
-     (define-key base-map [right] 'ignore)
-     (define-key base-map [up] 'ignore)
-     (define-key base-map [down] 'ignore)
-     (define-key base-map [?q] 'delete-window)
-     (define-key base-map [??] 'orgpan-help)
-     ;; Navigating
-     (let ((map (copy-keymap base-map)))
-       (define-key map [left] 'outline-up-heading)
-       (define-key map [right] 'org-cycle)
-       (define-key map [up] 'outline-previous-visible-heading)
-       (define-key map [down] 'outline-next-visible-heading)
-       (define-key map [(shift down)] 'outline-forward-same-level)
-       (define-key map [(shift up)] 'outline-backward-same-level)
-       (orgpan-insert-field "Navigate" map (concat U "/" D ", " L ": Go to, " R ": Visibility")))
-     (insert "  ")
-     (let ((map (copy-keymap base-map)))
-       (define-key map [up] 'org-move-subtree-up)
-       (define-key map [down] 'org-move-subtree-down)
-       (define-key map [left] 'org-do-promote)
-       (define-key map [right] 'org-do-demote)
-       (define-key map [(shift left)] 'org-promote-subtree)
-       (define-key map [(shift right)] 'org-demote-subtree)
-       (orgpan-insert-field
-        "Restructure" map
-        (concat U "/" D ": "
-                (propertize "Move" 'face 'font-lock-warning-face)
-                ", " L "/" R ": "
-                (propertize "Level (w S: Subtree Level)" 'face 'font-lock-warning-face))))
-     (insert "  ")
-     (let ((map (copy-keymap base-map)))
-       (define-key map [up] 'org-priority-up)
-       (define-key map [down] 'org-priority-down)
-       (define-key map [right] 'org-todo)
-       (orgpan-insert-field "TODO/priority" map
-                            (concat R ": TODO, " U "/" D ": Priority")))
-     )
-   (insert "   ? for help, q quit\n")
-   (orgpan-display-bindings-help)
-   (setq orgpan-ovl-help (make-overlay (point) (point)))
-   ))
+  (with-current-buffer buf
+    (let* ((base-map (make-sparse-keymap))
+           ;; (space-line (propertize "\n\n" 'face 'orgpan-spaceline))
+           (arrow-face 'font-lock-keyword-face)
+           (L (propertize "left" 'face arrow-face))
+           (R (propertize "right" 'face arrow-face))
+           (U (propertize "up" 'face arrow-face))
+           (D (propertize "down" 'face arrow-face)))
+      ;;(message D)(sit-for 2)
+      (define-key base-map [left] 'ignore)
+      (define-key base-map [right] 'ignore)
+      (define-key base-map [up] 'ignore)
+      (define-key base-map [down] 'ignore)
+      (define-key base-map [?q] 'delete-window)
+      (define-key base-map [??] 'orgpan-help)
+      ;; Navigating
+      (let ((map (copy-keymap base-map)))
+	(define-key map [left] 'outline-up-heading)
+	(define-key map [right] 'org-cycle)
+	(define-key map [up] 'outline-previous-visible-heading)
+	(define-key map [down] 'outline-next-visible-heading)
+	(define-key map [(shift down)] 'outline-forward-same-level)
+	(define-key map [(shift up)] 'outline-backward-same-level)
+	(orgpan-insert-field "Navigate" map (concat U "/" D ", " L ": Go to, " R ": Visibility")))
+      (insert "  ")
+      (let ((map (copy-keymap base-map)))
+	(define-key map [up] 'org-move-subtree-up)
+	(define-key map [down] 'org-move-subtree-down)
+	(define-key map [left] 'org-do-promote)
+	(define-key map [right] 'org-do-demote)
+	(define-key map [(shift left)] 'org-promote-subtree)
+	(define-key map [(shift right)] 'org-demote-subtree)
+	(orgpan-insert-field
+         "Restructure" map
+         (concat U "/" D ": "
+                 (propertize "Move" 'face 'font-lock-warning-face)
+                 ", " L "/" R ": "
+                 (propertize "Level (w S: Subtree Level)" 'face 'font-lock-warning-face))))
+      (insert "  ")
+      (let ((map (copy-keymap base-map)))
+	(define-key map [up] 'org-priority-up)
+	(define-key map [down] 'org-priority-down)
+	(define-key map [right] 'org-todo)
+	(orgpan-insert-field "TODO/priority" map
+                             (concat R ": TODO, " U "/" D ": Priority")))
+      )
+    (insert "   ? for help, q quit\n")
+    (orgpan-display-bindings-help)
+    (setq orgpan-ovl-help (make-overlay (point) (point)))
+    ))
 
 (defun orgpan-make-panel-buffer ()
  "Make the panel buffer."
@@ -574,7 +574,7 @@ button changes the binding of the arrow keys."
     (error "Buffer is not in org-mode"))
   (orgpan-delete-panel)
   (unless orgpan-org-mode-commands
-    (map-keymap (lambda (ev def)
+    (map-keymap (lambda (_ def)
                   (when (and def
                              (symbolp def)
                              (fboundp def))

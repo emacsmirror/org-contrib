@@ -90,7 +90,7 @@
 buffer."
   (interactive "P")
   (org-registry-initialize)
-  (let* ((blink (or (org-remember-annotation) ""))
+  (let* ((blink (or (org-store-link nil) ""))
 	 (link (when (string-match org-link-bracket-re blink)
 		 (match-string-no-properties 1 blink)))
 	 (desc (or (and (string-match org-link-bracket-re blink)

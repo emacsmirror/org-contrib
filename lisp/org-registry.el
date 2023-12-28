@@ -1,4 +1,4 @@
-;;; org-registry.el --- a registry for Org links
+;;; org-registry.el --- a registry for Org links  -*- lexical-binding: t; -*-
 ;;
 ;; Copyright 2007-2021 Free Software Foundation, Inc.
 ;;
@@ -93,8 +93,9 @@ buffer."
   (let* ((blink (or (org-store-link nil) ""))
 	 (link (when (string-match org-link-bracket-re blink)
 		 (match-string-no-properties 1 blink)))
-	 (desc (or (and (string-match org-link-bracket-re blink)
-			(match-string-no-properties 3 blink)) "No description"))
+         ;; FIXME: unused
+	 ;; (desc (or (and (string-match org-link-bracket-re blink)
+	 ;; 		(match-string-no-properties 3 blink)) "No description"))
 	 (files (org-registry-assoc-all link))
 	 file point selection tmphist)
     (cond ((and files visit)
@@ -198,7 +199,7 @@ Use with caution.  This could slow down things a bit."
 
 (defun org-registry-get-entries (file)
   "List Org links in FILE that will be put in the registry."
-  (let (bufstr result)
+  (let (result)
     (with-temp-buffer
       (insert-file-contents file)
       (goto-char (point-min))
@@ -206,13 +207,13 @@ Use with caution.  This could slow down things a bit."
 	(let* ((point (match-beginning 0))
 	       (link (match-string-no-properties 0))
 	       (desc (match-string-no-properties 0)))
-	  (add-to-list 'result (list link desc point file))))
+	  (push (list link desc point file) result)))
       (goto-char (point-min))
       (while (re-search-forward org-link-bracket-re nil t)
 	(let* ((point (match-beginning 0))
 	       (link (match-string-no-properties 1))
 	       (desc (or (match-string-no-properties 3) "No description")))
-	    (add-to-list 'result (list link desc point file)))))
+	  (push (list link desc point file) result))))
     ;; return the list of new entries
     result))
 

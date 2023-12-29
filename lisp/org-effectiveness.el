@@ -360,7 +360,8 @@ many TODO pending"
       (switch-to-buffer "*org-effectiveness-html*")
       (org-effectiveness-html-bar (string-to-number str) (format "%s-%s" year month))
       (switch-to-buffer buffer)
-      (format "%s-%s" year month)
+      ;; FIXME: Value is unused.
+      ;; (format "%s-%s" year month)
       (if (eq month 12)
     	  (progn
     	    (setq year (+ 1 year))

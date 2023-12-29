@@ -1,4 +1,4 @@
-;;; org-effectiveness.el --- Measuring the personal effectiveness
+;;; org-effectiveness.el --- Measuring the personal effectiveness  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2013-2021 Free Software Foundation, Inc.
 
@@ -127,7 +127,7 @@ many TODO pending"
     (let ((count (count-matches (concat "CANCEL+ED.*\n.*" date))))
       (message "CANCELEDS: %d" count))))
 
-(defun org-effectiveness-ntasks-in-date(date &optional notmessage)
+(defun org-effectiveness-ntasks-in-date(date &optional _)
   (interactive "sGive me a date: " date)
   (save-excursion
     (goto-char (point-min))
@@ -155,11 +155,11 @@ many TODO pending"
 
 (defun org-effectiveness-plot(startdate enddate &optional save)
   (interactive "sGive me the start date: \nsGive me the end date: " startdate enddate)
-  (let* ((dates (org-effectiveness-check-dates startdate enddate))
-	 (syear (cadr (assq 'startyear dates)))
-         (smonth (cadr (assq 'startmonth dates)))
-         (eyear (cadr (assq 'endyear dates)))
-         (emonth (assq 'endmonth dates))
+  (let* (;; (dates (org-effectiveness-check-dates startdate enddate))
+	 ;; (syear (cadr (assq 'startyear dates)))
+         ;; (smonth (cadr (assq 'startmonth dates)))
+         ;; (eyear (cadr (assq 'endyear dates)))
+         ;; (emonth (assq 'endmonth dates))
          startyear startmonth endyear endmonth strplot)
     ;; Checking the format of the dates
     (if (not (string-match "[0-9][0-9][0-9][0-9]-[0-9][0-9]" startdate))
@@ -199,7 +199,7 @@ many TODO pending"
 	(call-process "/bin/bash" nil t nil "-c" strplot)
       (message "gnuplot is not installed"))))
 
-(defun org-effectiveness-plot-save(startdate enddate &optional save)
+(defun org-effectiveness-plot-save(startdate enddate &optional _)
   (interactive "sGive me the start date: \nsGive me the end date: " startdate enddate)
   (org-effectiveness-plot startdate enddate t))
 
@@ -233,16 +233,19 @@ many TODO pending"
 	(setq z (+ z 1)))
       (insert "+"))))
 
-(defun org-effectiveness-html-bar(n &optional label)
+(defun org-effectiveness-html-bar(n &optional _)
   "Print a bar with the percentage from 0 to 100 printed in html"
   (interactive "nPercentage: \nsLabel: ")
   (if (or (< n 0) (> n 100))
       (message "The percentage must be between 0 to 100")
-    (let ((x 0)
-	  (y 0)
-	  (z 0))
-      (insert (format "\n<div class='percentage-%d'>%d</div>" n n))
-)))
+    (insert (format "\n<div class='percentage-%d'>%d</div>" n n))
+    ;; FIXME: What are x,y,z for?
+    ;; (let ((x 0)
+    ;; 	  (y 0)
+    ;; 	  (z 0))
+    ;;   (insert (format "\n<div class='percentage-%d'>%d</div>" n n))
+    ;;   )
+    ))
 
 
 (defun org-effectiveness-check-dates (startdate enddate)
@@ -273,8 +276,8 @@ many TODO pending"
 (defun org-effectiveness-plot-ascii (startdate enddate)
   (interactive "sGive me the start date: \nsGive me the end date: " startdate enddate)
   (let* ((dates (org-effectiveness-check-dates startdate enddate))
-	 (syear (cadr (assq 'startyear dates)))
-	 (smonth (cadr (assq 'startmonth dates)))
+	 ;; (syear (cadr (assq 'startyear dates)))
+	 ;; (smonth (cadr (assq 'startmonth dates)))
   	 (year (cadr (assq 'startyear dates)))
 	 (month (cadr (assq 'startmonth dates)))
 	 (emonth (cadr (assq 'endmonth dates)))
@@ -297,8 +300,8 @@ many TODO pending"
 (defun org-effectiveness-plot-ascii-ntasks (startdate enddate)
   (interactive "sGive me the start date: \nsGive me the end date: " startdate enddate)
   (let* ((dates (org-effectiveness-check-dates startdate enddate))
-	 (syear (cadr (assq 'startyear dates)))
-	 (smonth (cadr (assq 'startmonth dates)))
+	 ;; (syear (cadr (assq 'startyear dates)))
+	 ;; (smonth (cadr (assq 'startmonth dates)))
   	 (year (cadr (assq 'startyear dates)))
 	 (month (cadr (assq 'startmonth dates)))
 	 (emonth (cadr (assq 'endmonth dates)))
@@ -320,8 +323,8 @@ many TODO pending"
 (defun org-effectiveness-plot-ascii-dones (startdate enddate)
   (interactive "sGive me the start date: \nsGive me the end date: " startdate enddate)
   (let* ((dates (org-effectiveness-check-dates startdate enddate))
-	 (syear (cadr (assq 'startyear dates)))
-	 (smonth (cadr (assq 'startmonth dates)))
+	 ;; (syear (cadr (assq 'startyear dates)))
+	 ;; (smonth (cadr (assq 'startmonth dates)))
   	 (year (cadr (assq 'startyear dates)))
 	 (month (cadr (assq 'startmonth dates)))
 	 (emonth (cadr (assq 'endmonth dates)))
@@ -345,8 +348,8 @@ many TODO pending"
   "Print html bars about the effectiveness in a buffer"
   (interactive "sGive me the start date: \nsGive me the end date: " startdate enddate)
   (let* ((dates (org-effectiveness-check-dates startdate enddate))
-	 (syear (cadr (assq 'startyear dates)))
-	 (smonth (cadr (assq 'startmonth dates)))
+	 ;; (syear (cadr (assq 'startyear dates)))
+	 ;; (smonth (cadr (assq 'startmonth dates)))
   	 (year (cadr (assq 'startyear dates)))
 	 (month (cadr (assq 'startmonth dates)))
 	 (emonth (cadr (assq 'endmonth dates)))

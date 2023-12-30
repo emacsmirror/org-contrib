@@ -1,4 +1,4 @@
-;;; org-screen.el --- Integreate Org-mode with screen.
+;;; org-screen.el --- Integreate Org-mode with screen.  -*- lexical-binding: t; -*-
 
 ;; Copyright (c) 2008-2014, 2021 Andrew Hyatt
 ;;

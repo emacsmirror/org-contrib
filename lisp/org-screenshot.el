@@ -1,4 +1,4 @@
-;;; org-screenshot.el --- Take and manage screenshots in Org-mode files
+;;; org-screenshot.el --- Take and manage screenshots in Org-mode files  -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (C) 2009-2021 Free Software Foundation, Inc.
 ;;
@@ -507,7 +507,7 @@ entered, at which point event will be unread"
 			  (substring (image-file-name-regexp) 0 -2)
 			  "\\)\\]"))
 	      (case-fold-search t)
-	      old file ov img type attrwidth width)
+	      file)
 	  (while (re-search-forward re end t)
 	    (setq file (concat (or (match-string 3) "") (match-string 4)))
 	    (when (and (file-exists-p file)

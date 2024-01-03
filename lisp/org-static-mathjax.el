@@ -66,11 +66,13 @@
   "Path to \"application.ini\" of the Static MathJax XULRunner application.
 If you have extracted StaticMathJax to e.g. ~/.local/staticmathjax, set
 this to ~/.local/staticmathjax/application.ini"
+  :group 'org-static-mathjax
   :type 'string)
 
 (defcustom org-static-mathjax-xulrunner-path
   "xulrunner"
   "Path to your xulrunner binary"
+  :group 'org-static-mathjax
   :type 'string)
 
 (defcustom org-static-mathjax-local-mathjax-path
@@ -80,6 +82,7 @@ hard drive and specify the path here.
 
 The directory has to be writeable, as org-static-mathjax
 creates a temporary file there during export."
+  :group 'org-static-mathjax
   :type 'string)
 
 (defvar org-static-mathjax-debug
@@ -89,9 +92,11 @@ creates a temporary file there during export."
 (defun org-static-mathjax-hook-installer ()
   "Installs org-static-mathjax-process in after-save-hook.
 
-Sets the following buffer-local variables for org-static-mathjax-process to pick up:
-org-static-mathjax-mathjax-path: The path to MathJax.js as used by Org HTML export
-org-static-mathjax-options:      The string given with #+STATICMATHJAX: in the file"
+Sets the following buffer-local variables for
+`org-static-mathjax-process' to pick up:
+`org-static-mathjax-mathjax-path': The path to MathJax.js as used by Org
+HTML export `org-static-mathjax-options': The string given with
+#+STATICMATHJAX: in the file"
   (let ((static-mathjax-option-string (plist-get opt-plist :static-mathjax)))
 	(if static-mathjax-option-string
 		(progn (set (make-local-variable 'org-static-mathjax-options) static-mathjax-option-string)

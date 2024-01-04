@@ -1,4 +1,4 @@
-;;; org-secretary.el --- Team management with org-mode
+;;; org-secretary.el --- Team management with org-mode  -*- lexical-binding: t; -*-
 ;; Copyright (C) 2010-2014, 2021 Juan Reyero
 ;;
 ;; Author: Juan Reyero <juan _at_ juanreyero _dot_ com>
@@ -183,7 +183,7 @@
       org-sec-with
     org-sec-me))
 
-(defun org-sec-with-view (par &optional who)
+(defun org-sec-with-view (_ &optional who)
   "Select tasks marked as dowith=who, where who
    defaults to the value of org-sec-with."
   (org-tags-view '(4) (join (split-string (if who
@@ -191,11 +191,11 @@
                                             (org-sec-get-with)))
                             "|" "dowith=\"" "\"")))
 
-(defun org-sec-where-view (par)
+(defun org-sec-where-view (_)
   "Select tasks marked as doat=org-sec-where."
   (org-tags-view '(4) (concat "doat={" org-sec-where "}")))
 
-(defun org-sec-assigned-with-view (par &optional who)
+(defun org-sec-assigned-with-view (_ &optional who)
   "Select tasks assigned to who, by default org-sec-with."
   (org-tags-view '(4)
                  (concat (join (split-string (if who
@@ -204,7 +204,7 @@
                                "|")
                          "/TASK")))
 
-(defun org-sec-stuck-with-view (par &optional who)
+(defun org-sec-stuck-with-view (_ &optional who)
   "Select stuck projects assigned to who, by default
    org-sec-with."
   (let ((org-stuck-projects
@@ -216,7 +216,7 @@
            ("TODO" "TASK") ())))
     (org-agenda-list-stuck-projects)))
 
-(defun org-sec-who-view (par)
+(defun org-sec-who-view (_)
   "Builds agenda for a given user.  Queried. "
   (let ((who (read-string "Build todo for user/tag: "
                           "" "" "")))

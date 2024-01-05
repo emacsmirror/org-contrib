@@ -1,4 +1,4 @@
-;;; org-sudoku.el --- Create and solve SUDOKU games in Org tables
+;;; org-sudoku.el --- Create and solve SUDOKU games in Org tables  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2012-2021 Free Software Foundation, Inc.
 ;;
@@ -56,8 +56,7 @@ a game.")
 (defun org-sudoku-create (nfilled)
   "Create a sudoku game."
   (interactive "nNumber of pre-filled fields: ")
-  (let ((sizesq org-sudoku-size)
-	game)
+  (let (game)
     (cl-loop for i from 1 to org-sudoku-size do
 	     (cl-loop for j from 1 to org-sudoku-size do
 		      (push (list (cons i j) 0) game)))
@@ -209,14 +208,18 @@ If RANDOM is nil, always start with the first allowed value and try
 solving from there.
 STOP-AT can be a float time, the solver will abort at that time because
 it is probably stuck."
-  (let (e v v1 allowed next g)
+  (let (e
+	;; FIXME unused.
+	;; v
+        v1 allowed next g)
     (when (and stop-at
 	       (> (float-time) stop-at))
       (setq game nil)
       (throw 'abort nil))
     (while (setq next (org-sudoku-find-next-constrained-field game))
       (setq e (assoc next game)
-	    v (nth 1 e)
+	    ;; FIXME: Unused, potential fault is logic.
+	    ;; v (nth 1 e)
 	    allowed (nth 2 e))
       (catch 'solved
 	(if (= (length allowed) 1)

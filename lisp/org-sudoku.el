@@ -58,16 +58,16 @@ a game.")
   (interactive "nNumber of pre-filled fields: ")
   (let ((sizesq org-sudoku-size)
 	game)
-    (loop for i from 1 to org-sudoku-size do
-	  (loop for j from 1 to org-sudoku-size do
-		(push (list (cons i j) 0) game)))
+    (cl-loop for i from 1 to org-sudoku-size do
+	     (cl-loop for j from 1 to org-sudoku-size do
+		      (push (list (cons i j) 0) game)))
     (setq game (nreverse game))
     (random t)
     (setq game (org-sudoku-build-allowed game))
     (setq game (org-sudoku-set-field game (cons 1 1)
 				     (1+ (random org-sudoku-size))))
     (catch 'solved
-      (let ((cnt 0))
+      (let ((cnt 0) game1)
 	(while t
 	  (catch 'abort
 	    (message "Attempt %d to create a game" (setq cnt (1+ cnt)))
@@ -78,10 +78,10 @@ a game.")
 	      (setq game game1)
 	      (throw 'solved t))))))
     (let ((sqrtsize (floor (sqrt org-sudoku-size))))
-      (loop for i from 1 to org-sudoku-size do
-	    (insert "| |\n")
-	    (if (and (= (mod i sqrtsize) 0) (< i org-sudoku-size))
-		(insert "|-\n")))
+      (cl-loop for i from 1 to org-sudoku-size do
+	       (insert "| |\n")
+	       (if (and (= (mod i sqrtsize) 0) (< i org-sudoku-size))
+		   (insert "|-\n")))
       (backward-char 5)
       (org-table-align))
     (while (> (length game) nfilled)
@@ -159,9 +159,9 @@ A game structure is returned."
     (nreverse game)))
 
 (defun org-sudoku-build-allowed (game)
-  (let (i j v numbers)
-    (loop for i from 1 to org-sudoku-size do
-	  (push i numbers))
+  (let (i j v numbers a)
+    (cl-loop for i from 1 to org-sudoku-size do
+	     (push i numbers))
     (setq numbers (nreverse numbers))
     ;; add the lists of allowed values for each entry
     (setq game (mapcar
@@ -242,14 +242,15 @@ it is probably stuck."
   (delq nil (mapcar (lambda (e) (if (> (nth 1 e) 0) nil t)) game)))
 
 (defun org-sudoku-deep-copy (game)
-  "Make a copy of the game so that manipulating the copy does not change the parent."
+  "Make a copy of GAME.
+Manipulating the copy does not change the parent."
   (mapcar (lambda(e)
 	    (list (car e) (nth 1 e) (copy-sequence (nth 2 e))))
 	  game))
 
 (defun org-sudoku-set-field (game field value)
   "Put VALUE into FIELD, and tell related fields that they cannot be VALUE."
-  (let (i j)
+  (let (i j a)
     (setq i (car field) j (cdr field))
     (setq a (assoc field game))
     (setf (nth 1 a) value)
@@ -268,20 +269,21 @@ it is probably stuck."
   (let ((sqrtsize (floor (sqrt org-sudoku-size)))
 	ll imin imax jmin jmax f)
     (setq f (cons i j))
-    (loop for ii from 1 to org-sudoku-size do
-	  (or (= ii i) (push (cons ii j) ll)))
-    (loop for jj from 1 to org-sudoku-size do
-	  (or (= jj j) (push (cons i jj) ll)))
+    (cl-loop for ii from 1 to org-sudoku-size do
+	     (or (= ii i) (push (cons ii j) ll)))
+    (cl-loop for jj from 1 to org-sudoku-size do
+	     (or (= jj j) (push (cons i jj) ll)))
     (setq imin (1+ (* sqrtsize (/ (1- i) sqrtsize)))
 	  imax (+ imin sqrtsize -1))
     (setq jmin (1+ (* sqrtsize (/ (1- j) sqrtsize)))
 	  jmax (+ jmin sqrtsize -1))
-    (loop for ii from imin to imax do
-	  (loop for jj from jmin to jmax do
-		(setq ff (cons ii jj))
-		(or (equal ff f)
-		    (member ff ll)
-		    (push ff ll))))
+    (let (ff)
+      (cl-loop for ii from imin to imax do
+	       (cl-loop for jj from jmin to jmax do
+			(setq ff (cons ii jj))
+			(or (equal ff f)
+			    (member ff ll)
+			    (push ff ll)))))
     ll))
 
 ;;; org-sudoku ends here

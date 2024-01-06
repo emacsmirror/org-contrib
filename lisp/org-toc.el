@@ -33,7 +33,7 @@
 
 (provide 'org-toc)
 (eval-when-compile
-  (require 'cl))
+  (require 'cl-lib))
 
 ;;; Custom variables:
 (defvar org-toc-base-buffer nil)
@@ -84,7 +84,7 @@ headlines in the TOC buffer."
 (defcustom org-toc-recenter 0
   "Where to recenter the Org buffer when unfolding a subtree.
 This variable is only used when `org-toc-recenter-mode' is set to
-'custom. A value >=1000 will call recenter with no arg."
+\\='custom. A value >=1000 will call recenter with no arg."
   :group 'org-toc
   :type 'integer)
 
@@ -92,7 +92,7 @@ This variable is only used when `org-toc-recenter-mode' is set to
   "A list of excluded properties when displaying info in the
 echo-area. The COLUMNS property is always excluded."
   :group 'org-toc
-  :type 'lits)
+  :type '(list string))
 
 ;;; Org TOC mode:
 (defvar org-toc-mode-map (make-sparse-keymap)
@@ -186,8 +186,7 @@ specified, then make `org-toc-recenter' use this value."
 	       (format "on, line %d" org-toc-recenter) "off")))
 
 (defun org-toc-cycle-subtree ()
-  "Locally cycle a headline through two states: 'children and
-'folded"
+  "Cycle a headline through two states: \\='children and \\='folded."
   (interactive)
   (let ((beg (point))
 	(end (save-excursion (end-of-line) (point)))
@@ -201,10 +200,10 @@ specified, then make `org-toc-recenter' use this value."
 	   (message "CHILDREN")
 	   (overlay-put ov 'status 'children))
 	  ((eq status 'children)
-	   (show-branches)
+	   (outline-show-branches)
 	   (message "BRANCHES")
 	   (overlay-put ov 'status 'branches))
-	  (t (hide-subtree)
+	  (t (outline-hide-subtree)
 	     (message "FOLDED")
 	     (overlay-put ov 'status 'folded)))))
 
@@ -223,7 +222,7 @@ specified, then make `org-toc-recenter' use this value."
       (progn (setq org-toc-base-buffer (current-buffer))
 	     (setq org-toc-odd-levels-only org-odd-levels-only))
     (if (eq major-mode 'org-toc-mode)
-	(org-pop-to-buffer-same-window org-toc-base-buffer)
+	(pop-to-buffer-same-window org-toc-base-buffer)
       (error "Not in an Org buffer")))
   ;; create the new window display
   (let ((pos (or position
@@ -280,7 +279,7 @@ specified, then make `org-toc-recenter' use this value."
 (defun org-toc-goto (&optional jump cycle)
   "From Org TOC buffer, follow the targeted subtree in the Org window.
 If JUMP is non-nil, go to the base buffer.
-If JUMP is 'delete, go to the base buffer and delete other windows.
+If JUMP is \\='delete, go to the base buffer and delete other windows.
 If CYCLE is non-nil, cycle the targeted subtree in the Org window."
   (interactive)
   (let ((pos (point))
@@ -363,13 +362,13 @@ If DELETE is non-nil, delete other windows when in the Org buffer."
   "Toggle columns view in the Org buffer from Org TOC."
   (interactive)
   (let ((indirect-buffer (current-buffer)))
-    (org-pop-to-buffer-same-window org-toc-base-buffer)
+    (pop-to-buffer-same-window org-toc-base-buffer)
     (if (not org-toc-columns-shown)
 	(progn (org-columns)
 	       (setq org-toc-columns-shown t))
       (progn (org-columns-remove-overlays)
 	     (setq org-toc-columns-shown nil)))
-    (org-pop-to-buffer-same-window indirect-buffer)))
+    (pop-to-buffer-same-window indirect-buffer)))
 
 (defun org-toc-info ()
   "Show properties of current subtree in the echo-area."
@@ -377,7 +376,7 @@ If DELETE is non-nil, delete other windows when in the Org buffer."
   (let ((pos (point))
 	(indirect-buffer (current-buffer))
 	props prop msg)
-    (org-pop-to-buffer-same-window org-toc-base-buffer)
+    (pop-to-buffer-same-window org-toc-base-buffer)
     (goto-char pos)
     (setq props (org-entry-properties))
     (while (setq prop (pop props))
@@ -390,7 +389,7 @@ If DELETE is non-nil, delete other windows when in the Org buffer."
 	  (setq p (concat p ":"))
 	  (add-text-properties 0 (length p) '(face org-special-keyword) p)
 	  (setq msg (concat msg p " " v "  ")))))
-    (org-pop-to-buffer-same-window indirect-buffer)
+    (pop-to-buffer-same-window indirect-buffer)
     (message msg)))
 
 ;;; Store and restore TOC configuration:
@@ -445,7 +444,7 @@ current table of contents to it."
 		 (message "CHILDREN")
 		 (overlay-put ov 'status 'children))
 		((eq (cdr hlcfg0) 'branches)
-		 (show-branches)
+		 (outline-show-branches)
 		 (message "BRANCHES")
 		 (overlay-put ov 'status 'branches))))))
     (goto-char pos)

@@ -1,4 +1,4 @@
-;;; org-toc.el --- Table of contents for Org-mode buffer
+;;; org-toc.el --- Table of contents for Org-mode buffer  -*- lexical-binding: t; -*-
 
 ;; Copyright 2007-2021 Free Software Foundation, Inc.
 ;;
@@ -456,30 +456,25 @@ current table of contents to it."
 (defun org-toc-get-headlines-status ()
   "Return an alist of headlines and their associated folding
 status."
-  (let (output ovs)
+  (let (output)
     (save-excursion
       (goto-char (point-min))
       (while (and (not (eobp))
 		  (goto-char (next-overlay-change (point))))
 	(when (looking-at org-outline-regexp-bol)
-	  (add-to-list
-	   'output
+	  (cl-pushnew
 	   (cons (buffer-substring-no-properties
 		  (match-beginning 0)
 		  (save-excursion
 		    (end-of-line) (point)))
 		 (overlay-get
-		  (car (overlays-at (point))) 'status))))))
+		  (car (overlays-at (point))) 'status))
+           output))))
     ;; return an alist like (("* Headline" . 'status))
     output))
 
-;; In Org TOC buffer, hide headlines below the first level.
-(defun org-toc-help ()
-  "Display a quick help message in the echo-area for `org-toc-mode'."
-  (interactive)
-  (let ((st-start 0)
-	(help-message
-	 "\[space\]   show heading                     \[1-4\] hide headlines below this level
+(defvar org-toc--help-message
+  "\[space\]   show heading                     \[1-4\] hide headlines below this level
 \[TAB\]     jump to heading                  \[F\]   toggle follow mode (currently %s)
 \[return\]  jump and delete others windows   \[i\]   toggle info mode (currently %s)
 \[S-TAB\]   cycle subtree (in Org)           \[S\]   toggle show subtree mode (currently %s)
@@ -487,17 +482,25 @@ status."
 \[:\]       cycle subtree (in TOC)           \[c\]   toggle column view (currently %s)
 \[n/p\]     next/previous heading            \[s\]   save TOC configuration
 \[f/b\]     next/previous heading of same level
-\[q\]       quit the TOC                     \[g\]   restore last TOC configuration"))
-    (while (string-match "\\[[^]]+\\]" help-message st-start)
-      (add-text-properties (match-beginning 0)
-                           (match-end 0) '(face bold) help-message)
-      (setq st-start (match-end 0)))
-  (message help-message
-    (if org-toc-follow-mode "on" "off")
-    (if org-toc-info-mode "on" "off")
-    (if org-toc-show-subtree-mode "on" "off")
-    (if org-toc-recenter-mode (format "on, line %s" org-toc-recenter) "off")
-    (if org-toc-columns-shown "on" "off"))))
+\[q\]       quit the TOC                     \[g\]   restore last TOC configuration"
+  "Help message used by `org-toc-help'.")
+
+(let ((st-start 0))
+  (while (string-match "\\[[^]]+\\]" org-toc--help-message st-start)
+    (add-text-properties (match-beginning 0)
+                         (match-end 0) '(face bold) org-toc--help-message)
+    (setq st-start (match-end 0))))
+
+;; In Org TOC buffer, hide headlines below the first level.
+(defun org-toc-help ()
+  "Display a quick help message in the echo-area for `org-toc-mode'."
+  (interactive)
+  (message org-toc--help-message
+	   (if org-toc-follow-mode "on" "off")
+	   (if org-toc-info-mode "on" "off")
+	   (if org-toc-show-subtree-mode "on" "off")
+	   (if org-toc-recenter-mode (format "on, line %s" org-toc-recenter) "off")
+	   (if org-toc-columns-shown "on" "off")))
 
 
 ;;;;##########################################################################

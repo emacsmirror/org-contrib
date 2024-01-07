@@ -24,7 +24,7 @@
 
 (require 'org)
 (eval-when-compile
-  (require 'cl))
+  (require 'cl-lib))
 
 (defgroup org-wikinodes nil
   "Wiki-like CamelCase links words to outline nodes in Org mode."
@@ -76,7 +76,7 @@ to `directory'."
   (when org-wikinodes-active
     (let (case-fold-search)
       (if (re-search-forward org-wikinodes-camel-regexp limit t)
-	  (if (equal (char-after (point-at-bol)) ?*)
+	  (if (equal (char-after (line-beginning-position)) ?*)
 	      (progn
 		;; in  heading - deactivate flyspell
 		(org-remove-flyspell-overlays-in (match-beginning 0)
@@ -114,7 +114,7 @@ If a target headline is not found, it may be created according to the
 setting of `org-wikinodes-create-targets'."
   (if current-prefix-arg (org-wikinodes-clear-directory-targets-cache))
   (let ((create org-wikinodes-create-targets)
-	visiting buffer m pos file rpl)
+	pos file rpl)
     (setq pos
 	  (or (org-find-exact-headline-in-buffer target (current-buffer))
 	      (and (eq org-wikinodes-scope 'directory)
@@ -153,7 +153,7 @@ setting of `org-wikinodes-create-targets'."
        ((stringp create)
 	;; Make new node in another file
 	(org-mark-ring-push (point))
-	(org-pop-to-buffer-same-window (find-file-noselect create))
+	(pop-to-buffer-same-window (find-file-noselect create))
 	(goto-char (point-max))
 	(or (bolp) (newline))
 	(insert "\n* " target "\n")
@@ -209,7 +209,7 @@ setting of `org-wikinodes-create-targets'."
   "Return an alist that connects wiki links to files in directory DIR."
   (let ((files (directory-files dir nil "\\`[^.#].*\\.org\\'"))
 	(org-inhibit-startup t)
-	target-file-alist file visiting m buffer)
+	target-file-alist file visiting buffer)
     (while (setq file (pop files))
       (setq visiting (org-find-base-buffer-visiting file))
       (setq buffer (or visiting (find-file-noselect file)))
@@ -247,12 +247,15 @@ If there is no such wiki target, return nil."
 
 ;;; Exporting Wiki links
 
+;; FIXME: These two variables are never set.
+;; Apparently, this part of the library is never working.
 (defvar target)
-(defvar target-alist)
 (defvar last-section-target)
+
+(defvar target-alist)
 (defvar org-export-target-aliases)
 (defun org-wikinodes-set-wiki-targets-during-export (_)
-  (let ((line (buffer-substring (point-at-bol) (point-at-eol)))
+  (let ((line (buffer-substring (line-beginning-position) (line-end-position)))
 	(case-fold-search nil)
 	wtarget a)
     (when (string-match (format org-complex-heading-regexp-format
@@ -273,13 +276,13 @@ Try to find target matches in the wiki scope and replace CamelCase words
 with working links."
   (let ((re org-wikinodes-camel-regexp)
 	(case-fold-search nil)
-	link file)
+	link)
     (goto-char (point-min))
     (while (re-search-forward re nil t)
       (unless (save-match-data
 		(or (org-at-heading-p)
-		    (org-in-regexp org-bracket-link-regexp)
-		    (org-in-regexp org-plain-link-re)
+		    (org-in-regexp org-link-bracket-re)
+		    (org-in-regexp org-link-plain-re)
 		    (org-in-regexp "<<[^<>]+>>")))
 	(setq link (match-string 0))
 	(delete-region (match-beginning 0) (match-end 0))
@@ -303,11 +306,11 @@ with working links."
 (add-hook 'org-ctrl-c-ctrl-c-hook 'org-wikinodes-clear-cache-when-on-target)
 
 ;; Make Wiki haeding create additional link names for headlines
-(add-hook 'org-export-before-parsing-hook
+(add-hook 'org-export-before-parsing-functions
 	  'org-wikinodes-set-wiki-targets-during-export)
 
 ;; Turn Wiki links into links the exporter will treat correctly
-(add-hook 'org-export-before-parsing-hook
+(add-hook 'org-export-before-parsing-functions
 	  'org-wikinodes-process-links-for-export)
 
 ;; Activate CamelCase words as part of Org mode font lock

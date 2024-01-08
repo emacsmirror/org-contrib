@@ -98,19 +98,22 @@ Sets the following buffer-local variables for
 HTML export `org-static-mathjax-options': The string given with
 #+STATICMATHJAX: in the file"
   (let ((static-mathjax-option-string (plist-get opt-plist :static-mathjax)))
-	(if static-mathjax-option-string
-		(progn (set (make-local-variable 'org-static-mathjax-options) static-mathjax-option-string)
-			   (set (make-local-variable 'org-static-mathjax-mathjax-path)
-					(nth 1 (assq 'path org-export-html-mathjax-options)))
-			   (let ((mathjax-options (plist-get opt-plist :mathjax)))
-				 (if mathjax-options
-					 (if (string-match "\\<path:" mathjax-options)
-						 (set 'org-static-mathjax-mathjax-path
-							  (car (read-from-string
-									(substring mathjax-options (match-end 0))))))))
-			   (add-hook 'after-save-hook
-						 'org-static-mathjax-process
-						 nil t)))))
+    (if static-mathjax-option-string
+	(progn (set (make-local-variable 'org-static-mathjax-options) static-mathjax-option-string)
+	       (set (make-local-variable 'org-static-mathjax-mathjax-path)
+                    ;; FIXME: `org-export-html-mathjax-options' dates
+                    ;; back to ox-xhtml.el that has been removed from
+                    ;; Org mode long time ago.  This code is not operational.
+		    (nth 1 (assq 'path org-export-html-mathjax-options)))
+	       (let ((mathjax-options (plist-get opt-plist :mathjax)))
+		 (if mathjax-options
+		     (if (string-match "\\<path:" mathjax-options)
+			 (set 'org-static-mathjax-mathjax-path
+			      (car (read-from-string
+				    (substring mathjax-options (match-end 0))))))))
+	       (add-hook 'after-save-hook
+			 'org-static-mathjax-process
+			 nil t)))))
 
 
 (defun org-static-mathjax-process ()

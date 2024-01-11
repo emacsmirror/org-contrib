@@ -55,7 +55,7 @@
 ;; for missing values.
 
 (require 'ox-html)
-(eval-when-compile (require 'cl))
+(eval-when-compile (require 'cl-lib))
 
 (org-export-define-derived-backend 's5 'html
   :menu-entry

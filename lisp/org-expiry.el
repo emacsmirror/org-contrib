@@ -157,15 +157,15 @@ functions.  `org-expiry-deinsinuate' will deactivate them."
 
 ;;; Advices and insinuation:
 
-(defadvice org-schedule (after org-schedule-update-created)
+(define-advice org-schedule (:after (&rest _) org-schedule-update-created)
   "Update the creation-date property when calling `org-schedule'."
   (org-expiry-insert-created))
 
-(defadvice org-deadline (after org-deadline-update-created)
+(define-advice org-deadline (:after (&rest _) org-deadline-update-created)
   "Update the creation-date property when calling `org-deadline'."
   (org-expiry-insert-created))
 
-(defadvice org-time-stamp (after org-time-stamp-update-created)
+(define-advice org-time-stamp (:after (&rest _) org-time-stamp-update-created)
   "Update the creation-date property when calling `org-time-stamp'."
   (org-expiry-insert-created))
 
@@ -240,7 +240,7 @@ If FORCE is non-nil, don't require confirmation from the user.
 Otherwise rely on `org-expiry-confirm-flag' to decide."
   (interactive "P")
   (save-excursion
-    (when (called-interactively-p) (org-reveal))
+    (when (called-interactively-p 'interactive) (org-reveal))
     (when (org-expiry-expired-p)
       (org-back-to-heading)
       (looking-at org-complex-heading-regexp)
@@ -251,10 +251,10 @@ Otherwise rely on `org-expiry-confirm-flag' to decide."
 	(if (or force
 		(null org-expiry-confirm-flag)
 		(and (eq org-expiry-confirm-flag 'interactive)
-		     (not (interactive-p)))
+		     (not (called-interactively-p 'interactive)))
 		(and org-expiry-confirm-flag
 		     (y-or-n-p (format "Entry expired by %d days.  Process? " d))))
-	  (funcall org-expiry-handler-function))
+	    (funcall org-expiry-handler-function))
 	(delete-overlay ov)))))
 
 (defun org-expiry-process-entries (beg end)

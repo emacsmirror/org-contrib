@@ -1,4 +1,4 @@
-;;; org-expiry.el --- expiry mechanism for Org entries
+;;; org-expiry.el --- expiry mechanism for Org entries  -*- lexical-binding: t; -*-
 ;;
 ;; Copyright 2007-2021 Free Software Foundation, Inc.
 ;;
@@ -257,7 +257,7 @@ Otherwise rely on `org-expiry-confirm-flag' to decide."
 	    (funcall org-expiry-handler-function))
 	(delete-overlay ov)))))
 
-(defun org-expiry-process-entries (beg end)
+(defun org-expiry-process-entries (_ _)
   "Process all expired entries between BEG and END.
 The expiry process will run the function defined by
 `org-expiry-handler-functions'."

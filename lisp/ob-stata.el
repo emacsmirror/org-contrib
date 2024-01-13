@@ -42,7 +42,6 @@
 ;;; Code:
 (require 'ob)
 (require 'cl-lib)
-(require 'ess-custom) ; for `inferior-STA-program'
 
 (declare-function orgtbl-to-csv "org-table" (table params))
 (declare-function stata "ext:ess-stata" (&optional start-args))
@@ -67,12 +66,20 @@
 ;; only ':results output' currently works, so make that the default
 (defvar org-babel-default-header-args:stata '((:results . "output")))
 
-(defcustom org-babel-stata-command inferior-STA-program
+(defcustom org-babel-stata-command nil
   "Name of command to use for executing stata code."
   :group 'org-babel
   :version "24.4"
   :package-version '(Org . "8.3")
   :type 'string)
+;; FIXME: Arrange the default value to be set without byte-compiler
+;; complaining.  A proper fix would be putting this file into a
+;; separate package and adding ESS to package requires. Not possible
+;; while it is a part of org-contrib.
+(defvar inferior-STA-program)
+(eval-after-load 'ess-custom
+  (unless org-babel-stata-command
+    (setq org-babel-stata-command inferior-STA-program)))
 
 (defvar ess-local-process-name) ; dynamically scoped
 (defun org-babel-edit-prep:stata (info)
@@ -242,6 +249,7 @@ current code buffer."
 If RESULT-TYPE equals \\='output then return standard output as a
 string.  If RESULT-TYPE equals \\='value then return the value of the
 last statement in BODY, as elisp."
+  (require 'ess-custom)
   (cl-case result-type
     (value
      (let ((tmp-file (org-babel-temp-file "stata-")))
@@ -258,6 +266,7 @@ last statement in BODY, as elisp."
 	column-names-p)))
     (output (org-babel-eval org-babel-stata-command body))))
 
+(defvar ess-eval-visibly-p)
 (defun org-babel-stata-evaluate-session
     (session body result-type result-params column-names-p _row-names-p)
   "Evaluate BODY in SESSION.

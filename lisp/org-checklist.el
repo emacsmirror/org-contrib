@@ -43,7 +43,13 @@
 ;;
 ;;; Code:
 (require 'org)
+(defvar org-state)
+;; FIXME: This library requires
+;; https://git.savannah.gnu.org/cgit/a2ps.git/tree/contrib/emacs/a2ps-print.el file
+;; It is a part of a2ps distribution.
 (load "a2ps-print" 'no-error)
+(defvar a2ps-switches)
+(declare-function a2ps-buffer "a2ps-print" (argp))
 
 (setq org-default-properties (cons "RESET_CHECK_BOXES" (cons "LIST_EXPORT_BASENAME" org-default-properties)))
 
@@ -127,7 +133,7 @@ of checkbox items"
 	    (let* ((current-a2ps-switches a2ps-switches)
 		   (a2ps-switches (append current-a2ps-switches
 					  org-checklist-a2ps-params)))
-	      (a2ps-buffer))))))))
+	      (a2ps-buffer nil))))))))
 
 (defun org-checklist ()
   (when (member org-state org-done-keywords) ;; org-state dynamically bound in org.el/org-todo

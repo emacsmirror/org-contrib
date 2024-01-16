@@ -344,21 +344,16 @@ the HTML and ASCII backends."
 
 ;;; LaTeX Part
 
-(defadvice org-latex-keyword (around bibtex-keyword)
+(define-advice org-latex-keyword (:around (fun keyword contents info) bibtex-keyword)
   "Translate \"BIBLIOGRAPHY\" keywords into LaTeX syntax.
 Fallback to `latex' back-end for other keywords."
-  (let ((keyword (ad-get-arg 0)))
-    (if (not (equal (org-element-property :key keyword) "BIBLIOGRAPHY"))
-        ad-do-it
-      (let ((file (org-bibtex-get-file keyword))
-            (style (org-not-nil (org-bibtex-get-style keyword))))
-        (setq ad-return-value
-              (when file
-                (concat (and style (format "\\bibliographystyle{%s}\n" style))
-                        (format "\\bibliography{%s}" file))))))))
-
-(ad-activate 'org-latex-keyword)
-
+  (if (not (equal (org-element-property :key keyword) "BIBLIOGRAPHY"))
+      (funcall fun keyword contents info)
+    (let ((file (org-bibtex-get-file keyword))
+          (style (org-not-nil (org-bibtex-get-style keyword))))
+      (when file
+        (concat (and style (format "\\bibliographystyle{%s}\n" style))
+                (format "\\bibliography{%s}" file))))))
 
 
 ;;; HTML Part
@@ -369,61 +364,49 @@ Fallback to `latex' back-end for other keywords."
 
 ;;;; Advices
 
-(defadvice org-html-keyword (around bibtex-keyword)
+(define-advice org-html-keyword (:around (fun keyword contents info) bibtex-keyword)
   "Translate \"BIBLIOGRAPHY\" keywords into HTML syntax.
 Fallback to `html' back-end for other keywords."
-  (let ((keyword (ad-get-arg 0)))
-    (if (not (equal (org-element-property :key keyword) "BIBLIOGRAPHY"))
-        ad-do-it
-      (setq ad-return-value
-            (cdr (assq keyword org-bibtex-html-keywords-alist))))))
+  (if (not (equal (org-element-property :key keyword) "BIBLIOGRAPHY"))
+      (funcall fun keyword contents info)
+    (cdr (assq keyword org-bibtex-html-keywords-alist))))
 
-(defadvice org-html-latex-fragment (around bibtex-citation)
+(define-advice org-html-latex-fragment (:around (fun fragment contents info) bibtex-citation)
   "Translate \"\\cite\" LaTeX fragments into HTML syntax.
 Fallback to `html' back-end for other keywords."
-  (let ((fragment (ad-get-arg 0)))
-    (if (not (org-bibtex-citation-p fragment)) ad-do-it
-      (setq ad-return-value
-            (format "[%s]"
-		    (mapconcat
-		     (lambda (key)
-		       (format "<a href=\"#%s\">%s</a>"
-			       key
-			       (or (cdr (assoc key org-bibtex-html-entries-alist))
-				   key)))
-		     (org-split-string
-		      (org-bibtex-get-citation-key fragment) ",") ","))))))
-
-(ad-activate 'org-html-keyword)
-(ad-activate 'org-html-latex-fragment)
+  (if (not (org-bibtex-citation-p fragment))
+      (funcall fun fragment contents info)
+    (format "[%s]"
+	    (mapconcat
+	     (lambda (key)
+	       (format "<a href=\"#%s\">%s</a>"
+		       key
+		       (or (cdr (assoc key org-bibtex-html-entries-alist))
+			   key)))
+	     (org-split-string
+	      (org-bibtex-get-citation-key fragment) ",") ","))))
 
 
 ;;; Ascii Part
-(defadvice org-ascii-keyword (around bibtex-keyword)
+(define-advice org-ascii-keyword (:around (fun keyword contents info) bibtex-keyword)
   "Translate \"BIBLIOGRAPHY\" keywords into ascii syntax.
 Fallback to `ascii' back-end for other keywords."
-  (let ((keyword (ad-get-arg 0)))
-    (if (not (equal (org-element-property :key keyword) "BIBLIOGRAPHY"))
-        ad-do-it
-      (setq ad-return-value
-            (cdr (assq keyword org-bibtex-html-keywords-alist))))))
+  (if (not (equal (org-element-property :key keyword) "BIBLIOGRAPHY"))
+      (funcall fun keyword contents info)
+    (cdr (assq keyword org-bibtex-html-keywords-alist))))
 
-(defadvice org-ascii-latex-fragment (around bibtex-citation)
+(define-advice org-ascii-latex-fragment (:around (fun fragment contents info) bibtex-citation)
   "Translate \"\\cite\" LaTeX fragments into ascii syntax.
 Fallback to `ascii' back-end for other keywords."
-  (let ((fragment (ad-get-arg 0)))
-    (if (not (org-bibtex-citation-p fragment)) ad-do-it
-      (setq ad-return-value
-            (format "[%s]"
-		    (mapconcat
-		     (lambda (key)
-		       (or (cdr (assoc key org-bibtex-html-entries-alist))
-			   key))
-		     (org-split-string
-		      (org-bibtex-get-citation-key fragment) ",") ","))))))
-
-(ad-activate 'org-ascii-keyword)
-(ad-activate 'org-ascii-latex-fragment)
+  (if (not (org-bibtex-citation-p fragment))
+      (funcall fun fragment contents info)
+    (format "[%s]"
+	    (mapconcat
+	     (lambda (key)
+	       (or (cdr (assoc key org-bibtex-html-entries-alist))
+		   key))
+	     (org-split-string
+	      (org-bibtex-get-citation-key fragment) ",") ","))))
 
 (provide 'ox-bibtex)
 

@@ -167,11 +167,14 @@ to `org-bibtex-citation-p' predicate."
       (and position (progn (goto-char position) t)))))
 
 (let ((jump-fn (car (cl-remove-if-not #'fboundp '(ebib org-bibtex-goto-citation)))))
-  (org-add-link-type "cite" jump-fn))
+  (org-link-set-parameters "cite" :follow jump-fn))
 
 
 
 ;;; Filters
+
+(defvar org-bibtex-html-entries-alist nil)  ; Dynamically scoped.
+(defvar org-bibtex-html-keywords-alist nil) ; Dynamically scoped.
 
 (defun org-bibtex-process-bib-files (tree backend info)
   "Send each bibliography in parse tree to \"bibtex2html\" process.
@@ -357,10 +360,6 @@ Fallback to `latex' back-end for other keywords."
 
 
 ;;; HTML Part
-
-(defvar org-bibtex-html-entries-alist nil)  ; Dynamically scoped.
-(defvar org-bibtex-html-keywords-alist nil) ; Dynamically scoped.
-
 
 ;;;; Advices
 

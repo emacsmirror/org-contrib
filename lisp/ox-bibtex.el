@@ -1,4 +1,4 @@
-;;; ox-bibtex.el --- Export bibtex fragments
+;;; ox-bibtex.el --- Export bibtex fragments  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2009-2014, 2021 Taru Karttunen
 

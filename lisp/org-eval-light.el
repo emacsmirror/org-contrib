@@ -126,20 +126,20 @@ commented by `org-eval-light-make-region-example'."
 	(info (org-edit-src-find-region-and-lang))
 	beg end lang result)
     (setq beg (nth 0 info)
-	    end (nth 1 info)
-	    lang (nth 2 info))
+	  end (nth 1 info)
+	  lang (nth 2 info))
     (unless (member lang org-eval-light-interpreters)
       (error "Language is not in `org-eval-light-interpreters': %s" lang))
-    (goto-line line)
+    (org-goto-line line)
     (setq result (org-eval-light-code lang (buffer-substring beg end)))
     (unless arg
       (save-excursion
-      (re-search-forward "^#\\+end_src" nil t) (open-line 1) (forward-char 2)
-      (let ((beg (point))
-	    (end (progn (insert result)
-			(point))))
-	(message (format "from %S %S" beg end))
-	(org-eval-light-make-region-example beg end))))))
+	(re-search-forward "^#\\+end_src" nil t) (open-line 1) (forward-char 2)
+	(let ((beg (point))
+	      (end (progn (insert result)
+			  (point))))
+	  (message (format "from %S %S" beg end))
+	  (org-eval-light-make-region-example beg end))))))
 
 (defun org-eval-light-eval-subtree (&optional arg)
   "Replace EVAL snippets in the entire subtree."
@@ -189,10 +189,10 @@ commented by `org-eval-light-make-region-example'."
     (shell-command-on-region (point-min) (point-max) cmd nil 'replace)
     (buffer-string)))
 
-(defadvice org-ctrl-c-ctrl-c (around org-cc-eval-source activate)
+(define-advice org-ctrl-c-ctrl-c (:around (fun &rest args) org-cc-eval-source)
   (if (org-eval-light-inside-snippet)
       (call-interactively 'org-eval-light-current-snippet)
-    ad-do-it))
+    (apply fun args)))
 
 (provide 'org-eval-light)
 

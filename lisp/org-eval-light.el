@@ -1,4 +1,4 @@
-;;; org-eval-light.el --- Display result of evaluating code in various languages (light)
+;;; org-eval-light.el --- Display result of evaluating code in various languages (light)  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2008-2021 Free Software Foundation, Inc.
 
@@ -110,7 +110,7 @@ syntax based on the size of the region as compared to
       (if (<= size org-eval-light-example-size-cutoff)
 	  (save-excursion
 	    (goto-char beg)
-	    (dotimes (n size)
+	    (dotimes (_ size)
 	      (move-beginning-of-line 1) (insert ": ") (forward-line 1)))
 	(let ((result (buffer-substring beg end)))
 	  (delete-region beg end)

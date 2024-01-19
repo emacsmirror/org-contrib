@@ -145,7 +145,7 @@
 ;;
 ;;; Code:
 
-(eval-when-compile (require 'cl))
+(eval-when-compile (require 'cl-lib))
 
 (require 'ox)
 
@@ -484,7 +484,11 @@ ITEM is a headline.  Return value is a string or nil if ITEM
 doesn't have any start date defined."
   (let ((scheduled (org-element-property :scheduled item)))
     (or
-     (and scheduled (org-timestamp-format scheduled "%Y-%02m-%02d"))
+     (and scheduled (funcall (eval-and-compile
+			       (if (fboundp 'org-format-timestamp)
+				   #'org-format-timestamp
+				 (with-no-warnings #'org-timestamp-format)))
+			     scheduled "%Y-%02m-%02d"))
      (and (memq 'start org-taskjuggler-valid-task-attributes)
 	  (org-element-property :START item)))))
 
@@ -493,7 +497,11 @@ doesn't have any start date defined."
 ITEM is a headline.  Return value is a string or nil if ITEM
 doesn't have any end date defined."
   (let ((deadline (org-element-property :deadline item)))
-    (and deadline (org-timestamp-format deadline "%Y-%02m-%02d"))))
+    (and deadline (funcall (eval-and-compile
+			     (if (fboundp 'org-format-timestamp)
+				 #'org-format-timestamp
+			       (with-no-warnings #'org-timestamp-format)))
+			   deadline "%Y-%02m-%02d"))))
 
 
 

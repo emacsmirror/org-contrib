@@ -120,7 +120,9 @@ buffer."
 	   (funcall org-registry-find-file file)
 	   (goto-char point)
 	   (unless (org-before-first-heading-p)
-	     (org-show-context)))
+             (if (fboundp 'org-fold-show-context)
+		 (org-fold-show-context)
+	       (with-no-warnings (org-show-context)))))
 	  ((and files (not visit))
 	   ;; result(s) to display
 	   (cond  ((eq 1 (length files))

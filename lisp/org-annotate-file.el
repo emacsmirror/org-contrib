@@ -132,7 +132,9 @@ The annotation will link to ANNOTATED-BUFFER if specified,
     (goto-char (point-min))
     (widen)
     (when org-annotate-file-always-open
-      (org-show-all))
+      (if (fboundp 'org-fold-show-all)
+	  (org-fold-show-all)
+	(with-no-warnings (org-show-all))))
     (unless (search-forward-regexp
 	     (concat "^* " (regexp-quote link)) nil t)
       (org-annotate-file-add-upper-level link))

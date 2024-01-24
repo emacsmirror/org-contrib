@@ -109,7 +109,9 @@ of checkbox items"
 	(save-excursion
 	  (org-narrow-to-subtree)
 	  (org-update-checkbox-count-maybe)
-	  (org-show-subtree)
+          (if (fboundp 'org-fold-show-subtree)
+              (org-fold-show-subtree)
+	    (with-no-warnings (org-show-subtree)))
 	  (goto-char (point-min))
 	  (when (looking-at org-complex-heading-regexp)
 	    (setq title (match-string 4)))

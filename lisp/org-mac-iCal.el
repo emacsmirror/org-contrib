@@ -250,7 +250,14 @@ calendar from list of calendars for import"
 			 x)))
 		keys))
 	 (keys (delq 'nil keys)))
-    (when (equal "1" (car (cddr (lax-plist-get keys '(key nil "Checked")))))
+    (when (equal "1"
+		 (car
+                  (cddr
+                   (if (= 3 (cdr (func-arity #'plist-get)))
+                       ;; FIXME: Emacs >=29.
+                       (plist-get keys '(key nil "Checked") #'equal)
+		     (with-no-warnings
+                       (lax-plist-get keys '(key nil "Checked")))))))
       directory)))
 
 (provide 'org-mac-iCal)

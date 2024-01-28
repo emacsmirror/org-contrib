@@ -518,12 +518,13 @@ entered, at which point event will be unread"
     (setq dired-buffer (dired-noselect (org-screenshot-image-directory)))
     (with-current-buffer dired-buffer
       (dired-unmark-all-files ?\r)
-      (dired-mark-if
-       (let ((file (dired-get-filename 'no-dir t))) 
-	 (and file (string-match image-re file)
-	      (not (member file files-in-buffer))
-	      (setq had-any t)))
-       "Unused screenshot"))
+      (ignore
+       (dired-mark-if
+	(let ((file (dired-get-filename 'no-dir t)))
+	  (and file (string-match image-re file)
+	       (not (member file files-in-buffer))
+	       (setq had-any t)))
+	"Unused screenshot")))
     (when had-any (pop-to-buffer dired-buffer))))
 
 (provide 'org-screenshot)

@@ -104,42 +104,43 @@ For example, to point to your `obe-bibtex-file' use the following.
 		    (mapcar #'org-trim
 			    (split-string (match-string 1) ",")) ", "))))))
 
-(defun obe-meta-to-json (meta &optional fields)
-  "Turn a list of META data from citations into a string of json."
-  (let ((counter 1) nodes links)
-    (cl-flet ((id (it) (cl-position it nodes :test #'string= :key #'car))
-	      (col (k) (mapcar (lambda (r) (cdr (assoc k r))) meta))
-	      (add (lst)
-		(dolist (el lst) (push (cons el counter) nodes))
-		(cl-incf counter)))
-      ;; build the nodes of the graph
-      (add (col :title))
-      (add (cl-remove-if (lambda (author) (string-match "others" author))
-		         (cl-remove-duplicates (apply #'append (col :authors))
-					       :test #'string=)))
-      (dolist (field fields)
-	(add (cl-remove-duplicates (col field) :test #'string=)))
-      ;; build the links in the graph
-      (dolist (citation meta)
-        (let ((dest (id (cdr (assq :title citation)))))
-          (dolist (author (mapcar #'id (cdr (assq :authors citation))))
-            (when author (push (cons author dest) links)))
-          (let ((jid (id (cdr (assq :journal citation)))))
-            (when jid (push (cons jid dest) links)))
-          (let ((cid (id (cdr (assq :category citation)))))
-            (when cid (push (cons cid dest) links)))))
-      ;; build the json string
-      (format "{\"nodes\":[%s],\"links\":[%s]}"
-	      (mapconcat
-	       (lambda (pair)
-		 (format "{\"name\":%S,\"group\":%d}"
-			 (car pair) (cdr pair)))
-	       nodes ",")
-	      (mapconcat
-	       (lambda (link)
-		 (format "{\"source\":%d,\"target\":%d,\"value\":1}"
-			 (car link) (cdr link)))
-	       (meta-to-links meta nodes) ",")))))
+;; FIXME: `meta-to-links' is not a known function.
+;; (defun obe-meta-to-json (meta &optional fields)
+;;   "Turn a list of META data from citations into a string of json."
+;;   (let ((counter 1) nodes links)
+;;     (cl-flet ((id (it) (cl-position it nodes :test #'string= :key #'car))
+;; 	      (col (k) (mapcar (lambda (r) (cdr (assoc k r))) meta))
+;; 	      (add (lst)
+;; 		(dolist (el lst) (push (cons el counter) nodes))
+;; 		(cl-incf counter)))
+;;       ;; build the nodes of the graph
+;;       (add (col :title))
+;;       (add (cl-remove-if (lambda (author) (string-match "others" author))
+;; 		         (cl-remove-duplicates (apply #'append (col :authors))
+;; 					       :test #'string=)))
+;;       (dolist (field fields)
+;; 	(add (cl-remove-duplicates (col field) :test #'string=)))
+;;       ;; build the links in the graph
+;;       (dolist (citation meta)
+;;         (let ((dest (id (cdr (assq :title citation)))))
+;;           (dolist (author (mapcar #'id (cdr (assq :authors citation))))
+;;             (when author (push (cons author dest) links)))
+;;           (let ((jid (id (cdr (assq :journal citation)))))
+;;             (when jid (push (cons jid dest) links)))
+;;           (let ((cid (id (cdr (assq :category citation)))))
+;;             (when cid (push (cons cid dest) links)))))
+;;       ;; build the json string
+;;       (format "{\"nodes\":[%s],\"links\":[%s]}"
+;; 	      (mapconcat
+;; 	       (lambda (pair)
+;; 		 (format "{\"name\":%S,\"group\":%d}"
+;; 			 (car pair) (cdr pair)))
+;; 	       nodes ",")
+;; 	      (mapconcat
+;; 	       (lambda (link)
+;; 		 (format "{\"source\":%d,\"target\":%d,\"value\":1}"
+;; 			 (car link) (cdr link)))
+;; 	       (meta-to-links meta nodes) ",")))))
 
 (provide 'org-bibtex-extras)
 ;;; org-bibtex-extras ends here

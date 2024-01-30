@@ -157,9 +157,11 @@ to `org-bibtex-citation-p' predicate."
 (defvar org-bibtex-file nil
   "Org file of BibTeX entries.")
 
+(declare-function obe-citations "org-bibtex-extras" ())
 (defun org-bibtex-goto-citation (&optional citation)
   "Visit a citation given its ID."
   (interactive)
+  (require 'org-bibtex-extras)
   (let ((citation (or citation (completing-read "Citation: " (obe-citations)))))
     (find-file (or org-bibtex-file
 		   (error "`org-bibtex-file' has not been configured")))

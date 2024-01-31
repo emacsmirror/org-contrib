@@ -48,8 +48,7 @@
 (eval-when-compile
   (require 'cl-lib)
   (require 'org))
-
-(declare-function org-duration-from-minutes "org-duration" (minutes &optional fmt fractional))
+(require 'org-duration)
 
 (defgroup org-invoice nil
   "OrgMode Invoice Helper"

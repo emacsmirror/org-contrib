@@ -187,7 +187,8 @@ variables and values specified in props"
 	 (header-props
 	  (mapcar (lambda (props)
 		    (mapcar (lambda (pair)
-			      (let ((inhibit-lisp-eval (string= (car pair) "ITEM")))
+			      (let ((inhibit-lisp-eval (or (string= (car pair) "ITEM")
+							   (string-match-p org-ts-regexp-inactive (cdr pair)))))
 				(cons (car pair) (org-babel-read (cdr pair) inhibit-lisp-eval))))
 			    props))
 		  header-props)))
@@ -202,9 +203,9 @@ variables and values specified in props"
       'hline) ;; ------------------------------------------------
      (mapcar ;; calculate the value of the column for each header
       (lambda (props) (mapcar (lambda (col)
-			   (let ((result (org-propview-eval-w-props props col)))
-			     (if result result org-propview-default-value)))
-			 cols))
+				(let ((result (org-propview-eval-w-props props col)))
+				  (if result result org-propview-default-value)))
+			      cols))
       (if conds
 	  ;; eliminate the headers which don't satisfy the property
 	  (delq nil

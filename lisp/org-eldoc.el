@@ -37,10 +37,7 @@
 (require 'org)
 (require 'ob-core)
 (require 'eldoc)
-
-(declare-function org-element-at-point "org-element" ())
-(declare-function org-element-property "org-element" (property element))
-(declare-function org-element-type "org-element" (element))
+(require 'org-element)
 
 (defgroup org-eldoc nil "" :group 'org)
 

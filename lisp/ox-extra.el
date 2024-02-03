@@ -69,22 +69,16 @@
 				   "yes"))
 		 (list (org-element-property :begin block)
 		       (org-element-property :end block)
-		       (org-element-property :post-affiliated block)))))))
+		       (org-element-property :post-affiliated block)
+                       (org-element-property :value block)))))))
       (mapc (lambda (pos)
 	      (goto-char (nth 2 pos))
-	      (cl-destructuring-bind
-		  (beg end &rest ignore)
-		  ;; FIXME: `org-edit-src-find-region-and-lang' was
-		  ;; removed in 9c06f8cce (2014-11-11).
-		  (org-edit-src-find-region-and-lang)
-		(let ((contents-lines (split-string
-				       (buffer-substring-no-properties beg end)
-				       "\n")))
-		  (delete-region (nth 0 pos) (nth 1 pos))
-		  (dolist (line contents-lines)
-		    (insert (concat "#+latex_header: "
-				    (replace-regexp-in-string "\\` *" "" line)
-				    "\n"))))))
+	      (let ((contents-lines (split-string (nth 3 pos) "\n")))
+		(delete-region (nth 0 pos) (nth 1 pos))
+		(dolist (line contents-lines)
+		  (insert (concat "#+latex_header: "
+				  (replace-regexp-in-string "\\` *" "" line)
+				  "\n")))))
 	    ;; go in reverse, to avoid wrecking the numeric positions
 	    ;; earlier in the file
 	    (reverse positions)))))

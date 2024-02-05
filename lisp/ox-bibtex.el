@@ -93,6 +93,9 @@
 ;; Initialization
 
 (require 'cl-lib)
+(require 'org)
+(require 'ox)
+(require 'org-element)
 
 ;;; Internal Functions
 

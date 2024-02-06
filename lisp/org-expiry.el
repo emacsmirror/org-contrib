@@ -75,6 +75,8 @@
 
 ;;; Code:
 
+(require 'org)
+
 ;;; User variables:
 
 (defgroup org-expiry nil

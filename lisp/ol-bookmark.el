@@ -59,6 +59,8 @@ Otherwise prompt the user for the right bookmark to use."
 
 (defun org-bookmark-store-link ()
   "Store a link to the current line's bookmark in bookmark list."
+  (require 'dired)
+  (declare-function dired-get-filename "dired" (&optional localp no-error-if-not-filep))
   (let (file bookmark bmks)
     (cond ((and org-bookmark-in-dired
 		(eq major-mode 'dired-mode))

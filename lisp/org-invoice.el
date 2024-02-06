@@ -46,9 +46,9 @@
 ;;
 ;; git clone git://pmade.com/elisp
 (eval-when-compile
-  (require 'cl-lib)
-  (require 'org))
+  (require 'cl-lib))
 (require 'org-duration)
+(require 'org)
 
 (defgroup org-invoice nil
   "OrgMode Invoice Helper"

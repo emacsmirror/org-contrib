@@ -36,6 +36,7 @@
 ;; ;
 
 (require 'org)
+(require 'org-agenda)
 
 (org-defkey org-agenda-mode-map "=" 'org-agenda-query-clear-cmd)
 (org-defkey org-agenda-mode-map "/" 'org-agenda-query-and-cmd)

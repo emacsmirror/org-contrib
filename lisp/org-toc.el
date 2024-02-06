@@ -34,6 +34,7 @@
 (provide 'org-toc)
 (eval-when-compile
   (require 'cl-lib))
+(require 'org)
 
 ;;; Custom variables:
 (defvar org-toc-base-buffer nil)

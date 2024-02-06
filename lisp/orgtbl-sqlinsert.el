@@ -27,6 +27,8 @@
 
 ;;; Code:
 
+(require 'org-table)
+
 (defun orgtbl-to-sqlinsert (table params)
   "Convert the orgtbl-mode TABLE to SQL insert statements.
 TABLE is a list, each entry either the symbol `hline' for a horizontal

@@ -100,6 +100,7 @@
 ;; location and the time to entries.
 
 (require 'org)
+(require 'org-agenda)
 
 (defvar org-sec-me nil
   "Tag that defines TASK todo entries associated to me")

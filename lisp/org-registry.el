@@ -65,6 +65,8 @@
 
 (eval-when-compile
   (require 'cl-lib))
+(require 'org-agenda)
+(require 'ol)
 
 (defgroup org-registry nil
   "A registry for Org."

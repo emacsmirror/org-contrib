@@ -54,6 +54,9 @@
 
 ;;; Code:
 
+(require 'calendar)
+(require 'xml)
+
 (defcustom org-mac-iCal-range 2
   "The range in months to import iCal.app entries into the Emacs
 diary. The import is centered around today's date; thus a value

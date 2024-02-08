@@ -39,6 +39,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (require 'org)
+(require 'gnus-group)
+(require 'gnus-sum)
+(require 'gnus-art)
+(require 'message)
 
 ;;; The custom variables
 

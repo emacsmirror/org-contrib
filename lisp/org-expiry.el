@@ -197,9 +197,9 @@ restart `org-mode' if necessary."
 If ARG, also remove org-expiry hook in Org's `before-save-hook'
 and restart `org-mode' if necessary."
   (interactive "P")
-  (ad-deactivate 'org-schedule)
-  (ad-deactivate 'org-time-stamp)
-  (ad-deactivate 'org-deadline)
+  (advice-remove 'org-schedule #'org-schedule@org-schedule-update-created)
+  (advice-remove 'org-time-stamp #'org-time-stamp@org-time-stamp-update-created)
+  (advice-remove 'org-deadline #'org-deadline@org-deadline-update-created)
   (remove-hook 'org-insert-heading-hook 'org-expiry-insert-created)
   (remove-hook 'org-after-todo-state-change-hook 'org-expiry-insert-created)
   (remove-hook 'org-after-tags-change-hook 'org-expiry-insert-created)

@@ -65,7 +65,6 @@ minor or major release.
 - org-screen.el :: Visit screen sessions through Org-mode links
 - org-screenshot.el :: Take and manage screenshots in Org-mode files
 - org-secretary.el :: Team management with org-mode
-- org-static-mathjax.el :: Muse-like tags in Org-mode
 - org-sudoku.el :: Create and solve SUDOKU puzzles in Org tables
 - org-toc.el :: Table of contents for Org-mode buffer
 - org-track.el :: Keep up with Org development

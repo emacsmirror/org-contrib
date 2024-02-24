@@ -50,8 +50,6 @@ minor or major release.
 - org-depend.el :: TODO dependencies for Org-mode
 - org-effectiveness.el :: Measuring your personal effectiveness
 - org-eldoc.el :: Eldoc documentation for SRC blocks
-- org-eval.el :: The <lisp> tag, adapted from Muse
-- org-eval-light.el :: Evaluate in-buffer code on demand
 - org-expiry.el :: Expiry mechanism for Org entries
 - org-git-link.el :: Provide org links to specific file version
 - org-interactive-query.el :: Interactive modification of tags query

@@ -189,7 +189,11 @@ variables and values specified in props"
 		    (mapcar (lambda (pair)
 			      (let ((inhibit-lisp-eval (or (string= (car pair) "ITEM")
 							   (string-match-p org-ts-regexp-inactive (cdr pair)))))
-				(cons (car pair) (org-babel-read (cdr pair) inhibit-lisp-eval))))
+				(condition-case err
+				    (cons (car pair) (org-babel-read (cdr pair) inhibit-lisp-eval))
+				  (error
+				   (error
+				    (print (format "Error processing lisp on property: %S, error: %S. Remember anything that starts with a (, ', ` or [ is considered an elisp expression" pair err)))))))
 			    props))
 		  header-props)))
     ;; collect all property names

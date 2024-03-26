@@ -188,7 +188,8 @@ variables and values specified in props"
 	  (mapcar (lambda (props)
 		    (mapcar (lambda (pair)
 			      (let ((inhibit-lisp-eval (or (string= (car pair) "ITEM")
-							   (string-match-p org-ts-regexp-inactive (cdr pair)))))
+							   (string-match-p org-ts-regexp-inactive (cdr pair))
+                                                           (string-match-p org-link-bracket-re (cdr pair)))))
 				(condition-case err
 				    (cons (car pair) (org-babel-read (cdr pair) inhibit-lisp-eval))
 				  (error

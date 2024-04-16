@@ -101,7 +101,6 @@ minor or major release.
 ## Org Babel languages
 
 -   **ob-abc.el:** Org-mode Babel Functions for ABC
--   **ob-coq.el:** Org-mode Babel Functions for Coq
 -   **ob-csharp.el:** Org-mode Babel Functions for csharp evaluation
 -   **ob-ebnf.el:** Org-mode Babel Functions for EBNF
 -   **ob-eukleides.el:** Org-mode Babel Functions for eukleides evaluation

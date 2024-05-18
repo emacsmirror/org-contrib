@@ -42,6 +42,8 @@ copy of the repository like this:
 If a file has a "Homepage:" keyword, it will be removed from the next
 minor or major release.
 
+-   `ox-taskjuggler.el`
+
 
 # Other files
 
@@ -85,7 +87,6 @@ minor or major release.
 -   **ox-freemind.el:** Freemind exporter
 -   **ox-groff.el:** Groff exporter
 -   **ox-s5.el:** S5 presentations exporter
--   **ox-taskjuggler.el:** TaskJuggler exporter
 
 
 ## Org link

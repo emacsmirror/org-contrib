@@ -8,6 +8,7 @@
 ;;      Nicolas Goaziou <n dot goaziou at gmail dot com>
 ;; Maintainer: Christian Egli
 ;; Keywords: org, taskjuggler, project planning
+;; Homepage: https://github.com/h-oll/ox-taskjuggler
 ;; Description: Converts an Org mode buffer into a TaskJuggler project plan
 
 ;; This file is not part of GNU Emacs.

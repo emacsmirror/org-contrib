@@ -3,7 +3,11 @@
 ;;
 ;; Author: Juan Reyero <juan _at_ juanreyero _dot_ com>
 ;; Keywords: outlines, tasks, team, management
-;; Homepage: http://juanreyero.com/article/emacs/org-teams.html
+;; Homepage: https://git.sr.ht/~bzg/org-contrib
+;;
+;; See http://juanreyero.com/article/emacs/org-teams.html for more info on how
+;; to use this package.
+;;
 ;; Version: 0.02
 ;;
 ;; This file is not part of GNU Emacs.

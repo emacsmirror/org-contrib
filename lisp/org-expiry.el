@@ -159,16 +159,10 @@ functions.  `org-expiry-deinsinuate' will deactivate them."
 
 ;;; Advices and insinuation:
 
-(define-advice org-schedule (:after (&rest _) org-schedule-update-created)
-  "Update the creation-date property when calling `org-schedule'."
-  (org-expiry-insert-created))
+(defun org-expiry--update-created (&rest _)
+  "Update the creation-date property for the current heading.
 
-(define-advice org-deadline (:after (&rest _) org-deadline-update-created)
-  "Update the creation-date property when calling `org-deadline'."
-  (org-expiry-insert-created))
-
-(define-advice org-time-stamp (:after (&rest _) org-time-stamp-update-created)
-  "Update the creation-date property when calling `org-time-stamp'."
+Used as an :after advice."
   (org-expiry-insert-created))
 
 (defun org-expiry-insinuate (&optional arg)
@@ -176,9 +170,9 @@ functions.  `org-expiry-deinsinuate' will deactivate them."
 If ARG, also add a hook to `before-save-hook' in `org-mode' and
 restart `org-mode' if necessary."
   (interactive "P")
-  (ad-activate 'org-schedule)
-  (ad-activate 'org-time-stamp)
-  (ad-activate 'org-deadline)
+  (advice-add 'org-schedule :after #'org-expiry--update-created)
+  (advice-add 'org-time-stamp :after #'org-expiry--update-created)
+  (advice-add 'org-deadline :after #'org-expiry--update-created)
   (add-hook 'org-insert-heading-hook 'org-expiry-insert-created)
   (add-hook 'org-after-todo-state-change-hook 'org-expiry-insert-created)
   (add-hook 'org-after-tags-change-hook 'org-expiry-insert-created)
@@ -197,9 +191,9 @@ restart `org-mode' if necessary."
 If ARG, also remove org-expiry hook in Org's `before-save-hook'
 and restart `org-mode' if necessary."
   (interactive "P")
-  (advice-remove 'org-schedule #'org-schedule@org-schedule-update-created)
-  (advice-remove 'org-time-stamp #'org-time-stamp@org-time-stamp-update-created)
-  (advice-remove 'org-deadline #'org-deadline@org-deadline-update-created)
+  (advice-remove 'org-schedule #'org-expiry--update-created)
+  (advice-remove 'org-time-stamp #'org-expiry--update-created)
+  (advice-remove 'org-deadline #'org-expiry--update-created)
   (remove-hook 'org-insert-heading-hook 'org-expiry-insert-created)
   (remove-hook 'org-after-todo-state-change-hook 'org-expiry-insert-created)
   (remove-hook 'org-after-tags-change-hook 'org-expiry-insert-created)

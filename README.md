@@ -31,10 +31,10 @@ later version.  See [COPYING](COPYING).
 
 # Contribute
 
-You can send patches to `~bzg/dev@lists.sr.ht` and configure your local
-copy of the repository like this:
+You can send patches to `emacs-orgmode@gnu.org`.
 
-`git config format.subjectPrefix 'PATCH org-contrib'`
+See <https://orgmode.org/worg/org-contribute.html> for advice on how to
+contribute efficiently.
 
 
 # Files to remove from the next release

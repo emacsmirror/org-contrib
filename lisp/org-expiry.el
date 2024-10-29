@@ -170,9 +170,8 @@ Used as an :after advice."
 If ARG, also add a hook to `before-save-hook' in `org-mode' and
 restart `org-mode' if necessary."
   (interactive "P")
-  (advice-add 'org-schedule :after #'org-expiry--update-created)
-  (advice-add 'org-time-stamp :after #'org-expiry--update-created)
-  (advice-add 'org-deadline :after #'org-expiry--update-created)
+  (dolist (f org-expiry-advised-functions)
+    (advice-add f :after #'org-expiry--update-created))
   (add-hook 'org-insert-heading-hook 'org-expiry-insert-created)
   (add-hook 'org-after-todo-state-change-hook 'org-expiry-insert-created)
   (add-hook 'org-after-tags-change-hook 'org-expiry-insert-created)
@@ -191,9 +190,8 @@ restart `org-mode' if necessary."
 If ARG, also remove org-expiry hook in Org's `before-save-hook'
 and restart `org-mode' if necessary."
   (interactive "P")
-  (advice-remove 'org-schedule #'org-expiry--update-created)
-  (advice-remove 'org-time-stamp #'org-expiry--update-created)
-  (advice-remove 'org-deadline #'org-expiry--update-created)
+  (dolist (f org-expiry-advised-functions)
+    (advice-remove f #'org-expiry--update-created))
   (remove-hook 'org-insert-heading-hook 'org-expiry-insert-created)
   (remove-hook 'org-after-todo-state-change-hook 'org-expiry-insert-created)
   (remove-hook 'org-after-tags-change-hook 'org-expiry-insert-created)

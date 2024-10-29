@@ -42,8 +42,6 @@ copy of the repository like this:
 If a file has a "Homepage:" keyword, it will be removed from the next
 minor or major release.
 
--   `ox-taskjuggler.el`
-
 
 # Other files
 

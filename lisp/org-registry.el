@@ -6,7 +6,6 @@
 ;; Filename: org-registry.el
 ;; Version: 0.1a
 ;; Author: Bastien Guerry <bzg@gnu.org>
-;; Maintainer: Bastien Guerry <bzg@gnu.org>
 ;; Keywords: org, wp, registry
 ;; Description: Shows Org files where the current buffer is linked
 ;; Homepage: https://git.sr.ht/~bzg/org-contrib

@@ -18,8 +18,9 @@ repository are in transition: they are maintained and will be removed
 from the next minor or major release of this repository.  As a user,
 please carefully track the new URL where the add-on is now maintained.
 
-If you want to maintain some of these add-ons, please send me an email
-at `bzg@gnu.org` once you set up a separate repository for them.
+If you want to maintain some of these add-ons, please send an email to
+<mailto:emacs-orgmode@gnu.org> or to <mailto:yantar92@posteo.net>
+(privately) once you set up a separate repository for them.
 
 
 # License

@@ -122,6 +122,7 @@ preceding the dblock, then update the contents of the dblock."
 	    (noquote (plist-get params :noquote))
 	    (colnames (plist-get params :colnames))
 	    (defaultval (plist-get params :defaultval))
+	    (tblfm (plist-get params :tblfm))
 	    (content-lines (org-split-string (plist-get params :content) "\n"))
 	    id table line pos idpos stringformat)
 	(save-excursion
@@ -147,7 +148,13 @@ preceding the dblock, then update the contents of the dblock."
 	(message (format "point-%d" pos))
 	(while (setq line (pop content-lines))
 	  (when (string-match "^#" line)
-	    (insert "\n" line)))
+	    (unless (and tblfm
+			 (string-match "^#\\+TBLFM:" line))
+	      (insert "\n" line))))
+	(when tblfm
+	  (unless (eq (char-before) ?\n)
+	    (insert "\n"))
+	  (insert (concat "#+TBLFM:" tblfm)))
 	(goto-char pos)
 	(org-table-recalculate 'all))
     (org-collector-error (widen) (error "%s" er))
